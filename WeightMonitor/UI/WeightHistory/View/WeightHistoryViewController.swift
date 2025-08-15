@@ -39,7 +39,7 @@ final class WeightHistoryViewController: UIViewController {
     }()
     private let newRecordNotification: UILabel = {
         let newRecordNotification = UILabel()
-        newRecordNotification.text = Strings.WeightHistory.newWeightRecord
+        newRecordNotification.text = String(localized: "weightHistory.newWeightRecord", table: "WeightList")
         newRecordNotification.textAlignment = .center
         newRecordNotification.backgroundColor = .label
         newRecordNotification.textColor = .systemBackground
@@ -102,14 +102,10 @@ private extension WeightHistoryViewController {
     
     func setupLayout() {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = .zero
-        } else {
-            // TODO: - Fix issue for earlier versions
-        }
+        tableView.sectionHeaderTopPadding = .zero
         
         view.backgroundColor = .systemBackground
-        nameOfScreen.text = Strings.WeightHistory.title
+        nameOfScreen.text = String(localized: "weightHistory.title", table: "WeightList")
         nameOfScreen.font = .systemFont(ofSize: 20, weight: .semibold)
         nameOfScreen.textColor = .label
         

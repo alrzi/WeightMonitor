@@ -47,7 +47,7 @@ final class WeightHistoryCell: UITableViewCell {
     }()
     private let arrowView: UIImageView = {
         let view = UIImageView()
-        view.image = Asset.Assets.arrowRight.image
+        view.image = UIImage(systemName: "chevron.forward")?
             .withRenderingMode(.alwaysOriginal)
             .withTintColor(.label)
         view.setContentHuggingPriority(.defaultHigh, for: .horizontal)

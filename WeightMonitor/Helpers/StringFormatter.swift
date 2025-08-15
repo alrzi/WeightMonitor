@@ -46,10 +46,10 @@ final class StringFormatter {
     
     func getUnitSystemName(for unit: UnitMass) -> String {
         let massUnitSymbols = [
-            "kg": Strings.WeightHistory.UnitSystem.metric,
-            "lb": Strings.WeightHistory.UnitSystem.imperial
+            "kg": String(localized: "weightHistory.unitSystem.metric", table: "WeightList"),
+            "lb": String(localized: "weightHistory.unitSystem.imperial", table: "WeightList")
         ]
-        return massUnitSymbols[unit.symbol] ?? Strings.WeightHistory.UnitSystem.unknown
+        return massUnitSymbols[unit.symbol] ?? String(localized: "weightHistory.unitSystem.unknown", table: "WeightList")
     }
     
     func format(text: String, for unit: UnitMass) -> String {

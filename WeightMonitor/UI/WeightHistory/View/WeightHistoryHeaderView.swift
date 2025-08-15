@@ -33,7 +33,7 @@ final class CurrentWeightView: UIView {
         textAboutWeightLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         textAboutWeightLabel.textColor = .label
         textAboutWeightLabel.alpha = 0.4
-        textAboutWeightLabel.text = Strings.WeightHistory.currentWeight
+        textAboutWeightLabel.text = String(localized: "weightHistory.currentWeight", table: "WeightList")
         return textAboutWeightLabel
     }()
     
@@ -81,7 +81,7 @@ private extension CurrentWeightView {
     func setupView() {
         self.layer.cornerRadius = 12
         self.layer.masksToBounds = true
-        self.backgroundColor = Asset.Colors.currentWeightBackground.color
+        self.backgroundColor = UIColor(resource: .currentWeightBackground)
         
         currentUnitSystemSwitch.addTarget(self, action: #selector(handleSwitchChange), for: .touchUpInside)
         
@@ -99,7 +99,7 @@ private extension CurrentWeightView {
         
         // Add container for weightImage
         let imageView = UIImageView()
-        imageView.image = .weightImage
+        imageView.image = UIImage(resource: .weight)
         
         let containerView = UIView()
         containerView.widthAnchor.constraint(equalToConstant: 131).isActive = true

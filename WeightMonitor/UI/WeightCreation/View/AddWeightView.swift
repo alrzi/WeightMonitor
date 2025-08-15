@@ -10,7 +10,7 @@ import UIKit
 final class AddWeightViewController: UIViewController {
     private let nameOfScreen: UILabel = {
         let nameOfScreen = UILabel()
-        nameOfScreen.text = Strings.Creation.addWeigtTitle
+        nameOfScreen.text = String(localized: "creation.addWeight", table: "WeightCreation")
         nameOfScreen.font = .systemFont(ofSize: 20, weight: .semibold)
         nameOfScreen.textColor = .label
         return nameOfScreen
@@ -19,21 +19,21 @@ final class AddWeightViewController: UIViewController {
     private let dateLabel: UILabel = {
         let date = UILabel()
         date.textColor = .label
-        date.text = Strings.Creation.date
+        date.text = String(localized: "creation.date", table: "WeightCreation")
         date.font = .systemFont(ofSize: 17, weight: .medium)
         return date
     }()
     
     private let setDateOfRecordButton: UIButton = {
         let addButton = UIButton()
-        addButton.setTitle(Strings.Creation.today, for: .normal)
+        addButton.setTitle(String(localized: "creation.today", table: "WeightCreation"), for: .normal)
         addButton.setTitleColor(.systemIndigo, for: .normal)
         return addButton
     }()
     
     private let arrowImageView: UIImageView = {
         let view = UIImageView()
-        view.image = .arrowRight?
+        view.image = UIImage(systemName: "chevron.forward")?
             .withRenderingMode(.alwaysOriginal)
             .withTintColor(.label)
         view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -45,7 +45,7 @@ final class AddWeightViewController: UIViewController {
         let weightTextField = UITextField()
         
         weightTextField.keyboardType = .numberPad
-        weightTextField.placeholder = Strings.Creation.enterWeight
+        weightTextField.placeholder = String(localized: "creation.enterWeight", table: "WeightCreation")
         weightTextField.font = .systemFont(ofSize: 34, weight: .bold)
         weightTextField.backgroundColor = .systemBackground
         return weightTextField
@@ -61,7 +61,7 @@ final class AddWeightViewController: UIViewController {
     
     private let createButton: UIButton = {
         let createButton = UIButton()
-        createButton.setTitle(Strings.Creation.add, for: .normal)
+        createButton.setTitle(String(localized: "creation.add", table: "WeightCreation"), for: .normal)
         createButton.setTitleColor(.white, for: .normal)
         createButton.backgroundColor = .systemIndigo
         createButton.layer.cornerRadius = 10
