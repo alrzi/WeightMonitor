@@ -1,12 +1,12 @@
 //
-//  Observable.swift
+//  ObservableLocal.swift
 //  WeightMonitor
 //
 //  Created by Александр Зиновьев on 02.05.2023.
 //
 
 @propertyWrapper
-final class Observable<Value> {
+final class ObservableLocal<Value> {
    
     private var onChange: ((Value) -> Void)?
     
@@ -20,7 +20,7 @@ final class Observable<Value> {
         self.wrappedValue = wrappedValue
     }
     
-    var projectedValue: Observable<Value> {
+    var projectedValue: ObservableLocal<Value> {
         return self
     }
     

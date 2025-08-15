@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 final class AddWeightViewModel {
-    @Observable var weightUnit: String = ""
+    @ObservableLocal var weightUnit: String = ""
     
     // Need to save data to core data
     private var weightRecordStore: WeightRecordStore?

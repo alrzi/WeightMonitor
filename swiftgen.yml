@@ -7,7 +7,7 @@ output_dir: WeightMonitor/Generated/
 strings:
   inputs:
     # 1
-    - Resources/en.lproj
+    - Resources/Localizable/en.lproj
   outputs:
     - templateName: structured-swift5
       # 2

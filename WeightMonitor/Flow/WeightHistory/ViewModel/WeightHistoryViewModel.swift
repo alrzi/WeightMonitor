@@ -35,9 +35,9 @@ protocol WeightHistoryViewModelProtocol {
 
 final class WeightHistoryViewModel {
     // Public
-    @Observable var isNewRecordAdded: Bool = false
-    @Observable var weightRecords: [WeightHistoryCellViewModel] = []
-    @Observable var initialRecord: WeightHistoryCellViewModel?
+    @ObservableLocal var isNewRecordAdded: Bool = false
+    @ObservableLocal var weightRecords: [WeightHistoryCellViewModel] = []
+    @ObservableLocal var initialRecord: WeightHistoryCellViewModel?
     var batchUpdate: DataProviderUpdate?
     
     // Private properties
