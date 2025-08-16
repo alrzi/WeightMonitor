@@ -36,17 +36,14 @@ struct WeightDifferentCalculator: WeightDifferentCalculatorProtocol {
     
     /// Function to update the weight difference of a weight record
     func updateWeightDifference(record: Weight, nextRecord: Weight?) -> Weight {
-        if let nextRecord = nextRecord {
-            let massDifference = calculateWeightDifference(record1: record, record2: nextRecord)
+        if let nextRecord {
+            let massDifference = record.mass - nextRecord.mass
+            
             return Weight(id: record.id, createdAt: record.createdAt, mass: record.mass, massDifference: massDifference)
-        } else {
+        }
+        else {
             return Weight(id: record.id, createdAt: record.createdAt, mass: record.mass, massDifference: nil)
         }
-    }
-    
-    /// Function to calculate the weight difference between two weight records
-    func calculateWeightDifference(record1: Weight, record2: Weight) -> Double {
-        return record1.mass.value - record2.mass.value
     }
     
     // Function to set the weight difference of the last record to nil

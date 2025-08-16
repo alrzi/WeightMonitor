@@ -16,10 +16,4 @@ final class Formatters {
         formatter.roundingMode = .halfUp
         return formatter
     }()
-    
-    static let measurementFormatter: MeasurementFormatter = {
-        let formatter = MeasurementFormatter()
-        formatter.locale = .current
-        return formatter
-    }()
 }

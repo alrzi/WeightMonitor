@@ -25,7 +25,7 @@ final class AddWeightViewModel {
         
     init(
         weightUnitService: WeightUnitServiceProtocol = WeightSystem.shared,
-        stringFormatter: StringFormatter = StringFormatter(formatters: Formatters()),
+        stringFormatter: StringFormatter = StringFormatter(),
         userInput: UserInput = UserInput(),
         recordId: String? = nil
     ) {

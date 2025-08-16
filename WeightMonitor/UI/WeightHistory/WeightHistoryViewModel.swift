@@ -90,8 +90,8 @@ extension WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     func updateViewWnenZeroRecords() {
         let weight = Weight(
             createdAt: .now,
-            mass: .init(value: 0, unit: .kilograms),
-            massDifference: 0
+            mass: .init(value: 0.0, unit: .kilograms),
+            massDifference: .init(value: 0.0, unit: .kilograms)
         )
         
         initialRecord = WeightHistoryCellViewModel(weight: weight)

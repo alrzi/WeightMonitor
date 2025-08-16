@@ -11,13 +11,13 @@ struct Weight: Equatable, Identifiable {
     let id: String
     let createdAt: Date
     let mass: Measurement<UnitMass>
-    let massDifference: Double?
+    let massDifference: Measurement<UnitMass>?
     
     init(
         id: String = UUID().uuidString,
         createdAt: Date,
         mass: Measurement<UnitMass>,
-        massDifference: Double? = nil
+        massDifference: Measurement<UnitMass>? = nil
     ) {
         self.createdAt = createdAt
         self.mass = mass

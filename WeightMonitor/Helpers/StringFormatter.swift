@@ -7,20 +7,8 @@
 
 import Foundation
 
-final class StringFormatter {
-    private var weightFormatter: NumberFormatter
-    private var messurementFormatter: MeasurementFormatter
-    
-    init(formatters: Formatters) {
-        self.weightFormatter = Formatters.numberFormatter
-        self.messurementFormatter = Formatters.measurementFormatter
-    }
-    
-    func convertWeightChangeToString(change: Double?, selectedUnitType: UnitMass) -> String {
-        let changeString = formatWeight(change)
-        let russianTranslation = selectedUnitType.symbol
-        return combineNumberWithSymbol(change, change: changeString, symbol: russianTranslation)
-    }
+struct StringFormatter {
+    private let weightFormatter: NumberFormatter = Formatters.numberFormatter       
     
     func getUnitSystemName(for unit: UnitMass) -> String {
         let massUnitSymbols = [
@@ -60,33 +48,11 @@ final class StringFormatter {
         return formattedText
     }
     
-    func formatStringToDouble(_ string: String) -> Double? {       
+    func formatStringToDouble(_ string: String) -> Double? {        
         if let number = weightFormatter.number(from: string) {
             return number.doubleValue
         } else {
             return nil
-        }
-    }
-}
- 
-// MARK: - Private methods
-private extension StringFormatter {
-    func formatWeight(_ weight: Double?) -> String {
-        guard let weight = weight else { return "" }
-        return weightFormatter.string(from: NSNumber(value: weight)) ?? ""
-    }
-    
-    func combineNumberWithSymbol(_ number: Double?, change: String, symbol: String) -> String {
-        guard let number = number else { return "" }
-        
-        if  number > 0 {
-            return "+\(change) \(symbol)"
-        } else if  number < 0 {
-            return "\(change) \(symbol)"
-        } else if number == 0 {
-            return "\(change) \(symbol)"
-        } else {
-            return "" 
         }
     }
 }

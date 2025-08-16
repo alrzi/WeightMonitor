@@ -9,41 +9,37 @@ import Foundation
 
 final class WeightHistoryCellViewModel {
     private let weight: Weight
-    private let weightUnitService: WeightSystem
+    private let currentWeightUnit: UnitMass
     private let stringFormatter: StringFormatter
     
     init(
         weight: Weight,
         weightUnitService: WeightSystem = WeightSystem.shared,
-        stringFormatter: StringFormatter = StringFormatter(formatters: Formatters())
+        stringFormatter: StringFormatter = StringFormatter()
     ) {
         self.weight = weight
-        self.weightUnitService = weightUnitService
+        self.currentWeightUnit = weightUnitService.currentUnit
         self.stringFormatter = stringFormatter
     }
         
     var weightFormatted: String {
-        weight.mass.formatted(.measurement(width: .abbreviated, usage: .personWeight))
+        weight.mass.formatted(.mass)
     }
     
-    var massDifference: String {
-        let weightDiff = stringFormatter.convertWeightChangeToString(
-            change: weight.massDifference,
-            selectedUnitType: weightUnitService.currentUnit
-        )
-        return weightDiff
+    var massDifferenceFormatted: String? {
+        weight.massDifference.map { $0.formatted(.mass) }
     }
     
-    var date: String {
+    var createdAtFormatted: String {
         weight.createdAt.formatted(date: .abbreviated, time: .omitted)
     }
     
     var currentUnitName: String {
-        stringFormatter.getUnitSystemName(for: weightUnitService.currentUnit)
+        stringFormatter.getUnitSystemName(for: currentWeightUnit)
     }
     
     var isSwitchOn: Bool {
-        switch weightUnitService.currentUnit {
+        switch currentWeightUnit {
         case .kilograms:
             return true
         case .pounds:
@@ -51,5 +47,15 @@ final class WeightHistoryCellViewModel {
         default:
             return false
         }
+    }
+}
+
+extension FormatStyle where Self == Measurement<UnitMass>.FormatStyle {
+    static var mass: Self {
+        .measurement(
+            width: .abbreviated,
+            usage: .personWeight,
+            numberFormatStyle: .number.precision(.fractionLength(1)).sign(strategy: .always(includingZero: true))
+        )
     }
 }

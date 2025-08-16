@@ -153,7 +153,7 @@ private extension CurrentWeightView {
     func updateRecord(_ record: WeightHistoryCellViewModel) {
         UIView.animate(withDuration: 0.3) {
             self.currentWeightLabel.text = record.weightFormatted
-            self.massDifference.text = record.massDifference
+            self.massDifference.text = record.massDifferenceFormatted
             self.nameOfUnitSystemLabel.text = record.currentUnitName
             self.currentUnitSystemSwitch.isOn = record.isSwitchOn
         }

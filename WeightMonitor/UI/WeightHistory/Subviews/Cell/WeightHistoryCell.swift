@@ -13,8 +13,8 @@ final class WeightHistoryCell: UITableViewCell {
         didSet {
             guard let viewModel = viewModel else { return }
             weight.text = viewModel.weightFormatted
-            change.text = viewModel.massDifference
-            date.text = viewModel.date
+            change.text = viewModel.massDifferenceFormatted
+            date.text = viewModel.createdAtFormatted
         }
     }
     
