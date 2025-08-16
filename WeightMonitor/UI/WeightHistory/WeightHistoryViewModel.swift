@@ -70,11 +70,11 @@ final class WeightHistoryViewModel {
 // MARK: - Public
 extension WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     func updateWeightRecords() {
-        let weightRecords = dataProvider?.getAllWeightRecords()
-        let requiredUnitWeightRecords = weightRecords.map { $0.map { $0.withMassUnitUpdated(to: weightUnitService.currentUnit) } } ?? []
-        let updatedWeightRecords = weightDifferentCalculator.addWeightDifference(to: requiredUnitWeightRecords)
+        let weightRecords = dataProvider?.getAllWeightRecords() ?? []
+        let updatedWeightRecords = weightDifferentCalculator.addWeightDifference(to: weightRecords)
+        let newWeightRecords = updatedWeightRecords.map { WeightHistoryCellViewModel(weight: $0) }
         
-        self.weightRecords = updatedWeightRecords.map { WeightHistoryCellViewModel(weight: $0) }
+        self.weightRecords = newWeightRecords
     }
 
     func remove(at indexPath: IndexPath) {

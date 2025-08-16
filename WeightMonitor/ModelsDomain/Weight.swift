@@ -25,14 +25,3 @@ struct Weight: Equatable, Identifiable {
         self.id = id
     }
 }
-
-extension Weight {
-    func withMassUnitUpdated(to newUnit: UnitMass) -> Weight {
-        Weight(
-            id: id,
-            createdAt: createdAt,
-            mass: mass.converted(to: newUnit),
-            massDifference: massDifference
-        )
-    }
-}

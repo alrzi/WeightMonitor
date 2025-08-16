@@ -30,7 +30,7 @@ extension WeightRecordStore {
     func saveRecordCoreData(_ record: Weight) throws {
         let recordCoreData = WeightRecordCoreData(context: context)
         recordCoreData.idString = record.id
-        recordCoreData.weight = record.mass.value
+        recordCoreData.weight = record.mass.converted(to: .kilograms).value
         recordCoreData.date = record.createdAt
         saveContext()
     }
@@ -46,8 +46,7 @@ extension WeightRecordStore {
     }
     
     // Private
-    private func update(_ record:  WeightRecordCoreData,
-                      with newRecord: Weight) {
+    private func update(_ record:  WeightRecordCoreData, with newRecord: Weight) {
         record.weight = newRecord.mass.value
         record.date = newRecord.createdAt
     }

@@ -21,6 +21,9 @@ class WeightRecordCoreData: NSManagedObject {
     @NSManaged var date: Date
     
     func createWeightRecord(unitMass: UnitMass) -> Weight {
-        return Weight(createdAt: date, mass: .init(value: weight, unit: unitMass))
+        let savedWeight = Measurement<UnitMass>(value: weight, unit: .kilograms)
+        let mass = savedWeight.converted(to: unitMass)
+        
+        return Weight(createdAt: date, mass: mass)
     }
 }
