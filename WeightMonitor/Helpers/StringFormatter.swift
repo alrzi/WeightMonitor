@@ -9,39 +9,17 @@ import Foundation
 
 final class StringFormatter {
     private var weightFormatter: NumberFormatter
-    private var dateFormatter: DateFormatter
     private var messurementFormatter: MeasurementFormatter
     
     init(formatters: Formatters) {
         self.weightFormatter = Formatters.numberFormatter
-        self.dateFormatter = Formatters.dateFormatter
         self.messurementFormatter = Formatters.measurementFormatter
-    }
-    
-    func convertWeightToString(_ weight: Double, for unit: UnitMass) -> String {
-        let formattedWeight = formatWeight(weight)
-        let abbreviation = getUnitName(for: unit)
-        return "\(formattedWeight) \(abbreviation)"
     }
     
     func convertWeightChangeToString(change: Double?, selectedUnitType: UnitMass) -> String {
         let changeString = formatWeight(change)
-        let russianTranslation = getUnitName(for: selectedUnitType)
+        let russianTranslation = selectedUnitType.symbol
         return combineNumberWithSymbol(change, change: changeString, symbol: russianTranslation)
-    }
-    
-    func formatDate(date: Date) -> String {        
-        if isUserSelectedDayIsToday(date) {
-            dateFormatter.dateFormat = "dd MMM"
-        } else {
-            dateFormatter.dateFormat = "dd.MM.yy"
-        }
-        return dateFormatter.string(from: date)
-    }
-    
-    func getUnitName(for unit: UnitMass) -> String {
-        messurementFormatter.unitStyle = .short
-        return messurementFormatter.string(from: unit)
     }
     
     func getUnitSystemName(for unit: UnitMass) -> String {
@@ -110,13 +88,5 @@ private extension StringFormatter {
         } else {
             return "" 
         }
-    }
-    
-    func isUserSelectedDayIsToday(_ date: Date) -> Bool {
-        let currentMonth = Calendar.current.component(.month, from: Date())
-        let month = Calendar.current.component(.month, from: date)
-        let currentYear = Calendar.current.component(.year, from: Date())
-        let year = Calendar.current.component(.year, from: date)
-        return currentMonth == month && currentYear == year
     }
 }

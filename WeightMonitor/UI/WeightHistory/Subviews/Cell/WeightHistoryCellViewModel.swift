@@ -12,18 +12,18 @@ final class WeightHistoryCellViewModel {
     private let weightUnitService: WeightSystem
     private let stringFormatter: StringFormatter
     
-    init(weight: Weight,
-         weightUnitService: WeightSystem = WeightSystem.shared,
-         stringFormatter: StringFormatter = StringFormatter(formatters: Formatters())) {
-        
+    init(
+        weight: Weight,
+        weightUnitService: WeightSystem = WeightSystem.shared,
+        stringFormatter: StringFormatter = StringFormatter(formatters: Formatters())
+    ) {
         self.weight = weight
         self.weightUnitService = weightUnitService
         self.stringFormatter = stringFormatter
     }
         
     var weightFormatted: String {
-        let weight = stringFormatter.convertWeightToString(weight.mass.value, for: weightUnitService.currentUnit)
-        return weight
+        weight.mass.formatted(.measurement(width: .abbreviated, usage: .personWeight))
     }
     
     var massDifference: String {
@@ -35,8 +35,7 @@ final class WeightHistoryCellViewModel {
     }
     
     var date: String {
-        let date = stringFormatter.formatDate(date: weight.createdAt)
-        return date
+        weight.createdAt.formatted(date: .abbreviated, time: .omitted)
     }
     
     var currentUnitName: String {

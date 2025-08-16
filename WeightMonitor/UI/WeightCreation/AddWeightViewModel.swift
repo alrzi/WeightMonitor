@@ -64,8 +64,7 @@ extension AddWeightViewModel {
     }
     
     func updateView() {
-        let currentWeightUnit = weightUnitService.currentUnit
-        weightUnit = stringFormatter.getUnitName(for: currentWeightUnit)
+        weightUnit = weightUnitService.currentUnit.symbol
     }
     
     func updateRecordOrAdd(updatedRecord: Weight) {
