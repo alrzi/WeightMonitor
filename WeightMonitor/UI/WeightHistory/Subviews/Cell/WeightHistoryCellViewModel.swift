@@ -23,11 +23,11 @@ final class WeightHistoryCellViewModel {
     }
         
     var weightFormatted: String {
-        weight.mass.formatted(.mass)
+        weight.mass.formatted(.mass(style: .withOneComma))
     }
     
     var massDifferenceFormatted: String? {
-        weight.massDifference.map { $0.formatted(.mass) }
+        weight.massDifference.map { $0.formatted(.mass(style: .withOneComma.sign(strategy: .always(includingZero: true)))) }
     }
     
     var createdAtFormatted: String {
@@ -50,12 +50,18 @@ final class WeightHistoryCellViewModel {
     }
 }
 
-extension FormatStyle where Self == Measurement<UnitMass>.FormatStyle {
-    static var mass: Self {
+private extension FormatStyle where Self == Measurement<UnitMass>.FormatStyle {
+    static func mass(style: FloatingPointFormatStyle<Double>) -> Self {
         .measurement(
             width: .abbreviated,
             usage: .personWeight,
-            numberFormatStyle: .number.precision(.fractionLength(1)).sign(strategy: .always(includingZero: true))
+            numberFormatStyle: style
         )
+    }
+}
+
+private extension FloatingPointFormatStyle<Double> {
+    static var withOneComma: Self {
+        .number.precision(.fractionLength(1))
     }
 }
