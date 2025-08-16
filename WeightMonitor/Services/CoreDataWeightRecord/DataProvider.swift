@@ -28,8 +28,8 @@ protocol DataProviderDelegate: AnyObject {
 
 protocol DataProviderProtocol {
     func deleteRecord(_ indexPath: IndexPath)
-    func addRecord(_ record: WeightRecord)
-    func getAllWeightRecords() -> [WeightRecord]
+    func addRecord(_ record: Weight)
+    func getAllWeightRecords() -> [Weight]
     func getRecordAt(indexPath: IndexPath) -> WeightRecordCoreData
 }
 
@@ -85,13 +85,13 @@ final class DataProvider: NSObject {
 }
 
 extension DataProvider: DataProviderProtocol {
-    func getAllWeightRecords() -> [WeightRecord] {
+    func getAllWeightRecords() -> [Weight] {
         guard let weightRecordCoreData = fetchedResultsController.fetchedObjects
         else { return [] }
-        return weightRecordCoreData.map { $0.createWeightRecord() }
+        return weightRecordCoreData.map { $0.createWeightRecord(unitMass: weightUnitService.currentUnit) }
     }
     
-    func addRecord(_ record: WeightRecord) {
+    func addRecord(_ record: Weight) {
         try? weightRecordStore.saveRecordCoreData(record)       
     }
     

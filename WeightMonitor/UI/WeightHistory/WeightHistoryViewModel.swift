@@ -46,14 +46,14 @@ final class WeightHistoryViewModel {
             updateWeightRecords()
         }
     }
-    private let weightUnitConverter: WeightUnitConverter
+    
     private let weightDifferentCalculator: WeightDifferentCalculatorProtocol
     
-    init(weightUnitService: WeightUnitServiceProtocol,
-         weightUnitConverter: WeightUnitConverter,
-         weightDifferentCalculator: WeightDifferentCalculatorProtocol) {
+    init(
+        weightUnitService: WeightUnitServiceProtocol,
+        weightDifferentCalculator: WeightDifferentCalculatorProtocol
+    ) {
         self.weightUnitService = weightUnitService
-        self.weightUnitConverter = weightUnitConverter
         self.weightDifferentCalculator = weightDifferentCalculator
     }
     
@@ -88,8 +88,13 @@ extension WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     }
     
     func updateViewWnenZeroRecords() {
-        let weightRecord = WeightRecord(date: Date(), weight: 0, weightDifference: 0)
-        initialRecord = WeightHistoryCellViewModel(weightRecord: weightRecord)
+        let weight = Weight(
+            createdAt: .now,
+            mass: .init(value: 0, unit: .kilograms),
+            massDifference: 0
+        )
+        
+        initialRecord = WeightHistoryCellViewModel(weight: weight)
     }
     
     func getRecordIdForIndexPath(_ indexPath: IndexPath) -> String? {        
@@ -97,23 +102,21 @@ extension WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     }
     
     // Private
-    private func getRequiredUnitWeightRecords() -> [WeightRecord] {
+    private func getRequiredUnitWeightRecords() -> [Weight] {
         guard let weightRecords = dataProvider?.getAllWeightRecords() else {
             return []
         }
         
-        return weightRecords.map {
-            self.weightUnitConverter.convertUnitsOfWeight(to: weightUnitService.currentUnit, $0)
-        }
+        return weightRecords.map { $0.withMassUnitUpdated(to: weightUnitService.currentUnit) }
     }
 
-    private func addWeightDifference(to weightRecords: [WeightRecord]) -> [WeightRecord] {
+    private func addWeightDifference(to weightRecords: [Weight]) -> [Weight] {
         return weightDifferentCalculator.addWeightDifference(to: weightRecords)
     }
 
-    private func mapToViewModels(_ weightRecords: [WeightRecord]) -> [WeightHistoryCellViewModel] {
+    private func mapToViewModels(_ weightRecords: [Weight]) -> [WeightHistoryCellViewModel] {
         return weightRecords.map {
-            WeightHistoryCellViewModel(weightRecord: $0)
+            WeightHistoryCellViewModel(weight: $0)
         }
     }
 }

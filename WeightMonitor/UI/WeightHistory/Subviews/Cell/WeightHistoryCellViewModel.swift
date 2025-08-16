@@ -8,34 +8,34 @@
 import Foundation
 
 final class WeightHistoryCellViewModel {
-    private let weightRecord: WeightRecord
+    private let weight: Weight
     private let weightUnitService: WeightSystem
     private let stringFormatter: StringFormatter
     
-    init(weightRecord: WeightRecord,
+    init(weight: Weight,
          weightUnitService: WeightSystem = WeightSystem.shared,
          stringFormatter: StringFormatter = StringFormatter(formatters: Formatters())) {
         
-        self.weightRecord = weightRecord
+        self.weight = weight
         self.weightUnitService = weightUnitService
         self.stringFormatter = stringFormatter
     }
         
-    var weight: String {
-        let weight = stringFormatter.convertWeightToString(weightRecord.weight, for: weightUnitService.currentUnit)
+    var weightFormatted: String {
+        let weight = stringFormatter.convertWeightToString(weight.mass.value, for: weightUnitService.currentUnit)
         return weight
     }
     
-    var weightDifference: String {
+    var massDifference: String {
         let weightDiff = stringFormatter.convertWeightChangeToString(
-            change: weightRecord.weightDifference,
+            change: weight.massDifference,
             selectedUnitType: weightUnitService.currentUnit
         )
         return weightDiff
     }
     
     var date: String {
-        let date = stringFormatter.formatDate(date: weightRecord.date)
+        let date = stringFormatter.formatDate(date: weight.createdAt)
         return date
     }
     

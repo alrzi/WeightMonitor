@@ -27,15 +27,15 @@ extension WeightRecordStore {
         saveContext()
     }
     
-    func saveRecordCoreData(_ record: WeightRecord) throws {
+    func saveRecordCoreData(_ record: Weight) throws {
         let recordCoreData = WeightRecordCoreData(context: context)
-        recordCoreData.idString = record.identifier
-        recordCoreData.weight = record.weight
-        recordCoreData.date = record.date
+        recordCoreData.idString = record.id
+        recordCoreData.weight = record.mass.value
+        recordCoreData.date = record.createdAt
         saveContext()
     }
     
-    func updateRecordWith(_ id: String, byFollowingRecod record: WeightRecord) {
+    func updateRecordWith(_ id: String, byFollowingRecod record: Weight) {
         let fetchRequest = WeightRecordCoreData.fetchRequest()
         fetchRequest.predicate = predicate
             .addPredicate(.equalTo, keyPath: \.idString, value: id).build()
@@ -47,9 +47,9 @@ extension WeightRecordStore {
     
     // Private
     private func update(_ record:  WeightRecordCoreData,
-                      with newRecord: WeightRecord) {
-        record.weight = newRecord.weight
-        record.date = newRecord.date
+                      with newRecord: Weight) {
+        record.weight = newRecord.mass.value
+        record.date = newRecord.createdAt
     }
     
     private func saveContext() {

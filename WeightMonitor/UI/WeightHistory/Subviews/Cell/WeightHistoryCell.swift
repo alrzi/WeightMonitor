@@ -12,8 +12,8 @@ final class WeightHistoryCell: UITableViewCell {
     var viewModel: WeightHistoryCellViewModel? {
         didSet {
             guard let viewModel = viewModel else { return }
-            weight.text = viewModel.weight
-            change.text = viewModel.weightDifference
+            weight.text = viewModel.weightFormatted
+            change.text = viewModel.massDifference
             date.text = viewModel.date
         }
     }

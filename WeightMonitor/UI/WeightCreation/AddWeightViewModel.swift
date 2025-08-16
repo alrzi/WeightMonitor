@@ -54,14 +54,9 @@ extension AddWeightViewModel {
     }
     
     func addRecord() {
-        guard let record = userInput.createRecord() else { return }
-        
-        let weightInKG = Measurement(value: record.weight, unit: weightUnitService.currentUnit)
-            .converted(to: .kilograms).value
-        
-        let updatedRecord = WeightRecord(id: record.identifier, date: record.date, weight: weightInKG)
+        guard let record = userInput.createRecord(unitMass: weightUnitService.currentUnit) else { return }
                     
-        updateRecordOrAdd(updatedRecord: updatedRecord)
+        updateRecordOrAdd(updatedRecord: record)
     }
     
     func formatString(_ text: String) -> String {
@@ -73,9 +68,11 @@ extension AddWeightViewModel {
         weightUnit = stringFormatter.getUnitName(for: currentWeightUnit)
     }
     
-    func updateRecordOrAdd(updatedRecord: WeightRecord) {
-        guard let recordIdForUpdate = recordIdForUpdate,
-               let record = userInput.createRecord() else {
+    func updateRecordOrAdd(updatedRecord: Weight) {
+        guard
+            let recordIdForUpdate = recordIdForUpdate,
+            let record = userInput.createRecord(unitMass: weightUnitService.currentUnit)
+        else {
             try? weightRecordStore?.saveRecordCoreData(updatedRecord)
             return
         }

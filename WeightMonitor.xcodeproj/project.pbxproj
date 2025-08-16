@@ -6,6 +6,11 @@
 	objectVersion = 70;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F91719A72E4F8EA4005EF65B /* SharingGRDB in Frameworks */ = {isa = PBXBuildFile; productRef = F91719A62E4F8EA4005EF65B /* SharingGRDB */; };
+		F91719A92E4F8EA4005EF65B /* StructuredQueriesGRDB in Frameworks */ = {isa = PBXBuildFile; productRef = F91719A82E4F8EA4005EF65B /* StructuredQueriesGRDB */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F9F724CC2A1F7C1A007F0F0A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -41,6 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F91719A72E4F8EA4005EF65B /* SharingGRDB in Frameworks */,
+				F91719A92E4F8EA4005EF65B /* StructuredQueriesGRDB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +152,9 @@
 				ru,
 			);
 			mainGroup = F97E3C142A013F75001C252E;
+			packageReferences = (
+				F91719A52E4F8EA3005EF65B /* XCRemoteSwiftPackageReference "sharing-grdb" */,
+			);
 			productRefGroup = F97E3C1E2A013F75001C252E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -447,6 +457,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F91719A52E4F8EA3005EF65B /* XCRemoteSwiftPackageReference "sharing-grdb" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/sharing-grdb.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F91719A62E4F8EA4005EF65B /* SharingGRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F91719A52E4F8EA3005EF65B /* XCRemoteSwiftPackageReference "sharing-grdb" */;
+			productName = SharingGRDB;
+		};
+		F91719A82E4F8EA4005EF65B /* StructuredQueriesGRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F91719A52E4F8EA3005EF65B /* XCRemoteSwiftPackageReference "sharing-grdb" */;
+			productName = StructuredQueriesGRDB;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F97E3C152A013F75001C252E /* Project object */;
 }

@@ -1,5 +1,5 @@
 //
-//  Model.swift
+//  UserInput.swift
 //  WeightMonitor
 //
 //  Created by Александр Зиновьев on 07.05.2023.
@@ -7,21 +7,17 @@
 
 import Foundation
 
-// Struct to collect user input data
 struct UserInput {
     var date: Date?
     var weight: Double?
     
     var isPossibleToAddWeight: Bool {
-        if let date, let weight {
-            return true
-        } else {
-            return false
-        }
+        !date.isNil && !weight.isNil
     }
     
-    func createRecord() -> WeightRecord? {
+    func createRecord(unitMass: UnitMass) -> Weight? {
         guard let date, let weight else { return nil }
-        return WeightRecord(date: date, weight: weight)
+        
+        return Weight(createdAt: date, mass: .init(value: weight, unit: unitMass))
     }
 }

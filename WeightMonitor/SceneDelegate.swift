@@ -18,7 +18,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let weightHistoryViewController = WeightHistoryViewController()
         let weightHistoryViewModel = WeightHistoryViewModel(
             weightUnitService: WeightSystem.shared,
-            weightUnitConverter: WeightUnitConverter(),
             weightDifferentCalculator: WeightDifferentCalculator()
         )
         

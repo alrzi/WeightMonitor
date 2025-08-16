@@ -8,19 +8,19 @@
 import Foundation
 
 protocol WeightDifferentCalculatorProtocol {
-    func addWeightDifference(to weightRecords: [WeightRecord]) -> [WeightRecord]
+    func addWeightDifference(to weightRecords: [Weight]) -> [Weight]
 }
 
 struct WeightDifferentCalculator: WeightDifferentCalculatorProtocol {
     /// Function to update an array of weight records
-    func addWeightDifference(to weightRecords: [WeightRecord]) -> [WeightRecord] {
+    func addWeightDifference(to weightRecords: [Weight]) -> [Weight] {
         var updatedRecords = updateWeightDifferences(records: weightRecords)
         updatedRecords = setLastRecordWeightDifferenceToNil(records: updatedRecords)
         return updatedRecords
     }
     
     /// Function to update the weight differences of an array of weight records
-    func updateWeightDifferences(records: [WeightRecord]) -> [WeightRecord] {
+    func updateWeightDifferences(records: [Weight]) -> [Weight] {
         return records.enumerated().map { (index, record) in
             // • index is the index of the current element in the records array.
             // • records.count is the total number of elements in the records array.
@@ -35,25 +35,25 @@ struct WeightDifferentCalculator: WeightDifferentCalculatorProtocol {
     }
     
     /// Function to update the weight difference of a weight record
-    func updateWeightDifference(record: WeightRecord, nextRecord: WeightRecord?) -> WeightRecord {
+    func updateWeightDifference(record: Weight, nextRecord: Weight?) -> Weight {
         if let nextRecord = nextRecord {
-            let weightDifference = calculateWeightDifference(record1: record, record2: nextRecord)
-            return WeightRecord(id: record.identifier, date: record.date, weight: record.weight, weightDifference: weightDifference)
+            let massDifference = calculateWeightDifference(record1: record, record2: nextRecord)
+            return Weight(id: record.id, createdAt: record.createdAt, mass: record.mass, massDifference: massDifference)
         } else {
-            return WeightRecord(id: record.identifier, date: record.date, weight: record.weight, weightDifference: nil)
+            return Weight(id: record.id, createdAt: record.createdAt, mass: record.mass, massDifference: nil)
         }
     }
     
     /// Function to calculate the weight difference between two weight records
-    func calculateWeightDifference(record1: WeightRecord, record2: WeightRecord) -> Double {
-        return record1.weight - record2.weight
+    func calculateWeightDifference(record1: Weight, record2: Weight) -> Double {
+        return record1.mass.value - record2.mass.value
     }
     
     // Function to set the weight difference of the last record to nil
-    func setLastRecordWeightDifferenceToNil(records: [WeightRecord]) -> [WeightRecord] {
+    func setLastRecordWeightDifferenceToNil(records: [Weight]) -> [Weight] {
         var updatedRecords = records
         if let lastRecord = updatedRecords.last {
-            updatedRecords[updatedRecords.count - 1] = WeightRecord(id: lastRecord.identifier, date: lastRecord.date, weight: lastRecord.weight, weightDifference: nil)
+            updatedRecords[updatedRecords.count - 1] = Weight(id: lastRecord.id, createdAt: lastRecord.createdAt, mass: lastRecord.mass, massDifference: nil)
         }
         return updatedRecords
     }

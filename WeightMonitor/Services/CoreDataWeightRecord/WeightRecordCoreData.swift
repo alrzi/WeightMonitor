@@ -20,8 +20,7 @@ class WeightRecordCoreData: NSManagedObject {
     @NSManaged var weight: Double
     @NSManaged var date: Date
     
-    func createWeightRecord() -> WeightRecord {
-        let record = WeightRecord(id: self.idString, date: self.date, weight: self.weight)
-        return record
+    func createWeightRecord(unitMass: UnitMass) -> Weight {
+        return Weight(createdAt: date, mass: .init(value: weight, unit: unitMass))
     }
 }

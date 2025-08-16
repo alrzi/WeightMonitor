@@ -45,13 +45,13 @@ final class CurrentWeightView: UIView {
         return currentWeight
     }()
     
-    private let weightDifference: UILabel = {
-        let weightDifference = UILabel()
-        weightDifference.translatesAutoresizingMaskIntoConstraints = false
-        weightDifference.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        weightDifference.textColor = .secondaryLabel
+    private let massDifference: UILabel = {
+        let massDifference = UILabel()
+        massDifference.translatesAutoresizingMaskIntoConstraints = false
+        massDifference.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        massDifference.textColor = .secondaryLabel
         
-        return weightDifference
+        return massDifference
     }()
     
     private let currentUnitSystemSwitch: UISwitch = {
@@ -86,7 +86,7 @@ private extension CurrentWeightView {
         currentUnitSystemSwitch.addTarget(self, action: #selector(handleSwitchChange), for: .touchUpInside)
         
         // Add horizontal stackViewWeight
-        let stackViewWeight = UIStackView(arrangedSubviews: [currentWeightLabel, weightDifference])
+        let stackViewWeight = UIStackView(arrangedSubviews: [currentWeightLabel, massDifference])
         stackViewWeight.axis = .horizontal
         stackViewWeight.spacing = 8
         stackViewWeight.alignment = .bottom
@@ -152,8 +152,8 @@ private extension CurrentWeightView {
     
     func updateRecord(_ record: WeightHistoryCellViewModel) {
         UIView.animate(withDuration: 0.3) {
-            self.currentWeightLabel.text = record.weight
-            self.weightDifference.text = record.weightDifference
+            self.currentWeightLabel.text = record.weightFormatted
+            self.massDifference.text = record.massDifference
             self.nameOfUnitSystemLabel.text = record.currentUnitName
             self.currentUnitSystemSwitch.isOn = record.isSwitchOn
         }
