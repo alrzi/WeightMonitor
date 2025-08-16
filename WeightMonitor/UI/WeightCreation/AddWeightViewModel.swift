@@ -45,7 +45,7 @@ extension AddWeightViewModel {
     }
         
     func setWeight(_ weight: String?) {
-        guard let weight = weight else { return }
+        guard let weight else { return }
         userInput.weight = stringFormatter.formatStringToDouble(weight)
     }
     

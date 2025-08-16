@@ -12,8 +12,8 @@ struct StringFormatter {
     
     func getUnitSystemName(for unit: UnitMass) -> String {
         let massUnitSymbols = [
-            "kg": String(localized: "weightHistory.unitSystem.metric", table: "WeightList"),
-            "lb": String(localized: "weightHistory.unitSystem.imperial", table: "WeightList")
+            UnitMass.kilograms.symbol: String(localized: "weightHistory.unitSystem.metric", table: "WeightList"),
+            UnitMass.pounds.symbol: String(localized: "weightHistory.unitSystem.imperial", table: "WeightList")
         ]
         return massUnitSymbols[unit.symbol] ?? String(localized: "weightHistory.unitSystem.unknown", table: "WeightList")
     }
@@ -49,10 +49,6 @@ struct StringFormatter {
     }
     
     func formatStringToDouble(_ string: String) -> Double? {        
-        if let number = weightFormatter.number(from: string) {
-            return number.doubleValue
-        } else {
-            return nil
-        }
+        weightFormatter.number(from: string).map { $0.doubleValue }
     }
 }
