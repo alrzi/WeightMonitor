@@ -8,7 +8,7 @@ protocol WeightHistoryViewModelProtocol: ObservableObject, WeightHistoryNavigati
     var weightsState: WeightsState? { get }
 
     func onAppear()
-    func loadMoreIfNeeded(currentItemIndex index: Int)
+    func onWeightAppear(at index: Int)
     func onTap(at index: Int)
     func onCreateNewWeight()
     func onDeleteTap(at index: Int)
@@ -55,7 +55,7 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
         }
     }
 
-    func loadMoreIfNeeded(currentItemIndex index: Int) {
+    func onWeightAppear(at index: Int) {
         guard weightsState?.shouldLoadMore(at: index) == true else {
             return
         }

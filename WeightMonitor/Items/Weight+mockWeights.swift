@@ -11,7 +11,7 @@ import WeigthMonitorDomain
 #if DEBUG
 extension Weight {
     static var mockWeights: [Self] {
-        (55...1200).enumerated().map { index, i in
+        (55...90).enumerated().map { index, i in
             Weight(
                 createdAt: .now.addingTimeInterval(TimeInterval(-(index * 60 * 60 * 24))),
                 mass: Double(i)

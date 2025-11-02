@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  WeightHistoryChartView.swift
 //  WeightMonitor
 //
 //  Created by Александр Зиновьев on 29.10.2025.
@@ -59,15 +59,17 @@ struct WeightHistoryChartView: View {
             .frame(height: 240)
             .animation(.easeInOut, value: weights)
         } header: {
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading) {
                 Text("График веса")
-                    .font(.headline)
+                    .font(.system(size: 24, weight: .bold))
+                    .padding(.bottom, 16)
+
                 Text("Динамика изменения веса по датам")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
-                Divider()
             }
-            .padding(.top, 16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, 16)
             .background(Color(.systemBackground))
         }
     }
@@ -95,5 +97,5 @@ private extension FloatingPointFormatStyle<Double> {
 }
 
 #Preview {
-    WeightHistoryChartView(weights: [])
+    WeightHistoryChartView(weights: Weight.mockWeights)
 }
