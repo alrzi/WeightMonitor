@@ -25,13 +25,19 @@ public struct Weight: Equatable, Identifiable, Sendable {
         self.massDifference = massDifference
     }
 
-    func difference(with other: Self) -> Self {
+    public func difference(with other: Self) -> Self {
         Weight(
             id: id,
             createdAt: createdAt,
             mass: mass,
             massDifference: mass - other.mass
         )
+    }
+}
+
+public extension Weight {
+    func toCursorIfPossible() -> WeightCursor? {
+        id.map { .init(createdAt: createdAt, id: $0) }
     }
 }
 

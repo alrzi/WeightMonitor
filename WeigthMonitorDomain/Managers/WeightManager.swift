@@ -13,6 +13,7 @@ public protocol WeightManaging: Sendable {
 
     func create(weight: Weight) async throws
     func readAll() async throws -> [Weight]
+    func paginate(after cursor: WeightCursor?, limit: Int) async throws -> [Weight]
     func update(weight: Weight) async throws
     func delete(weight: Weight) async throws
     func deleteAll() async throws
@@ -30,7 +31,7 @@ final class WeightManager: WeightManaging {
     func observe() -> AsyncMapSequence<AsyncThrowingStream<[Weight], any Error>, [Weight]> {
         weightRepository
             .observe()
-            .map { Self.updateWeightsDiff(records: $0) }
+            .map { $0 }
     }
 
     func create(weight: Weight) async throws {
@@ -38,9 +39,7 @@ final class WeightManager: WeightManaging {
     }
 
     func readAll() async throws -> [Weight] {
-        let records = try await weightRepository.readAll()
-
-        return Self.updateWeightsDiff(records: records)
+        try await weightRepository.readAll()
     }
 
     func update(weight: Weight) async throws {
@@ -54,20 +53,8 @@ final class WeightManager: WeightManaging {
     func deleteAll() async throws {
         try await weightRepository.deleteAll()
     }
-}
 
-private extension WeightManager {
-    static func updateWeightsDiff(records: [Weight]) -> [Weight] {
-        records
-            .enumerated()
-            .map { index, record in
-                let nextRecord = index < records.count - 1 ? records[index+1] : nil
-
-                guard let nextRecord else {
-                    return record
-                }
-
-                return record.difference(with: nextRecord)
-            }
+    func paginate(after cursor: WeightCursor?, limit: Int) async throws -> [Weight] {
+        try await weightRepository.paginate(after: cursor, limit: limit)        
     }
 }

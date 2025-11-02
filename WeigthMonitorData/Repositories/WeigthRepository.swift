@@ -49,6 +49,36 @@ struct WeigthRepository: WeigthRepositoryProtocol {
         }
     }
 
+    func paginate(after cursor: WeightCursor?, limit: Int) async throws -> [Weight] {
+        let limit = max(1, limit)
+
+        return try await dbPool.read { db in
+            let request: QueryInterfaceRequest<WeightDB>
+
+            if let cursor {
+                let createdAtColumn = WeightDB.Columns.createdAt
+                let idColumn = Column("id")
+
+                let earlierCreatedAt = createdAtColumn < cursor.createdAt
+                let sameCreatedAtEarlierId = createdAtColumn == cursor.createdAt && idColumn < cursor.id
+
+                request = WeightDB
+                    .filter(earlierCreatedAt || sameCreatedAtEarlierId)
+                    .order(createdAtColumn.desc, idColumn.desc)
+                    .limit(limit)
+            }
+            else {
+                request = WeightDB
+                    .order(WeightDB.Columns.createdAt.desc, Column("id").desc)
+                    .limit(limit)
+            }
+
+            let rows = try request.fetchAll(db).map { $0.toPlain() }
+
+            return rows
+        }
+    }
+
     func update(weight: Weight) async throws {
         try await dbPool.write { db in
             try WeightDB.from(plain: weight)
@@ -68,18 +98,12 @@ struct WeigthRepository: WeigthRepositoryProtocol {
             try WeightDB.deleteAll(db)
         }
     }
-
-    func count() async throws -> Int {
-        try await dbPool.read { db in
-            try WeightDB.fetchCount(db)
-        }
-    }
 }
 
 extension WeigthRepository {
     static func fetchAll(db: Database) throws -> [Weight] {
         try WeightDB
-            .order(\.createdAt.desc)
+            .order(WeightDB.Columns.createdAt.desc, Column("id").desc)
             .fetchAll(db)
             .map { $0.toPlain() }
     }

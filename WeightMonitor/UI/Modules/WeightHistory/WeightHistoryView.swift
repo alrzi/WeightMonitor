@@ -22,51 +22,62 @@ struct WeightHistoryView<ViewModel: WeightHistoryViewModelProtocol> {
 extension WeightHistoryView: View {
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 24) {
-                WeightHistoryChartView(weights: viewModel.weights)
+            if let weights = viewModel.weightsState?.weights {
+                LazyVStack(spacing: 24) {
+                    WeightHistoryChartView(weights: weights)
 
-                Section {
-                    ForEach(Array(viewModel.weights.enumerated()), id: \.element.id) { index, weight in
-                        WeightHistoryRow(
-                            weightFormatted: weight.weightMeasurement.formatted(),
-                            massDifferenceFormatted: weight.weightDifferenceMeasurement.map { $0.formatted() },
-                            createdAtFormatted: weight.createdAt.formatted(.relative(presentation: .numeric, unitsStyle: .wide))
-                        )
-                        .transition(.opacity)
-                        .onTapGesture { viewModel.onTap(at: index) }
-                        .contextMenu {
-                            Button("Delete", action: { viewModel.onDeleteTap(at: index) })
+                    Section {
+                        ForEach(Array(weights.enumerated()), id: \.element.id) { index, weight in
+                            VStack {
+                                WeightHistoryRow(
+                                    weightFormatted: weight.weightMeasurement.formatted(),
+                                    massDifferenceFormatted: weight.weightDifferenceMeasurement.map { $0.formatted() },
+                                    createdAtFormatted: weight.createdAt.formatted(.relative(presentation: .numeric, unitsStyle: .wide))
+                                )
+                                .transition(.opacity)
+                                .onTapGesture { viewModel.onTap(at: index) }
+                                .contextMenu {
+                                    Button("Delete", action: { viewModel.onDeleteTap(at: index) })
+                                }
+                            }
+                            .onAppear {
+                                viewModel.loadMoreIfNeeded(currentItemIndex: index)
+                            }
                         }
+                    } header: {
+                        VStack(alignment: .leading, spacing: 16) {
+                            Text("История")
+                                .font(.headline)
+
+                            WeightHistoryRow(
+                                weightFormatted: "Вес",
+                                massDifferenceFormatted: "Изменения",
+                                createdAtFormatted: "Дата"
+                            )
+
+                            Divider()
+                        }
+                        .padding(.top, 16)
+                        .background(Color(.systemBackground))
                     }
-                } header: {
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text("История")
-                            .font(.headline)
-                        
-                        WeightHistoryRow(
-                            weightFormatted: "Вес",
-                            massDifferenceFormatted: "Изменения",
-                            createdAtFormatted: "Дата"
-                        )
-                        
-                        Divider()
-                    }
-                    .padding(.top, 16)
-                    .background(Color(.systemBackground))
                 }
+                .padding(.horizontal, 16)
             }
-            .padding(.horizontal, 16)
         }
-        .animation(.easeInOut, value: viewModel.weights)
+        .animation(.easeInOut, value: viewModel.weightsState)
         .safeAreaInset(edge: .top, spacing: 0) {
             VStack {
                 Text("Монитор веса")
                     .font(.largeTitle)
                     .frame(maxWidth: .infinity)
 
-                if let last = viewModel.weights.first, let weightDifferenceMeasurement = last.weightDifferenceMeasurement {
+                if
+                    let weightsState = viewModel.weightsState,
+                    let first = weightsState.weights.first,
+                    let weightDifferenceMeasurement = first.weightDifferenceMeasurement
+                {
                     WeightInfoView(
-                        weightFormatted: last.weightMeasurement.formatted(),
+                        weightFormatted: first.weightMeasurement.formatted(),
                         massDifferenceFormatted: weightDifferenceMeasurement.formatted(),
                         weightUnit: $viewModel.weightUnit
                     )
@@ -156,27 +167,17 @@ private struct WeightHistoryRow: View {
     WeightHistoryView(viewModel: ViewModel())
 }
 
-private final class ViewModel: WeightHistoryViewModelProtocol {    
+private final class ViewModel: WeightHistoryViewModelProtocol {
     var weightUnit: WeightUnit = .imperial
     var isNewWeightAdded: Bool = false
-    var weights: [Weight] = Weight.mockWeights
+    var weightsState: WeightsState? = .init(weights: Weight.mockWeights)
     var route: WeightHistoryRoute?
 
     func onAppear() { }
     func onTap(at index: Int) { }
     func onCreateNewWeight() { }
     func onDeleteTap(at index: Int) { }
-}
-
-private extension Weight {
-    static var mockWeights: [Self] {
-        (55...90).enumerated().map { index, i in
-            Weight(
-                id: i,
-                createdAt: .now.addingTimeInterval(TimeInterval(index * 60 * 60 * 24)),
-                mass: Double(i)
-            )
-        }
-    }
+    func loadMoreIfNeeded(currentItemIndex index: Int) { }
+    func reload() { }
 }
 #endif

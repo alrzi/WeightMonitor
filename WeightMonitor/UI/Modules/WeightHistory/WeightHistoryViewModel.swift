@@ -3,13 +3,12 @@ import CoreData
 import Combine
 import WeigthMonitorDomain
 
-@MainActor
 protocol WeightHistoryViewModelProtocol: ObservableObject, WeightHistoryNavigationState {
     var weightUnit: WeightUnit { get set }
-    var isNewWeightAdded: Bool { get }
-    var weights: [Weight] { get }
+    var weightsState: WeightsState? { get }
 
     func onAppear()
+    func loadMoreIfNeeded(currentItemIndex index: Int)
     func onTap(at index: Int)
     func onCreateNewWeight()
     func onDeleteTap(at index: Int)
@@ -22,7 +21,7 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     private var weightUnitObservationTask: Task<(), Error>?
     private var isPaginating = false
 
-    @Published private(set) var weights: [Weight] = []
+    @Published private(set) var weightsState: WeightsState?
     @Published private(set) var isNewWeightAdded = false
 
     @Published var weightUnit: WeightUnit = .metric
@@ -38,20 +37,49 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
         weightUnitObservationTask = Task { @MainActor [weak self] in
             self?.weightUnit = await weightUnitManager.weightUnit
 
-            for try await weights in weightManager.observe() {
-                self?.weights = weights
+            for try await weights in weightManager.observe().dropFirst() {
+                self?.weightsState?.onObservedWeithsChenged(
+                    newWeights: weights,
+                    cursor: weights.last?.toCursorIfPossible()
+                )
             }
         }
     }
 
     func onAppear() {
         Task {
-            weights = try await weightManager.readAll()
+            guard !isPaginating else { return }
+            isPaginating = true
+            defer { isPaginating = false }
+
+            let newWeights = try await weightManager.paginate(after: nil, limit: WeightsState.pageSize)
+
+            weightsState = .init(weights: newWeights)
+        }
+    }
+
+    func loadMoreIfNeeded(currentItemIndex index: Int) {
+        guard weightsState.shouldLoadMore(at: index) == true else {
+            return
+        }
+
+        Task {
+            guard !isPaginating, let cursor = weightsState?.nextCursor else { return }
+            isPaginating = true
+            defer { isPaginating = false }
+
+            let newWeights = try await weightManager.paginate(after: cursor, limit: WeightsState.pageSize)
+
+            weightsState?.onWeigthLoaded(newWeights: newWeights)
         }
     }
 
     func onTap(at index: Int) {
-        route = .update(weight: weights[index], onCompletion: { [weak self] in self?.route = nil })
+        guard let weight = weightsState?.weights[index] else {
+            return
+        }
+
+        route = .update(weight: weight, onCompletion: { [weak self] in self?.route = nil })
     }
 
     func onCreateNewWeight() {
@@ -59,8 +87,12 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     }
 
     func onDeleteTap(at index: Int) {
+        guard let weight = weightsState?.weights[index] else {
+            return
+        }
+
         Task {
-            try await weightManager.delete(weight: weights[index])
+            try await weightManager.delete(weight: weight)
         }
     }
 
