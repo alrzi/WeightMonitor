@@ -38,10 +38,7 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
             self?.weightUnit = await weightUnitManager.weightUnit
 
             for try await weights in weightManager.observe().dropFirst() {
-                self?.weightsState?.onObservedWeithsChenged(
-                    newWeights: weights,
-                    cursor: weights.last?.toCursorIfPossible()
-                )
+                self?.weightsState?.onObservedWeithsChenged(newWeights: weights)
             }
         }
     }
@@ -59,7 +56,7 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     }
 
     func loadMoreIfNeeded(currentItemIndex index: Int) {
-        guard weightsState.shouldLoadMore(at: index) == true else {
+        guard weightsState?.shouldLoadMore(at: index) == true else {
             return
         }
 

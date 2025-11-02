@@ -30,11 +30,11 @@ struct WeightsState: Equatable {
         nextCursor = Self.getCursorIfPossible(weights: newWeights)
     }
 
-    mutating func onObservedWeithsChenged(newWeights: [Weight], cursor: WeightCursor?) {
+    mutating func onObservedWeithsChenged(newWeights: [Weight]) {
         let weightsToAdd = Array(newWeights.dropLast(max(0, newWeights.count - Self.pageSize * pageCount)))
 
         weights = weightsToAdd.updateWeightsDiff()
-        nextCursor = cursor
+        nextCursor = weightsToAdd.last?.toCursorIfPossible()
     }
 
     func shouldLoadMore(at index: Int) -> Bool {
@@ -50,7 +50,7 @@ private extension WeightsState {
             return nil
         }
 
-        return last.id.map { .init(createdAt: last.createdAt, id: $0) }
+        return last.toCursorIfPossible()
     }
 }
 
