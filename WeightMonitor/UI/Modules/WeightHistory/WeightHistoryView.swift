@@ -80,6 +80,7 @@ extension WeightHistoryView: View {
             }
             .padding(16)
         }
+        .alert(model: $viewModel.alertModel)
         .onAppear(perform: viewModel.onAppear)
     }
 }
@@ -128,6 +129,7 @@ private struct WeightInfoView: View {
 }
 
 private final class ViewModel: WeightHistoryViewModelProtocol {
+    var alertModel: AlertModel?
     var weightUnit: WeightUnit = .imperial
     var isNewWeightAdded: Bool = false
     var weightsState: WeightsState? = .init(

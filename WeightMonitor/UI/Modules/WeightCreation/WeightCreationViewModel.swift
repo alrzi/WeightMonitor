@@ -13,6 +13,7 @@ protocol WeightCreationViewModelProtocol: ObservableObject {
     var selectedDate: Date { get set }
     var weightInput: String { get set }
     var buttonTitle: String { get }
+    var alertModel: AlertModel? { get set }
     var dateRange: ClosedRange<Date> { get }
     var weightUnitFormatter: String { get }
     var isDatePickerVisible: Bool { get }
@@ -38,6 +39,7 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
     @Published private(set) var isDatePickerVisible = false
     @Published private(set) var invalidComponent: InvalidComponent?
 
+    @Published var alertModel: AlertModel?
     @Published var selectedDate: Date
     @Published var weightInput: String
 
@@ -90,7 +92,9 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
                 onCompletion()
             }
             catch {
-
+                alertModel = .weightOperationFailed(isUpdate: input.isUpdate) { [weak self] in
+                    self?.onCreateWeightTap()
+                }
             }
         }
     }
@@ -152,5 +156,30 @@ private extension WeightCreationInput {
         case .create: "Create"
         case .update: "Update"
         }
+    }
+
+    var isUpdate: Bool {
+        switch self {
+        case .create: false
+        case .update: true
+        }
+    }
+}
+
+extension AlertModel {
+    static func weightOperationFailed(isUpdate: Bool, retryHandler: @escaping () -> Void) -> AlertModel {
+        let primary = Action.AlertButton(title: "OK")
+        let secondary = Action.AlertButton(title: "Retry", handler: retryHandler)
+
+        let title = isUpdate ? "Update failed" : "Create failed"
+        let message = isUpdate
+            ? "The weight could not be updated. Please try again."
+            : "The weight could not be saved. Please try again."
+
+        return AlertModel(
+            title: title,
+            message: message,
+            action: .custom(.double(primary: primary, secondary: secondary))
+        )
     }
 }

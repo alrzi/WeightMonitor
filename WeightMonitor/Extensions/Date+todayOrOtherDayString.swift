@@ -8,9 +8,12 @@
 import Foundation
 
 extension Date {
-    func todayOrOtherDayString() -> String {
-        if Calendar.current.isDateInToday(self) {
+    func todayOrOtherDayString(calendar: Calendar = .autoupdatingCurrent) -> String {
+        if calendar.isDateInToday(self) {
             "Today"
+        }
+        else if calendar.isDateInYesterday(self) {
+            "Yesterday"
         }
         else {
             self.formatted(date: .abbreviated, time: .shortened)

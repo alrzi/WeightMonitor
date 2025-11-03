@@ -12,7 +12,7 @@ import WeigthMonitorDomain
 @MainActor
 struct WeightCreationView<ViewModel: WeightCreationViewModelProtocol> {
     @ObservedObject private var viewModel: ViewModel
-
+    @Environment(\.locale) private var locale
     @FocusState private var isFocused: Bool
 
     init(viewModel: ViewModel) {
@@ -34,7 +34,7 @@ extension WeightCreationView: View {
 
                 Spacer()
 
-                Text(viewModel.selectedDate.todayOrOtherDayString())
+                Text(viewModel.selectedDate.todayOrOtherDayString(calendar: locale.calendar))
                     .foregroundStyle(.blue)
 
                 Image(systemName: "chevron.up")
@@ -97,6 +97,7 @@ extension WeightCreationView: View {
             .buttonStyle(.bordered)
             .padding(.horizontal, 24)
         }
+        .alert(model: $viewModel.alertModel)
     }
 }
 
@@ -109,6 +110,7 @@ private final class ViewModel: WeightCreationViewModelProtocol {
     @Published var selectedDate: Date = .now
     @Published var weightInput: String = "12"
     @Published private(set) var isDatePickerVisible = false
+    var alertModel: AlertModel?
     let weightUnitFormatter: String = "kg"
     let invalidComponent: WeightCreationInvalidComponent? = nil
     let dateRange: ClosedRange<Date> = .distantPast...Date.now

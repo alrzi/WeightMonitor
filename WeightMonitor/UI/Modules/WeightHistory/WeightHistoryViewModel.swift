@@ -5,6 +5,7 @@ import WeigthMonitorDomain
 
 protocol WeightHistoryViewModelProtocol: ObservableObject, WeightHistoryNavigationState {
     var weightUnit: WeightUnit { get set }
+    var alertModel: AlertModel? { get set }
     var weightsState: WeightsState? { get }
 
     func onAppear()
@@ -25,6 +26,7 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     @Published private(set) var weightsState: WeightsState?
     @Published private(set) var isNewWeightAdded = false
 
+    @Published var alertModel: AlertModel?
     @Published var weightUnit: WeightUnit = .metric
     @Published var route: WeightHistoryRoute?
 
@@ -54,9 +56,14 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
             isPaginating = true
             defer { isPaginating = false }
 
-            let newWeights = try await weightManager.paginate(after: nil, limit: WeightsState.pageSize)
+            do {
+                let newWeights = try await weightManager.paginate(after: nil, limit: WeightsState.pageSize)
 
-            weightsState = .init(weights: newWeights)
+                weightsState = .init(weights: newWeights)
+            }
+            catch {
+                alertModel = .loadFailed { [weak self] in self?.onAppear() }
+            }
         }
     }
 
@@ -70,9 +77,14 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
             isPaginating = true
             defer { isPaginating = false }
 
-            let newWeights = try await weightManager.paginate(after: cursor, limit: WeightsState.pageSize)
+            do {
+                let newWeights = try await weightManager.paginate(after: cursor, limit: WeightsState.pageSize)
 
-            weightsState?.onWeigthLoaded(newWeights: newWeights)
+                weightsState?.onWeigthLoaded(newWeights: newWeights)
+            }
+            catch {
+                alertModel = .paginationFailed
+            }
         }
     }
 
@@ -94,11 +106,42 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
         }
 
         Task {
-            try await weightManager.delete(weight: weight)
+            do {
+                try await weightManager.delete(weight: weight)
+            }
+            catch {
+                alertModel = .deletionFailed { [weak self] in self?.onDeleteTap(at: index) }
+            }
         }
     }
 
     deinit {
         weightsObservationTask?.cancel()
+    }
+}
+
+private extension AlertModel {
+    static func loadFailed(retryHandler: @escaping () -> Void) -> Self {
+        Self(
+            title: "Load failed",
+            message: "We couldn’t retrieve the data. Please try again.",
+            action: .cancel(Action.AlertButton(title: "Retry", handler: retryHandler))
+        )
+    }
+
+    static var paginationFailed: Self {
+        Self(
+            title: "Pagination error",
+            message: "Unable to load more items. Please try again later.",
+            action: .cancel(Action.AlertButton(title: "Cancel"))
+        )
+    }
+
+    static func deletionFailed(retryHandler: @escaping () -> Void) -> Self {
+        Self(
+            title: "Deletion failed",
+            message: "The item could not be removed. Please try again.",
+            action: .destructive(Action.AlertButton(title: "Delete", handler: retryHandler))
+        )
     }
 }
