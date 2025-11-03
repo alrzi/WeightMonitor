@@ -25,7 +25,6 @@ public final class WeightMonitorModulesAssembly: Assembly {
             WeightCreationAssembly(
                 weightManager: r.resolve(WeightManaging.self)!,
                 weightUnitManager: r.resolve((any WeightUnitManaging).self)!,
-                locale: .autoupdatingCurrent,
             )
         }
     }

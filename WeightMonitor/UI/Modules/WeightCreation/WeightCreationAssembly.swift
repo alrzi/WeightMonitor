@@ -12,7 +12,6 @@ import WeigthMonitorDomain
 struct WeightCreationAssembly {
     let weightManager: any WeightManaging
     let weightUnitManager: any WeightUnitManaging
-    let locale: Locale
 
     @MainActor
     func assemble(
@@ -22,7 +21,6 @@ struct WeightCreationAssembly {
         let viewModel = WeightCreationViewModel(
             weightManager: weightManager,
             weightUnitManager: weightUnitManager,
-            locale: locale,
             input: input,
             onCompletion: onCompletion,
         )

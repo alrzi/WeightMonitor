@@ -26,7 +26,6 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
     private let weightManager: any WeightManaging
     private let weightUnitManager: any WeightUnitManaging
     private let invalidComponentManager: any InvalidComponentManaging<InvalidComponent>
-    private let locale: Locale
     private let input:  WeightCreationInput
     private let onCompletion: @MainActor () -> Void
 
@@ -42,14 +41,12 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
         weightManager: any WeightManaging,
         weightUnitManager: any WeightUnitManaging,
         invalidComponentManager: some InvalidComponentManaging<InvalidComponent> = InvalidComponentManager(),
-        locale: Locale,
         input:  WeightCreationInput,
         onCompletion: @MainActor @escaping () -> Void
     ) {
         self.weightManager = weightManager
         self.weightUnitManager = weightUnitManager
         self.invalidComponentManager = invalidComponentManager
-        self.locale = locale
         self.input = input
         self.onCompletion = onCompletion
 
