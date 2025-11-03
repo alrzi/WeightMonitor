@@ -64,6 +64,7 @@ extension WeightCreationView: View {
             HStack {
                 TextField("Enter weight", text: $viewModel.weightInput)
                     .keyboardType(.decimalPad)
+                    .autocorrectionDisabled()
                     .font(.largeTitle)
                     .focused($isFocused)
 
@@ -87,14 +88,14 @@ extension WeightCreationView: View {
                 }
             }            
         }
-        .safeAreaInset(edge: .bottom) {
+        .safeAreaInset(edge: .bottom, spacing: 0) {
             Button(action: viewModel.onCreateWeightTap) {
                 Text("Добавить вес")
                     .font(.largeTitle)
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.bordered)
-            .padding(16)
+            .padding(.horizontal, 24)
         }
     }
 }

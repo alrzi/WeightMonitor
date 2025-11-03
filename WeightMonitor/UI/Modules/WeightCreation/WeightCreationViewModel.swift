@@ -65,9 +65,9 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
     }
 
     func onCreateWeightTap() {
-        if let weightInput = Double(weightInput) {
+        if let mass = Self.double(from: weightInput) {
             let unit = weightUnitManager.lastSelectedWeightUnit.toUnitMass()
-            let mass = Measurement<UnitMass>(value: weightInput, unit: unit)
+            let mass = Measurement<UnitMass>(value: mass, unit: unit)
                 .converted(to: .kilograms)
                 .value
 
@@ -93,6 +93,28 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
         else {
             invalidComponentManager.markComponentInvalid(.incorrectWeight)
         }
+    }
+}
+
+// MARK: - Private
+
+private extension WeightCreationViewModel {
+    static func double(from string: String) -> Double? {
+        let trimmed = string.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard !trimmed.isEmpty else { return nil }
+
+        if let number = NumberFormatter.weightFormatter.number(from: trimmed) {
+            return number.doubleValue
+        }
+
+        let dotReplaced = trimmed.replacingOccurrences(of: ",", with: ".")
+
+        if let number = NumberFormatter.dotOnlyNumberFormatter.number(from: dotReplaced) {
+            return number.doubleValue
+        }
+
+        return nil
     }
 }
 
