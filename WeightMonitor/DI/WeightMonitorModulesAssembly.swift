@@ -17,14 +17,15 @@ public final class WeightMonitorModulesAssembly: Assembly {
             WeightHistoryAssembly(
                 weightManager: r.resolve(WeightManaging.self)!,
                 weightUnitManager: r.resolve((any WeightUnitManaging).self)!,
-                weightCreationAssembly: r.resolve(WeightCreationAssembly.self)!
+                weightCreationAssembly: r.resolve(WeightCreationAssembly.self)!,
             )
         }
 
         container.register(WeightCreationAssembly.self) { r in
             WeightCreationAssembly(
                 weightManager: r.resolve(WeightManaging.self)!,
-                locale: .autoupdatingCurrent
+                weightUnitManager: r.resolve((any WeightUnitManaging).self)!,
+                locale: .autoupdatingCurrent,
             )
         }
     }

@@ -24,6 +24,7 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
     typealias InvalidComponent = WeightCreationInvalidComponent
 
     private let weightManager: any WeightManaging
+    private let weightUnitManager: any WeightUnitManaging
     private let invalidComponentManager: any InvalidComponentManaging<InvalidComponent>
     private let locale: Locale
     private let input:  WeightCreationInput
@@ -39,20 +40,22 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
 
     init(
         weightManager: any WeightManaging,
+        weightUnitManager: any WeightUnitManaging,
         invalidComponentManager: some InvalidComponentManaging<InvalidComponent> = InvalidComponentManager(),
         locale: Locale,
         input:  WeightCreationInput,
         onCompletion: @MainActor @escaping () -> Void
     ) {
         self.weightManager = weightManager
+        self.weightUnitManager = weightUnitManager
         self.invalidComponentManager = invalidComponentManager
         self.locale = locale
         self.input = input
         self.onCompletion = onCompletion
 
         selectedDate = input.selectedDate
-        weightInput = input.weightInput(locale: locale)
-        weightUnitFormatter = locale.unitMass.symbol
+        weightInput = input.weightInput(unit: weightUnitManager.lastSelectedWeightUnit)
+        weightUnitFormatter = weightUnitManager.lastSelectedWeightUnit.toUnitMass().symbol
 
         invalidComponentManager.invalidComponent.assign(to: &$invalidComponent)
     }
@@ -63,7 +66,10 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
 
     func onCreateWeightTap() {
         if let weightInput = Double(weightInput) {
-            let weightMeassurement = Measurement<UnitMass>(value: weightInput, unit: locale.unitMass)
+            let weightMeassurement = Measurement<UnitMass>(
+                value: weightInput,
+                unit: weightUnitManager.lastSelectedWeightUnit.toUnitMass()
+            )
 
             Task {
                 do {
@@ -107,10 +113,10 @@ private extension WeightCreationInput {
         }
     }
 
-    func weightInput(locale: Locale) -> String {
+    func weightInput(unit: WeightUnit) -> String {
         switch self {
         case .create: ""
-        case .update(let weight): weight.weightMeasurement.converted(to: locale.unitMass).value.formatted()
+        case .update(let weight): weight.weightFormatted(to: unit)
         }
     }
 }

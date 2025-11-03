@@ -11,8 +11,6 @@ import WeigthMonitorDomain
 @MainActor
 struct WeightHistoryView<ViewModel: WeightHistoryViewModelProtocol> {
     @ObservedObject private var viewModel: ViewModel
-
-    @Environment(\.locale) private var locale
     @Environment(\.colorScheme) private var colorScheme
 
     init(viewModel: ViewModel) {
@@ -36,19 +34,23 @@ extension WeightHistoryView: View {
                         LazyVStack(spacing: 12) {
                             if
                                 let first = weights.first,
-                                let weightDifferenceMeasurement = first.weightDifferenceMeasurement
+                                let diff = first.massDifferenceFormatted(to: viewModel.weightUnit)
                             {
                                 WeightInfoView(
-                                    weightFormatted: first.weightMeasurement.formatted(),
-                                    massDifferenceFormatted: weightDifferenceMeasurement.formatted(),
-                                    weightUnit: $viewModel.weightUnit
+                                    weightFormatted: first.weightFormatted(to: viewModel.weightUnit),
+                                    massDifferenceFormatted: diff,
+                                    weightUnit: $viewModel.weightUnit,
                                 )
                             }
 
-                            WeightHistoryChartView(weights: weights)
+                            WeightHistoryChartView(
+                                weights: weights,
+                                weightUnit: viewModel.weightUnit,
+                            )
 
                             WeightHistoryListView(
                                 weights: weights,
+                                weightUnit: viewModel.weightUnit,
                                 onTapAtIndex: viewModel.onTap,
                                 onDeleteAtIndex: viewModel.onDeleteTap,
                                 onWeightAppear: viewModel.onWeightAppear

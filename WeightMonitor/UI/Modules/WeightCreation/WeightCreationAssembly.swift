@@ -11,6 +11,7 @@ import WeigthMonitorDomain
 
 struct WeightCreationAssembly {
     let weightManager: any WeightManaging
+    let weightUnitManager: any WeightUnitManaging
     let locale: Locale
 
     @MainActor
@@ -20,9 +21,10 @@ struct WeightCreationAssembly {
     ) -> some View {
         let viewModel = WeightCreationViewModel(
             weightManager: weightManager,
+            weightUnitManager: weightUnitManager,
             locale: locale,
             input: input,
-            onCompletion: onCompletion
+            onCompletion: onCompletion,
         )
 
         let view = WeightCreationView(viewModel: viewModel)

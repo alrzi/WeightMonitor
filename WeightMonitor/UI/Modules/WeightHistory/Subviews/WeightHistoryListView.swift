@@ -10,6 +10,7 @@ import WeigthMonitorDomain
 
 struct WeightHistoryListView: View {
     let weights: [Weight]
+    let weightUnit: WeightUnit
     let onTapAtIndex: (Int) -> Void
     let onDeleteAtIndex: (Int) -> Void
     let onWeightAppear: (Int) -> Void
@@ -19,9 +20,9 @@ struct WeightHistoryListView: View {
             ForEach(Array(weights.enumerated()), id: \.element.id) { index, weight in
                 VStack {
                     WeightHistoryRow(
-                        weightFormatted: weight.weightMeasurement.formatted(),
-                        massDifferenceFormatted: weight.weightDifferenceMeasurement.map { $0.formatted() },
-                        createdAtFormatted: weight.createdAt.formatted(.relative(presentation: .numeric, unitsStyle: .abbreviated))
+                        weightFormatted: weight.weightFormatted(to: weightUnit),
+                        massDifferenceFormatted: weight.massDifferenceFormatted(to: weightUnit),
+                        createdAtFormatted: weight.createdAtFormatted,
                     )
                     .transition(.opacity)
                     .onTapGesture { onTapAtIndex(index) }
@@ -81,6 +82,7 @@ private struct WeightHistoryRow: View {
 #Preview {
     WeightHistoryListView(
         weights: [],
+        weightUnit: .metric,
         onTapAtIndex: { _ in },
         onDeleteAtIndex: { _ in },
         onWeightAppear: { _ in }

@@ -18,6 +18,7 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     private let weightManager: any WeightManaging
     private let weightUnitManager: any WeightUnitManaging
 
+    private var weightUnitCancellable: AnyCancellable?
     private var weightUnitObservationTask: Task<(), Error>?
     private var isPaginating = false
 
@@ -33,10 +34,14 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     ) {
         self.weightManager = weightManager
         self.weightUnitManager = weightUnitManager
+        self.weightUnit = weightUnitManager.lastSelectedWeightUnit
+
+        weightUnitCancellable = $weightUnit            
+            .sink(receiveValue: { unit in
+                Task { await weightUnitManager.set(unit: unit) }
+            })
 
         weightUnitObservationTask = Task { @MainActor [weak self] in
-            self?.weightUnit = await weightUnitManager.weightUnit
-
             for try await weights in weightManager.observe().dropFirst() {
                 self?.weightsState?.onObservedWeithsChenged(newWeights: weights)
             }

@@ -100,7 +100,7 @@ struct WeigthRepository: WeigthRepositoryProtocol {
     }
 }
 
-extension WeigthRepository {
+private extension WeigthRepository {
     static func fetchAll(db: Database) throws -> [Weight] {
         try WeightDB
             .order(WeightDB.Columns.createdAt.desc, Column("id").desc)

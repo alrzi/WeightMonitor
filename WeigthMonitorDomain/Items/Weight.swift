@@ -40,18 +40,3 @@ public extension Weight {
         id.map { .init(createdAt: createdAt, id: $0) }
     }
 }
-
-extension Weight {
-    public var weightMeasurement: Measurement<UnitMass> {
-        Measurement(value: mass, unit: .kilograms)
-    }
-
-    public var weightDifferenceMeasurement: Measurement<UnitMass>? {
-        if let massDifference {
-            Measurement(value: massDifference, unit: .kilograms)
-        }
-        else {
-            nil
-        }
-    }
-}

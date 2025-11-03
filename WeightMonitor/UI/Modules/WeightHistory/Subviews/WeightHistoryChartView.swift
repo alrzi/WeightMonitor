@@ -11,6 +11,7 @@ import WeigthMonitorDomain
 
 struct WeightHistoryChartView: View {
     let weights: [Weight]
+    let weightUnit: WeightUnit
 
     @Environment(\.locale) private var locale
 
@@ -26,7 +27,7 @@ struct WeightHistoryChartView: View {
 
                 PointMark(
                     x: .value("Date", weight.createdAt),
-                    y: .value("Weight (kg)", weight.mass)
+                    y: .value("Weight (\(weightUnit.toUnitMass().symbol)", weight.mass)
                 )
                 .foregroundStyle(.blue)
                 .symbolSize(30)
@@ -49,8 +50,14 @@ struct WeightHistoryChartView: View {
                     AxisValueLabel {
                         if let mass = value.as(Double.self) {
                             Text(
-                                Measurement(value: mass, unit: UnitMass.kilograms)
-                                    .formatted(.mass(style: .withOneComma, locale: locale))
+                                MassFormatter
+                                    .twoDigits
+                                    .string(
+                                        fromValue: Measurement(value: mass, unit: .kilograms)
+                                            .converted(to: weightUnit.toUnitMass())
+                                            .value,
+                                        unit: weightUnit.toUnit()
+                                    )
                             )
                         }
                     }
@@ -75,27 +82,6 @@ struct WeightHistoryChartView: View {
     }
 }
 
-private extension FormatStyle where Self == Measurement<UnitMass>.FormatStyle {
-    static func mass(style: FloatingPointFormatStyle<Double>, locale: Locale) -> Self {
-        Measurement<UnitMass>.FormatStyle(
-            width: .abbreviated,
-            locale: locale,
-            usage: .personWeight,
-            numberFormatStyle: style
-        )
-    }
-}
-
-private extension FloatingPointFormatStyle<Double> {
-    static var withOneComma: Self {
-        .number.precision(.fractionLength(1))
-    }
-
-    static var withOneComaIncludingZero: Self {
-        .withOneComma.sign(strategy: .always(includingZero: true))
-    }
-}
-
 #Preview {
-    WeightHistoryChartView(weights: Weight.mockWeights)
+    WeightHistoryChartView(weights: Weight.mockWeights, weightUnit: .metric)
 }
