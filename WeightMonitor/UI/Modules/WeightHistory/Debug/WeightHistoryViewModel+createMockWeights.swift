@@ -13,11 +13,13 @@ extension WeightHistoryViewModel {
     static func createMockWeights(weightManager: WeightManaging) {
         Task {
             await withTaskGroup { group in
-                Weight.mockWeights.forEach { weight in
-                    group.addTask {
-                        try? await weightManager.create(weight: weight)
+                Weight
+                    .mockYearlyWeights(startMass: 78.0, variation: 0.25, seed: 42)
+                    .forEach { weight in
+                        group.addTask {
+                            try? await weightManager.create(weight: weight)
+                        }
                     }
-                }
             }
         }
     }

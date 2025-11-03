@@ -130,7 +130,9 @@ private struct WeightInfoView: View {
 private final class ViewModel: WeightHistoryViewModelProtocol {
     var weightUnit: WeightUnit = .imperial
     var isNewWeightAdded: Bool = false
-    var weightsState: WeightsState? = .init(weights: Weight.mockWeights)
+    var weightsState: WeightsState? = .init(
+        weights:  Weight.mockYearlyWeights(startMass: 78.0, variation: 0.25, seed: 42)
+    )
     var route: WeightHistoryRoute?
 
     func onAppear() { }
