@@ -90,7 +90,7 @@ extension WeightCreationView: View {
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Button(action: viewModel.onCreateWeightTap) {
-                Text("Добавить вес")
+                Text(viewModel.buttonTitle)
                     .font(.largeTitle)
                     .frame(maxWidth: .infinity)
             }
@@ -112,6 +112,7 @@ private final class ViewModel: WeightCreationViewModelProtocol {
     let weightUnitFormatter: String = "kg"
     let invalidComponent: WeightCreationInvalidComponent? = nil
     let dateRange: ClosedRange<Date> = .distantPast...Date.now
+    let buttonTitle = "Create"
 
     init() { }
 

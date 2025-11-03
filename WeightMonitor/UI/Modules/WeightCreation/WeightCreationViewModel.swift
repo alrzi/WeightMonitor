@@ -12,6 +12,7 @@ import WeigthMonitorDomain
 protocol WeightCreationViewModelProtocol: ObservableObject {
     var selectedDate: Date { get set }
     var weightInput: String { get set }
+    var buttonTitle: String { get }
     var dateRange: ClosedRange<Date> { get }
     var weightUnitFormatter: String { get }
     var isDatePickerVisible: Bool { get }
@@ -32,6 +33,7 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
 
     let weightUnitFormatter: String
     let dateRange: ClosedRange<Date>
+    let buttonTitle: String
 
     @Published private(set) var isDatePickerVisible = false
     @Published private(set) var invalidComponent: InvalidComponent?
@@ -54,6 +56,7 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
 
         selectedDate = input.selectedDate
         dateRange = Date.distantPast...Date.now
+        buttonTitle = input.buttonTitle
         weightInput = input.weightInput(unit: weightUnitManager.lastSelectedWeightUnit)
         weightUnitFormatter = weightUnitManager.lastSelectedWeightUnit.toUnitMass().symbol
 
@@ -137,7 +140,17 @@ private extension WeightCreationInput {
     func weightInput(unit: WeightUnit) -> String {
         switch self {
         case .create: ""
-        case .update(let weight): weight.weightFormatted(to: unit)
+        case .update(let weight): Measurement(value: weight.mass, unit: .kilograms)
+                .converted(to: unit.toUnitMass())
+                .value
+                .formatted()
+        }
+    }
+
+    var buttonTitle: String {
+        switch self {
+        case .create: "Create"
+        case .update: "Update"
         }
     }
 }
