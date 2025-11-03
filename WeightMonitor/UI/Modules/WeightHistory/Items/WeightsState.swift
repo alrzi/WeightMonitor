@@ -11,8 +11,7 @@ import WeigthMonitorDomain
 struct WeightsState: Equatable {
     static let pageSize = 20
 
-    private var pageCount = 1
-
+    private(set) var pageCount = 1
     private(set) var nextCursor: WeightCursor?
     private(set) var weights: [Weight] = []
 
@@ -31,7 +30,8 @@ struct WeightsState: Equatable {
     }
 
     mutating func onObservedWeithsChenged(newWeights: [Weight]) {
-        let weightsToAdd = Array(newWeights.dropLast(max(0, newWeights.count - Self.pageSize * pageCount)))
+        let count = max(0, newWeights.count - Self.pageSize * pageCount)
+        let weightsToAdd = Array(newWeights.dropLast(count))
 
         weights = weightsToAdd.updateWeightsDiff()
         nextCursor = weightsToAdd.last?.toCursorIfPossible()
@@ -59,9 +59,7 @@ private extension Array where Element == Weight {
         self
             .enumerated()
             .map { index, record in
-                let nextRecord = index < self.count - 1 ? self[index+1] : nil
-
-                guard let nextRecord else {
+                guard let nextRecord = elementOrNil(at: index + 1) else {
                     return record
                 }
 

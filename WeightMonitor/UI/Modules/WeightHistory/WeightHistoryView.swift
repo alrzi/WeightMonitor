@@ -34,6 +34,7 @@ extension WeightHistoryView: View {
                                     massDifferenceFormatted: diff,
                                     weightUnit: $viewModel.weightUnit,
                                 )
+
                                 WeightHistoryChartView(
                                     weights: weights,
                                     weightUnit: viewModel.weightUnit,
