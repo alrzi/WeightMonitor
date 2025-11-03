@@ -65,7 +65,7 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
     }
 
     func onCreateWeightTap() {
-        if let mass = Self.double(from: weightInput) {
+        if let mass = weightInput.toDoubleIfPossible() {
             let unit = weightUnitManager.lastSelectedWeightUnit.toUnitMass()
             let mass = Measurement<UnitMass>(value: mass, unit: unit)
                 .converted(to: .kilograms)
@@ -98,9 +98,9 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
 
 // MARK: - Private
 
-private extension WeightCreationViewModel {
-    static func double(from string: String) -> Double? {
-        let trimmed = string.trimmingCharacters(in: .whitespacesAndNewlines)
+private extension String {
+    func toDoubleIfPossible() -> Double? {
+        let trimmed = self.trimmingCharacters(in: .whitespacesAndNewlines)
 
         guard !trimmed.isEmpty else { return nil }
 
