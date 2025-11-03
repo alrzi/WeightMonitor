@@ -19,7 +19,7 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     private let weightUnitManager: any WeightUnitManaging
 
     private var weightUnitCancellable: AnyCancellable?
-    private var weightUnitObservationTask: Task<(), Error>?
+    private var weightsObservationTask: Task<(), Error>?
     private var isPaginating = false
 
     @Published private(set) var weightsState: WeightsState?
@@ -41,7 +41,7 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
                 Task { await weightUnitManager.set(unit: unit) }
             })
 
-        weightUnitObservationTask = Task { @MainActor [weak self] in
+        weightsObservationTask = Task { @MainActor [weak self] in
             for try await weights in weightManager.observe().dropFirst() {
                 self?.weightsState?.onObservedWeithsChenged(newWeights: weights)
             }
@@ -77,7 +77,7 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     }
 
     func onTap(at index: Int) {
-        guard let weight = weightsState?.weights[index] else {
+        guard let weight = weightsState?.weights.elementOrNil(at: index) else {
             return
         }
 
@@ -89,7 +89,7 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     }
 
     func onDeleteTap(at index: Int) {
-        guard let weight = weightsState?.weights[index] else {
+        guard let weight = weightsState?.weights.elementOrNil(at: index) else {
             return
         }
 
@@ -99,6 +99,6 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     }
 
     deinit {
-        weightUnitObservationTask?.cancel()
+        weightsObservationTask?.cancel()
     }
 }

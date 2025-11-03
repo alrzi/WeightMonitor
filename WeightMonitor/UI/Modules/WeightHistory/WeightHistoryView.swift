@@ -21,60 +21,61 @@ struct WeightHistoryView<ViewModel: WeightHistoryViewModelProtocol> {
 extension WeightHistoryView: View {
     var body: some View {
         NavigationStack {
-            if let weights = viewModel.weightsState?.weights {
-                if weights.isEmpty {
-                    ZStack {
-                        Text("Пока пусто")
-                            .font(.system(size: 24, weight: .medium))
-                            .foregroundColor(.primary)
-                    }
-                }
-                else {
-                    ScrollView {
-                        LazyVStack(spacing: 12) {
-                            if
-                                let first = weights.first,
-                                let diff = first.massDifferenceFormatted(to: viewModel.weightUnit)
-                            {
+            Group {
+                if let weights = viewModel.weightsState?.weights {
+                    if
+                        let first = weights.first,
+                        let diff = first.massDifferenceFormatted(to: viewModel.weightUnit)
+                    {
+                        ScrollView {
+                            LazyVStack(spacing: 12) {
                                 WeightInfoView(
                                     weightFormatted: first.weightFormatted(to: viewModel.weightUnit),
                                     massDifferenceFormatted: diff,
                                     weightUnit: $viewModel.weightUnit,
                                 )
+                                WeightHistoryChartView(
+                                    weights: weights,
+                                    weightUnit: viewModel.weightUnit,
+                                )
+
+                                WeightHistoryListView(
+                                    weights: weights,
+                                    weightUnit: viewModel.weightUnit,
+                                    onTapAtIndex: viewModel.onTap,
+                                    onDeleteAtIndex: viewModel.onDeleteTap,
+                                    onWeightAppear: viewModel.onWeightAppear
+                                )
                             }
-
-                            WeightHistoryChartView(
-                                weights: weights,
-                                weightUnit: viewModel.weightUnit,
-                            )
-
-                            WeightHistoryListView(
-                                weights: weights,
-                                weightUnit: viewModel.weightUnit,
-                                onTapAtIndex: viewModel.onTap,
-                                onDeleteAtIndex: viewModel.onDeleteTap,
-                                onWeightAppear: viewModel.onWeightAppear
-                            )
+                            .padding(.horizontal, colorScheme == .light ? 6 : 0)
+                            .animation(.easeInOut, value: viewModel.weightsState)
                         }
-                        .padding(.horizontal, colorScheme == .light ? 6 : 0)
-                        .animation(.easeInOut, value: viewModel.weightsState)
+                        .scrollIndicators(.hidden)
                     }
-                    .scrollIndicators(.hidden)
-                    .navigationTitle("Монитор веса")
-                    .navigationBarTitleDisplayMode(.inline)
+                    else {
+                        ZStack {
+                            Text("Пока пусто")
+                                .font(.system(size: 24, weight: .medium))
+                                .foregroundColor(.primary)
+                        }
+                    }
+                }
+                else {
+                    ZStack {
+                        ProgressView()
+                            .tint(.blue)
+                            .controlSize(.large)
+                    }
                 }
             }
-            else {
-                ZStack {
-                    ProgressView()
-                        .tint(.blue)
-                        .controlSize(.large)
-                }
-            }
+            .navigationTitle("Монитор веса")
+            .navigationBarTitleDisplayMode(.inline)
         }
         .safeAreaInset(edge: .bottom, alignment: .trailing, spacing: 0) {
             Button(action: viewModel.onCreateNewWeight) {
                 Image(systemName: "plus")
+                    .resizable()
+                    .frame(width: 18, height: 18)
                     .foregroundStyle(.white)
                     .padding(16)
                     .background(.blue, in: .circle)

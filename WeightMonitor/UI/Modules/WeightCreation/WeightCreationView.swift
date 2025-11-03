@@ -13,6 +13,8 @@ import WeigthMonitorDomain
 struct WeightCreationView<ViewModel: WeightCreationViewModelProtocol> {
     @ObservedObject private var viewModel: ViewModel
 
+    @FocusState private var isFocused: Bool
+
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
@@ -21,7 +23,7 @@ struct WeightCreationView<ViewModel: WeightCreationViewModelProtocol> {
 extension WeightCreationView: View {
     var body: some View {
         VStack {
-            Text("Добавить вес")
+            Text("Ввод веса")
                 .font(.largeTitle)
                 .padding(.top, 24)
 
@@ -48,6 +50,7 @@ extension WeightCreationView: View {
                     DatePicker(
                         "",
                         selection: $viewModel.selectedDate,
+                        in: viewModel.dateRange,
                         displayedComponents: .date
                     )
                     .datePickerStyle(.wheel)
@@ -62,6 +65,7 @@ extension WeightCreationView: View {
                 TextField("Enter weight", text: $viewModel.weightInput)
                     .keyboardType(.decimalPad)
                     .font(.largeTitle)
+                    .focused($isFocused)
 
                 Text(viewModel.weightUnitFormatter)
                     .foregroundStyle(.gray)
@@ -74,10 +78,23 @@ extension WeightCreationView: View {
         }
         .animation(.linear, value: viewModel.isDatePickerVisible)
         .padding(.horizontal, 24)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+
+                Button("Done") {
+                    isFocused = false
+                }
+            }            
+        }
         .safeAreaInset(edge: .bottom) {
-            Button("Enter", action: viewModel.onCreateWeightTap)
-                .buttonStyle(.bordered)
-                .padding(16)
+            Button(action: viewModel.onCreateWeightTap) {
+                Text("Добавить вес")
+                    .font(.largeTitle)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .padding(16)
         }
     }
 }
@@ -89,10 +106,11 @@ extension WeightCreationView: View {
 
 private final class ViewModel: WeightCreationViewModelProtocol {
     @Published var selectedDate: Date = .now
-    @Published var isDatePickerVisible = false
-    var weightInput: String = "12"
-    var weightUnitFormatter: String = "kg"
-    var invalidComponent: WeightCreationInvalidComponent?
+    @Published var weightInput: String = "12"
+    @Published private(set) var isDatePickerVisible = false
+    let weightUnitFormatter: String = "kg"
+    let invalidComponent: WeightCreationInvalidComponent? = nil
+    let dateRange: ClosedRange<Date> = .distantPast...Date.now
 
     init() { }
 

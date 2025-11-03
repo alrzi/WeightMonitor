@@ -12,6 +12,7 @@ import WeigthMonitorDomain
 protocol WeightCreationViewModelProtocol: ObservableObject {
     var selectedDate: Date { get set }
     var weightInput: String { get set }
+    var dateRange: ClosedRange<Date> { get }
     var weightUnitFormatter: String { get }
     var isDatePickerVisible: Bool { get }
     var invalidComponent: WeightCreationInvalidComponent? { get }
@@ -30,6 +31,7 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
     private let onCompletion: @MainActor () -> Void
 
     let weightUnitFormatter: String
+    let dateRange: ClosedRange<Date>
 
     @Published private(set) var isDatePickerVisible = false
     @Published private(set) var invalidComponent: InvalidComponent?
@@ -51,6 +53,7 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
         self.onCompletion = onCompletion
 
         selectedDate = input.selectedDate
+        dateRange = Date.distantPast...Date.now
         weightInput = input.weightInput(unit: weightUnitManager.lastSelectedWeightUnit)
         weightUnitFormatter = weightUnitManager.lastSelectedWeightUnit.toUnitMass().symbol
 
@@ -63,29 +66,20 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
 
     func onCreateWeightTap() {
         if let weightInput = Double(weightInput) {
-            let weightMeassurement = Measurement<UnitMass>(
-                value: weightInput,
-                unit: weightUnitManager.lastSelectedWeightUnit.toUnitMass()
-            )
+            let unit = weightUnitManager.lastSelectedWeightUnit.toUnitMass()
+            let mass = Measurement<UnitMass>(value: weightInput, unit: unit)
+                .converted(to: .kilograms)
+                .value
 
             Task {
                 do {
                     switch input {
                     case .create:
-                        let weight = Weight(
-                            createdAt: selectedDate,
-                            mass: weightMeassurement.converted(to: .kilograms).value
-                        )
-
+                        let weight = Weight(createdAt: selectedDate, mass: mass)
                         try await weightManager.create(weight: weight)
 
-                    case .update(let weightToUpdate):
-                        let weight = Weight(
-                            id: weightToUpdate.id,
-                            createdAt: selectedDate,
-                            mass: weightMeassurement.converted(to: .kilograms).value
-                        )
-
+                    case .update(let weight):
+                        let weight = Weight(id: weight.id, createdAt: selectedDate, mass: mass)
                         try await weightManager.update(weight: weight)
                     }
 
