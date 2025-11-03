@@ -65,38 +65,46 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
     }
 
     func onCreateWeightTap() {
-        if let mass = weightInput.toDoubleIfPossible() {
-            let unit = weightUnitManager.lastSelectedWeightUnit.toUnitMass()
-            let mass = Measurement<UnitMass>(value: mass, unit: unit)
-                .converted(to: .kilograms)
-                .value
+        let unit = weightUnitManager.lastSelectedWeightUnit.toUnitMass()
 
-            Task {
-                do {
-                    switch input {
-                    case .create:
-                        let weight = Weight(createdAt: selectedDate, mass: mass)
-                        try await weightManager.create(weight: weight)
-
-                    case .update(let weight):
-                        let weight = Weight(id: weight.id, createdAt: selectedDate, mass: mass)
-                        try await weightManager.update(weight: weight)
-                    }
-
-                    onCompletion()
-                }
-                catch {
-                    
-                }
-            }
-        }
-        else {
+        guard let massKg = Self.kilograms(from: weightInput, unit: unit) else {
             invalidComponentManager.markComponentInvalid(.incorrectWeight)
+            return
+        }
+
+        Task {
+            do {
+                switch input {
+                case .create:
+                    let weight = Weight(createdAt: selectedDate, mass: massKg)
+                    try await weightManager.create(weight: weight)
+
+                case .update(let weight):
+                    let weight = Weight(id: weight.id, createdAt: selectedDate, mass: massKg)
+                    try await weightManager.update(weight: weight)
+                }
+
+                onCompletion()
+            }
+            catch {
+
+            }
         }
     }
 }
 
 // MARK: - Private
+
+private extension WeightCreationViewModel {
+    static func kilograms(from input: String, unit: UnitMass) -> Double? {
+        guard let raw = input.toDoubleIfPossible() else {
+            return nil
+        }
+
+        let measurement = Measurement(value: raw, unit: unit)
+        return measurement.converted(to: .kilograms).value
+    }
+}
 
 private extension String {
     func toDoubleIfPossible() -> Double? {
