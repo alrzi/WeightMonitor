@@ -27,7 +27,7 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
     private let weightManager: any WeightManaging
     private let weightUnitManager: any WeightUnitManaging
     private let invalidComponentManager: any InvalidComponentManaging<InvalidComponent>
-    private let input:  WeightCreationInput
+    private let input: WeightCreationInput
     private let onCompletion: @MainActor () -> Void
 
     let weightUnitFormatter: String
