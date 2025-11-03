@@ -8,15 +8,6 @@
 import Foundation
 import WaAsyncExtensions
 
-public protocol WeightUnitManaging: Sendable {
-    associatedtype WeightUnitObservation: AsyncSequence where WeightUnitObservation.Element == WeightUnit
-
-    var weightUnitSequence: WeightUnitObservation { get }
-    var lastSelectedWeightUnit: WeightUnit { get }
-
-    func set(unit: WeightUnit) async
-}
-
 final class WeightUnitManager: WeightUnitManaging {
     private let weightUnitDataStorage: WeightUnitDataStorage
 

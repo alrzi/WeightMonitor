@@ -36,15 +36,3 @@ struct GRDBPoolProvider: Sendable {
         return dbPool
     }
 }
-
-actor Box<V: Sendable> {
-    private(set) var value: V
-
-    init(value: V) {
-        self.value = value
-    }
-
-    func set(value: V) {
-        self.value = value
-    }
-}

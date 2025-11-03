@@ -16,4 +16,3 @@ public struct WeightCursor: Sendable, Equatable {
         self.id = id
     }
 }
-
