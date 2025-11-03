@@ -23,15 +23,12 @@ extension WeightHistoryView: View {
         NavigationStack {
             Group {
                 if let weights = viewModel.weightsState?.weights {
-                    if
-                        let first = weights.first,
-                        let diff = first.massDifferenceFormatted(to: viewModel.weightUnit)
-                    {
+                    if let first = weights.first {
                         ScrollView {
                             LazyVStack(spacing: 12) {
                                 WeightInfoView(
                                     weightFormatted: first.weightFormatted(to: viewModel.weightUnit),
-                                    massDifferenceFormatted: diff,
+                                    massDifferenceFormatted: first.massDifferenceFormatted(to: viewModel.weightUnit),
                                     weightUnit: $viewModel.weightUnit,
                                 )
 
@@ -89,7 +86,7 @@ extension WeightHistoryView: View {
 
 private struct WeightInfoView: View {
     let weightFormatted: String
-    let massDifferenceFormatted: String
+    let massDifferenceFormatted: String?
 
     @Binding var weightUnit: WeightUnit
 
@@ -100,7 +97,7 @@ private struct WeightInfoView: View {
                     Text("Текущий вес")
                     HStack {
                         Text(weightFormatted)
-                        Text(massDifferenceFormatted)
+                        Text(massDifferenceFormatted ?? 0.formatted())
                     }
                 }
 

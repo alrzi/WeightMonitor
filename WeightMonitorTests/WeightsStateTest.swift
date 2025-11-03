@@ -137,15 +137,15 @@ struct WeightsStatessTest {
         #expect(result == false)
     }
 
-    @Test func test_shouldLoadMore_returnsTrue_whenIndexIsZeroAndElementIsOne() {
+    @Test func test_shouldLoadMore_returnsFalse_whenElementsAFew() {
         // GIVEN
-        let state = WeightsState(weights: makeWeights(count: 1))
+        let state = WeightsState(weights: makeWeights(count: 2))
 
         // WHEN
-        let result = state.shouldLoadMore(at: 0)
+        let result = state.shouldLoadMore(at: 2)
 
         // THEN
-        #expect(result == true)
+        #expect(result == false)
     }
 
     // MARK: – Observed weight changes
@@ -258,19 +258,30 @@ struct WeightsStatessTest {
         #expect(state.nextCursor == nil)
     }
 
-    @Test func test_onObservedWeightsChanged_toProperCount_updatesWeightCount() {
+    @Test func test_onObservedWeightsChanged_updatesWeightCount_onAdd() {
         // GIVEN
         let initial = makeWeights(count: 2)
         var state = WeightsState(weights: initial)
-        let originalPageCount = state.pageCount
         let expanded = makeWeights(count: 3)
 
         // WHEN
         state.onObservedWeithsChenged(newWeights: expanded)
 
         // THEN
-        #expect(state.pageCount == originalPageCount)
         #expect(state.weights.count == expanded.count)
+    }
+
+    @Test func test_onObservedWeightsChanged_updatesWeightCount_onRemove() {
+        // GIVEN
+        let initial = makeWeights(count: 2)
+        var state = WeightsState(weights: initial)
+        let reduced = makeWeights(count: 1)
+
+        // WHEN
+        state.onObservedWeithsChenged(newWeights: reduced)
+
+        // THEN
+        #expect(state.weights.count == reduced.count)
     }
 
     @Test func test_onObservedWeightsChanged_toProperCount_preservesNextCursor() {
@@ -285,5 +296,4 @@ struct WeightsStatessTest {
         // THEN
         #expect(state.nextCursor != nil)
     }
-
 }

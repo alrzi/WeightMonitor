@@ -22,10 +22,12 @@ struct WeightsState: Equatable {
 
     mutating func onWeigthLoaded(newWeights: [Weight]) {
         let withLast = weights.last.flatMap { [$0] + newWeights } ?? newWeights
+        let start = weights.count - 1
+        let end = weights.count
+        let diffedBatch = withLast.updateWeightsDiff()
 
         pageCount += 1
-        weights.removeLast()
-        weights.append(contentsOf: withLast.updateWeightsDiff())
+        weights.replaceSubrange(start..<end, with: diffedBatch)
         nextCursor = Self.getCursorIfPossible(weights: newWeights)
     }
 
@@ -38,7 +40,15 @@ struct WeightsState: Equatable {
     }
 
     func shouldLoadMore(at index: Int) -> Bool {
-        let thresholdIndex = weights.index(weights.endIndex, offsetBy: -2, limitedBy: weights.startIndex)
+        let endIndex = weights.endIndex
+        let startIndex = weights.startIndex
+        let offsetBy = 2
+
+        guard index > offsetBy else {
+            return false
+        }
+
+        let thresholdIndex = weights.index(endIndex, offsetBy: -offsetBy, limitedBy: startIndex)
 
         return index >= thresholdIndex ?? weights.startIndex
     }
