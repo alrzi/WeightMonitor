@@ -6,25 +6,40 @@
 //
 
 import UIKit
+import SwiftUI
+import Swinject
+import WeigthMonitorDomain
+import WeigthMonitorData
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    private let assembler = Assembler()
+    private var resolver: Resolver { assembler.resolver }
 
     var window: UIWindow?
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        let window = UIWindow(windowScene: windowScene)
-        
-        let weightHistoryViewController = WeightHistoryViewController()
-        let weightHistoryViewModel = WeightHistoryViewModel(
-            weightUnitService: WeightSystem.shared,
-            weightDifferentCalculator: WeightDifferentCalculator()
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
+        guard let windowScene = (scene as? UIWindowScene) else {
+            return
+        }
+
+        assembler.apply(
+            assemblies: [
+                WeigthMonitorDataAssembly(),
+                WeigthMonitorDomainAssembly(),
+                WeightMonitorModulesAssembly()
+            ]
         )
-        
-        weightHistoryViewController.setViewModel(weightHistoryViewModel)
-        
-        window.rootViewController = weightHistoryViewController
+
+        let window = UIWindow(windowScene: windowScene)
         self.window = window
+
+        let assembly = resolver.resolve(WeightHistoryAssembly.self)!
+
+        window.rootViewController = UIHostingController(rootView: assembly.assemble())
         window.makeKeyAndVisible()
     }
 
@@ -55,7 +70,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
-

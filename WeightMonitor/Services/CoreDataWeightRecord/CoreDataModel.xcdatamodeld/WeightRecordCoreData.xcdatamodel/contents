@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="WeightRecordCoreData" representedClassName="WeightRecordCoreData" syncable="YES">
-        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="idString" attributeType="String"/>
-        <attribute name="weight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-    </entity>
-</model>
