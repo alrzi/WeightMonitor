@@ -6,7 +6,8 @@
 ._*
 
 # Custom folder icons
-Icon
+Icon
+
 
 # Volume root files
 .DocumentRevisions-V100
@@ -76,4 +77,5 @@ timeline.xctimeline
 playground.xcworkspace
 
 # Swift Package Manager
-# Package.resolvedbuildServer.json
+# Package.resolved
+buildServer.json
