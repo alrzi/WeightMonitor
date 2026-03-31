@@ -1,0 +1,319 @@
+excluded:
+  - fastlane
+  - .github
+  - .git
+
+  - BabycareScreenshots/*
+  - BabycareTests/*
+  - BabycareUITests/*
+  - BabycareData/Tests/*
+  - BabycareDataModelsTests/*
+  - Mocks/*
+
+  # Карантин
+  - Babycare/Helpers/UI/Animation/TimingFunction/Provider/CubicBezier/CubicBezierTimingFunctionProvider.swift
+  - Babycare/Containers/AppContainer.swift
+  - Babycare/Types/Track/TrackType.swift
+  - BabycareData/BabycareDataAssembly.swift
+
+disabled_rules:
+  # Выключаем:
+  - trailing_comma
+  - unused_enumerated # ложные срабатывания
+  - multiple_closures_with_trailing_closure # можно допустить в SwiftUI View
+  # Карантин:
+  - todo
+
+opt_in_rules:
+  - attributes
+  - closure_body_length
+  - closure_end_indentation
+  - closure_spacing
+  - collection_alignment
+  - comma_inheritance
+  - conditional_returns_on_newline
+  - contains_over_filter_count
+  - contains_over_filter_is_empty
+  - contains_over_first_not_nil
+  - contains_over_range_nil_comparison
+  - convenience_type
+  - discarded_notification_center_observer
+  - discouraged_assert
+  - discouraged_none_name
+  - discouraged_object_literal
+  - empty_collection_literal
+  - empty_string
+  - enum_case_associated_values_count
+  - expiring_todo
+  - explicit_init
+  - fallthrough
+  - fatal_error_message
+  - file_name_no_space
+  - first_where
+  - flatmap_over_map_reduce
+  - ibinspectable_in_extension
+  - identical_operands
+  - implicit_return
+  - indentation_width
+  - last_where
+  - let_var_whitespace
+  - literal_expression_end_indentation
+  - local_doc_comment
+  - lower_acl_than_parent
+  - modifier_order
+  - multiline_arguments
+  - multiline_arguments_brackets
+  - multiline_function_chains
+  - multiline_literal_brackets
+  - multiline_parameters
+  - multiline_parameters_brackets
+  - operator_usage_whitespace
+  - optional_enum_case_matching
+  - overridden_super_call
+  - override_in_extension
+  - period_spacing
+  - prefer_self_in_static_references
+  - prefer_self_type_over_type_of_self
+  - prefer_zero_over_explicit_init
+  - private_subject
+  - prohibited_super_call
+  - reduce_into
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  - required_enum_case
+  - return_value_from_void_function
+  - self_binding
+  - shorthand_optional_binding
+  - sorted_first_last
+  - static_operator
+  - toggle_bool
+  - type_contents_order
+  - unneeded_parentheses_in_closure_argument
+  - unhandled_throwing_task
+  - unowned_variable_capture
+  - untyped_error_in_catch
+  - vertical_parameter_alignment_on_call
+  - vertical_whitespace_between_cases
+  - vertical_whitespace_closing_braces
+  - vertical_whitespace_opening_braces
+  - yoda_condition
+
+  # Тесты (проверить отдельно)
+  - balanced_xctest_lifecycle
+  - empty_xctest_method
+  - prefer_nimble
+  - quick_discouraged_call
+  - quick_discouraged_focused_test
+  - quick_discouraged_pending_test
+  - single_test_class
+  - xct_specific_matcher
+
+  # Не можем использовать сейчас
+  # - accessibility_label_for_image
+  # - accessibility_trait_for_button
+  # - test_case_accessibility
+
+  # Нужно решить используем ли мы это правило
+  # - joined_default_parameter
+  # - number_separator
+  # - prefixed_toplevel_constant
+  # - raw_value_for_camel_cased_codable_enum
+  # - strict_fileprivate
+  # - nslocalizedstring_key
+  # - nslocalizedstring_require_bundle
+
+  # Ложные срабатывания
+  # - array_init
+  # - empty_count # (срабатывает на переменные count)
+  # - trailing_closure
+  # - weak_delegate
+
+  # Делаем иначе
+  # - anonymous_argument_in_multiline_closure
+  # - direct_return
+  # - discouraged_optional_boolean
+  # - discouraged_optional_collection
+  # - explicit_acl
+  # - explicit_enum_raw_value
+  # - explicit_top_level_acl
+  # - function_default_parameter_at_end
+  # - no_grouping_extension
+  # - prohibited_interface_builder
+  # - switch_case_on_newline
+  # - sorted_enum_cases
+  # - extension_access_modifier
+  # - superfluous_else
+  # - sorted_imports
+
+  # Не используем как правило
+  # - pattern_matching_keywords
+  # - required_deinit
+  # - legacy_multiple
+  # - no_magic_numbers
+  # - nimble_operator
+
+  # Противоречит другим правилам
+  # - object_literal # (discouraged_object_literal)
+  # - explicit_type_interface # (redundant_type_annotation)
+  # - no_extension_access_modifier # (extension_access_modifier)
+
+  # Нужен рефакторинг
+  # - implicitly_unwrapped_optional
+  # - file_header
+  # - file_name
+  # - file_types_order
+  # - force_unwrapping
+  # - legacy_objc_type
+  # - private_action
+  # - private_outlet
+  # - strong_iboutlet
+  # - unavailable_function
+
+  # Можно использовать в фреймворках
+  # - missing_docs
+
+# Пока ворнинги фейлят сборку ПРа в CI, фейлим и локальную сборку.
+# После доработки CI можно выключить
+strict: true
+
+type_contents_order:
+  order:
+    - case
+    - associated_type
+    - type_alias
+    - type_property
+    - type_method
+    - ib_inspectable
+    - ib_outlet
+    - instance_property
+    - subscript
+    - initializer
+    - view_life_cycle_method
+    - other_method
+    - ib_action
+    - subtype
+    - deinitializer
+
+trailing_whitespace:
+  ignores_empty_lines: true
+
+indentation_width:
+  include_comments: false
+  include_multiline_strings: false
+  severity: error
+
+statement_position:
+  statement_mode: uncuddled_else
+  severity: error
+
+line_length:
+  warning: 180
+  ignores_urls: true
+  ignores_comments: true
+
+redundant_void_return:
+  include_closures: false
+
+type_body_length: 
+  warning: 350
+  error: 350
+
+nesting:
+  function_level: 1
+  type_level: 5 # Можно поднять, если есть проблема с енамами неймспейсами
+
+identifier_name:
+  min_length:
+    warning: 1
+    error: 1
+  max_length:
+    warning: 50
+    error: 60
+
+type_name:
+  min_length:
+    warning: 2
+    error: 2
+  max_length:
+    warning: 65
+    error: 65
+
+generic_type_name:
+  max_length:
+    warning: 25
+    error: 30
+
+large_tuple:
+  warning: 4
+  error: 4
+
+cyclomatic_complexity:
+  ignores_case_statements: true
+
+function_body_length:
+  warning: 120
+  error: 200
+
+closure_body_length:
+  warning: 50
+  error: 60
+
+enum_case_associated_values_count:
+  warning: 6
+  error: 6
+
+file_length:
+  warning: 500
+  error: 600
+
+function_parameter_count:
+  warning: 8
+  error: 10
+
+opening_brace:
+  ignore_multiline_type_headers: true
+  ignore_multiline_statement_conditions: true
+  ignore_multiline_function_signatures: true
+
+attributes: error
+closure_end_indentation: error
+closure_spacing: error
+collection_alignment: error
+convenience_type: error
+discarded_notification_center_observer: error
+discouraged_object_literal: error
+explicit_init: error
+fallthrough: error
+file_name_no_space: error
+ibinspectable_in_extension: error
+identical_operands: error
+let_var_whitespace: error
+literal_expression_end_indentation: error
+local_doc_comment: error
+lower_acl_than_parent: error
+modifier_order: error
+multiline_arguments: error
+multiline_arguments_brackets: error
+multiline_literal_brackets: error
+multiline_parameters: error
+multiline_parameters_brackets: error
+operator_usage_whitespace: error
+overridden_super_call: error
+override_in_extension: error
+period_spacing: error
+prefer_self_type_over_type_of_self: error
+prohibited_super_call: error
+reduce_into: error
+redundant_nil_coalescing: error
+return_value_from_void_function: error
+self_binding: error
+shorthand_optional_binding: error
+unneeded_parentheses_in_closure_argument: error
+unowned_variable_capture: error
+vertical_parameter_alignment_on_call: error
+vertical_whitespace_between_cases: error
+vertical_whitespace_closing_braces: error
+vertical_whitespace_opening_braces: error
+yoda_condition: error
+
+prefer_nimble: error

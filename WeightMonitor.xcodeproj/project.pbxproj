@@ -1,0 +1,974 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 70;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		293BFC742F7BE29000FB69EC /* AsyncExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 293BFC732F7BE29000FB69EC /* AsyncExtensions */; };
+		293BFD0A2F7BE73700FB69EC /* KeyValueStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 293BFD092F7BE73700FB69EC /* KeyValueStorage */; };
+		296F0BFB2F7BD696004876D6 /* AsyncExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 296F0BFA2F7BD696004876D6 /* AsyncExtensions */; };
+		296F0BFE2F7BD6B5004876D6 /* KeyValueStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 296F0BFD2F7BD6B5004876D6 /* KeyValueStorage */; };
+		298EC7102EAD491600B42442 /* WeigthMonitorDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 298EC7082EAD491600B42442 /* WeigthMonitorDomain.framework */; };
+		298EC7112EAD491600B42442 /* WeigthMonitorDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 298EC7082EAD491600B42442 /* WeigthMonitorDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		298EC8B02EAD4B9100B42442 /* WeigthMonitorData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 298EC8A82EAD4B9100B42442 /* WeigthMonitorData.framework */; };
+		298EC8B12EAD4B9100B42442 /* WeigthMonitorData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 298EC8A82EAD4B9100B42442 /* WeigthMonitorData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		298EC8BA2EAD4BC100B42442 /* WeigthMonitorDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 298EC7082EAD491600B42442 /* WeigthMonitorDomain.framework */; };
+		298EC8BB2EAD4BC100B42442 /* WeigthMonitorDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 298EC7082EAD491600B42442 /* WeigthMonitorDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		298EC8C72EAD4D9F00B42442 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 298EC8C62EAD4D9F00B42442 /* Swinject */; };
+		298EC8CF2EAD4E9000B42442 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 298EC8CE2EAD4E9000B42442 /* Swinject */; };
+		298EC8D22EAD4F5E00B42442 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 298EC8D12EAD4F5E00B42442 /* Swinject */; };
+		298EC8DB2EAD62F400B42442 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 298EC8DA2EAD62F400B42442 /* GRDB */; };
+		29C584292EBA8717004A6FFF /* AsyncExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 29C584282EBA8717004A6FFF /* AsyncExtensions */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2917F0202EB8B57500E33F65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F97E3C152A013F75001C252E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F97E3C1C2A013F75001C252E;
+			remoteInfo = WeightMonitor;
+		};
+		298EC70E2EAD491600B42442 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F97E3C152A013F75001C252E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 298EC7072EAD491600B42442;
+			remoteInfo = WeigthMonitorDomain;
+		};
+		298EC8AE2EAD4B9100B42442 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F97E3C152A013F75001C252E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 298EC8A72EAD4B9100B42442;
+			remoteInfo = WeigthMonitorData;
+		};
+		298EC8BC2EAD4BC100B42442 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F97E3C152A013F75001C252E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 298EC7072EAD491600B42442;
+			remoteInfo = WeigthMonitorDomain;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		298EC7152EAD491600B42442 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				298EC7112EAD491600B42442 /* WeigthMonitorDomain.framework in Embed Frameworks */,
+				298EC8B12EAD4B9100B42442 /* WeigthMonitorData.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		298EC8BE2EAD4BC100B42442 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				298EC8BB2EAD4BC100B42442 /* WeigthMonitorDomain.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2917F01C2EB8B57400E33F65 /* WeightMonitorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeightMonitorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		298EC7082EAD491600B42442 /* WeigthMonitorDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WeigthMonitorDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		298EC8A82EAD4B9100B42442 /* WeigthMonitorData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WeigthMonitorData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F97E3C1D2A013F75001C252E /* WeightMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeightMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F9B601F92E4F4283009E3B87 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F97E3C1C2A013F75001C252E /* WeightMonitor */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		2917F01D2EB8B57400E33F65 /* WeightMonitorTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WeightMonitorTests; sourceTree = "<group>"; };
+		298EC7092EAD491600B42442 /* WeigthMonitorDomain */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WeigthMonitorDomain; sourceTree = "<group>"; };
+		298EC8A92EAD4B9100B42442 /* WeigthMonitorData */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WeigthMonitorData; sourceTree = "<group>"; };
+		F9B601D12E4F4283009E3B87 /* WeightMonitor */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (F9B601F92E4F4283009E3B87 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = WeightMonitor; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2917F0192EB8B57400E33F65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		298EC7052EAD491600B42442 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				298EC8CF2EAD4E9000B42442 /* Swinject in Frameworks */,
+				29C584292EBA8717004A6FFF /* AsyncExtensions in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		298EC8A52EAD4B9100B42442 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				298EC8BA2EAD4BC100B42442 /* WeigthMonitorDomain.framework in Frameworks */,
+				293BFC742F7BE29000FB69EC /* AsyncExtensions in Frameworks */,
+				298EC8C72EAD4D9F00B42442 /* Swinject in Frameworks */,
+				296F0BFE2F7BD6B5004876D6 /* KeyValueStorage in Frameworks */,
+				293BFD0A2F7BE73700FB69EC /* KeyValueStorage in Frameworks */,
+				298EC8DB2EAD62F400B42442 /* GRDB in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F97E3C1A2A013F75001C252E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				298EC7102EAD491600B42442 /* WeigthMonitorDomain.framework in Frameworks */,
+				296F0BFB2F7BD696004876D6 /* AsyncExtensions in Frameworks */,
+				298EC8B02EAD4B9100B42442 /* WeigthMonitorData.framework in Frameworks */,
+				298EC8D22EAD4F5E00B42442 /* Swinject in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F97E3C142A013F75001C252E = {
+			isa = PBXGroup;
+			children = (
+				F9B601D12E4F4283009E3B87 /* WeightMonitor */,
+				298EC7092EAD491600B42442 /* WeigthMonitorDomain */,
+				298EC8A92EAD4B9100B42442 /* WeigthMonitorData */,
+				2917F01D2EB8B57400E33F65 /* WeightMonitorTests */,
+				F97E3C1E2A013F75001C252E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F97E3C1E2A013F75001C252E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F97E3C1D2A013F75001C252E /* WeightMonitor.app */,
+				298EC7082EAD491600B42442 /* WeigthMonitorDomain.framework */,
+				298EC8A82EAD4B9100B42442 /* WeigthMonitorData.framework */,
+				2917F01C2EB8B57400E33F65 /* WeightMonitorTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		298EC7032EAD491600B42442 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		298EC8A32EAD4B9100B42442 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2917F01B2EB8B57400E33F65 /* WeightMonitorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2917F0222EB8B57500E33F65 /* Build configuration list for PBXNativeTarget "WeightMonitorTests" */;
+			buildPhases = (
+				2917F0182EB8B57400E33F65 /* Sources */,
+				2917F0192EB8B57400E33F65 /* Frameworks */,
+				2917F01A2EB8B57400E33F65 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2917F0212EB8B57500E33F65 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				2917F01D2EB8B57400E33F65 /* WeightMonitorTests */,
+			);
+			name = WeightMonitorTests;
+			packageProductDependencies = (
+			);
+			productName = WeightMonitorTests;
+			productReference = 2917F01C2EB8B57400E33F65 /* WeightMonitorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		298EC7072EAD491600B42442 /* WeigthMonitorDomain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 298EC7122EAD491600B42442 /* Build configuration list for PBXNativeTarget "WeigthMonitorDomain" */;
+			buildPhases = (
+				298EC7032EAD491600B42442 /* Headers */,
+				298EC7042EAD491600B42442 /* Sources */,
+				298EC7052EAD491600B42442 /* Frameworks */,
+				298EC7062EAD491600B42442 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				298EC7092EAD491600B42442 /* WeigthMonitorDomain */,
+			);
+			name = WeigthMonitorDomain;
+			packageProductDependencies = (
+				298EC8CE2EAD4E9000B42442 /* Swinject */,
+				29C584282EBA8717004A6FFF /* AsyncExtensions */,
+			);
+			productName = WeigthMonitorDomain;
+			productReference = 298EC7082EAD491600B42442 /* WeigthMonitorDomain.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		298EC8A72EAD4B9100B42442 /* WeigthMonitorData */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 298EC8B22EAD4B9100B42442 /* Build configuration list for PBXNativeTarget "WeigthMonitorData" */;
+			buildPhases = (
+				298EC8A32EAD4B9100B42442 /* Headers */,
+				298EC8A42EAD4B9100B42442 /* Sources */,
+				298EC8A52EAD4B9100B42442 /* Frameworks */,
+				298EC8A62EAD4B9100B42442 /* Resources */,
+				298EC8BE2EAD4BC100B42442 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				298EC8BD2EAD4BC100B42442 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				298EC8A92EAD4B9100B42442 /* WeigthMonitorData */,
+			);
+			name = WeigthMonitorData;
+			packageProductDependencies = (
+				298EC8C62EAD4D9F00B42442 /* Swinject */,
+				298EC8DA2EAD62F400B42442 /* GRDB */,
+				296F0BFD2F7BD6B5004876D6 /* KeyValueStorage */,
+				293BFC732F7BE29000FB69EC /* AsyncExtensions */,
+				293BFD092F7BE73700FB69EC /* KeyValueStorage */,
+			);
+			productName = WeigthMonitorData;
+			productReference = 298EC8A82EAD4B9100B42442 /* WeigthMonitorData.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		F97E3C1C2A013F75001C252E /* WeightMonitor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F97E3C472A013F78001C252E /* Build configuration list for PBXNativeTarget "WeightMonitor" */;
+			buildPhases = (
+				F97E3C192A013F75001C252E /* Sources */,
+				F97E3C1A2A013F75001C252E /* Frameworks */,
+				F97E3C1B2A013F75001C252E /* Resources */,
+				298EC7152EAD491600B42442 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				298EC70F2EAD491600B42442 /* PBXTargetDependency */,
+				298EC8AF2EAD4B9100B42442 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F9B601D12E4F4283009E3B87 /* WeightMonitor */,
+			);
+			name = WeightMonitor;
+			productName = WeightMonitor;
+			productReference = F97E3C1D2A013F75001C252E /* WeightMonitor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F97E3C152A013F75001C252E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					2917F01B2EB8B57400E33F65 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = F97E3C1C2A013F75001C252E;
+					};
+					298EC7072EAD491600B42442 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					298EC8A72EAD4B9100B42442 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					F97E3C1C2A013F75001C252E = {
+						CreatedOnToolsVersion = 14.3;
+					};
+				};
+			};
+			buildConfigurationList = F97E3C182A013F75001C252E /* Build configuration list for PBXProject "WeightMonitor" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				ru,
+			);
+			mainGroup = F97E3C142A013F75001C252E;
+			packageReferences = (
+				298EC8C52EAD4D9F00B42442 /* XCRemoteSwiftPackageReference "Swinject" */,
+				298EC8D92EAD62F400B42442 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				293BFC722F7BE29000FB69EC /* XCRemoteSwiftPackageReference "AsyncExtensions" */,
+				293BFD082F7BE73700FB69EC /* XCRemoteSwiftPackageReference "KeyValueStorage" */,
+			);
+			productRefGroup = F97E3C1E2A013F75001C252E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F97E3C1C2A013F75001C252E /* WeightMonitor */,
+				298EC7072EAD491600B42442 /* WeigthMonitorDomain */,
+				298EC8A72EAD4B9100B42442 /* WeigthMonitorData */,
+				2917F01B2EB8B57400E33F65 /* WeightMonitorTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2917F01A2EB8B57400E33F65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		298EC7062EAD491600B42442 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		298EC8A62EAD4B9100B42442 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F97E3C1B2A013F75001C252E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2917F0182EB8B57400E33F65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		298EC7042EAD491600B42442 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		298EC8A42EAD4B9100B42442 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F97E3C192A013F75001C252E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2917F0212EB8B57500E33F65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F97E3C1C2A013F75001C252E /* WeightMonitor */;
+			targetProxy = 2917F0202EB8B57500E33F65 /* PBXContainerItemProxy */;
+		};
+		298EC70F2EAD491600B42442 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 298EC7072EAD491600B42442 /* WeigthMonitorDomain */;
+			targetProxy = 298EC70E2EAD491600B42442 /* PBXContainerItemProxy */;
+		};
+		298EC8AF2EAD4B9100B42442 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 298EC8A72EAD4B9100B42442 /* WeigthMonitorData */;
+			targetProxy = 298EC8AE2EAD4B9100B42442 /* PBXContainerItemProxy */;
+		};
+		298EC8BD2EAD4BC100B42442 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 298EC7072EAD491600B42442 /* WeigthMonitorDomain */;
+			targetProxy = 298EC8BC2EAD4BC100B42442 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2917F0232EB8B57500E33F65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H8WR727FR8;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = alrzi.WeightMonitorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeightMonitor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WeightMonitor";
+			};
+			name = Debug;
+		};
+		2917F0242EB8B57500E33F65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H8WR727FR8;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = alrzi.WeightMonitorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeightMonitor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WeightMonitor";
+			};
+			name = Release;
+		};
+		298EC7132EAD491600B42442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LQ88P485N9;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = alrzi.WeigthMonitorDomain;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		298EC7142EAD491600B42442 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LQ88P485N9;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = alrzi.WeigthMonitorDomain;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		298EC8B32EAD4B9100B42442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LQ88P485N9;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = alrzi.WeigthMonitorData;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		298EC8B42EAD4B9100B42442 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LQ88P485N9;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = alrzi.WeigthMonitorData;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F97E3C452A013F78001C252E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		F97E3C462A013F78001C252E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F97E3C482A013F78001C252E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LQ88P485N9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeightMonitor/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = sanya.WeightMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F97E3C492A013F78001C252E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LQ88P485N9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeightMonitor/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = sanya.WeightMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2917F0222EB8B57500E33F65 /* Build configuration list for PBXNativeTarget "WeightMonitorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2917F0232EB8B57500E33F65 /* Debug */,
+				2917F0242EB8B57500E33F65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		298EC7122EAD491600B42442 /* Build configuration list for PBXNativeTarget "WeigthMonitorDomain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				298EC7132EAD491600B42442 /* Debug */,
+				298EC7142EAD491600B42442 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		298EC8B22EAD4B9100B42442 /* Build configuration list for PBXNativeTarget "WeigthMonitorData" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				298EC8B32EAD4B9100B42442 /* Debug */,
+				298EC8B42EAD4B9100B42442 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F97E3C182A013F75001C252E /* Build configuration list for PBXProject "WeightMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F97E3C452A013F78001C252E /* Debug */,
+				F97E3C462A013F78001C252E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F97E3C472A013F78001C252E /* Build configuration list for PBXNativeTarget "WeightMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F97E3C482A013F78001C252E /* Debug */,
+				F97E3C492A013F78001C252E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		293BFC722F7BE29000FB69EC /* XCRemoteSwiftPackageReference "AsyncExtensions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alrzi/AsyncExtensions.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		293BFD082F7BE73700FB69EC /* XCRemoteSwiftPackageReference "KeyValueStorage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alrzi/KeyValueStorage.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		298EC8C52EAD4D9F00B42442 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.10.0;
+			};
+		};
+		298EC8D92EAD62F400B42442 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		293BFC732F7BE29000FB69EC /* AsyncExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 293BFC722F7BE29000FB69EC /* XCRemoteSwiftPackageReference "AsyncExtensions" */;
+			productName = AsyncExtensions;
+		};
+		293BFD092F7BE73700FB69EC /* KeyValueStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 293BFD082F7BE73700FB69EC /* XCRemoteSwiftPackageReference "KeyValueStorage" */;
+			productName = KeyValueStorage;
+		};
+		296F0BFA2F7BD696004876D6 /* AsyncExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AsyncExtensions;
+		};
+		296F0BFD2F7BD6B5004876D6 /* KeyValueStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KeyValueStorage;
+		};
+		298EC8C62EAD4D9F00B42442 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 298EC8C52EAD4D9F00B42442 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		298EC8CE2EAD4E9000B42442 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 298EC8C52EAD4D9F00B42442 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		298EC8D12EAD4F5E00B42442 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 298EC8C52EAD4D9F00B42442 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		298EC8DA2EAD62F400B42442 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 298EC8D92EAD62F400B42442 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+		29C584282EBA8717004A6FFF /* AsyncExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AsyncExtensions;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = F97E3C152A013F75001C252E /* Project object */;
+}
