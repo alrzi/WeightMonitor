@@ -32,23 +32,8 @@ let project = Project(
             ],
             dependencies: [
                 .project(target: "WeightMonitorDomain", path: "Projects/Domain"),
-                .target(name: "WeigthMonitorData"),
+                .project(target: "WeightMonitorData", path: "Projects/Data"),
                 .package(product: "Swinject"),
-            ]
-        ),
-
-        .target(
-            name: "WeigthMonitorData",
-            destinations: .iOS,
-            product: .framework,
-            bundleId: "com.alrzi.WeigthMonitorData",
-            deploymentTargets: .iOS("16.0"),
-            sources: ["WeigthMonitorData/**/*.swift"],
-            dependencies: [
-                .project(target: "WeightMonitorDomain", path: "Projects/Domain"),
-                .package(product: "Swinject"),
-                .package(product: "GRDB"),
-                .package(product: "KeyValueStorage"),
             ]
         ),
 

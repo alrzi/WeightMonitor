@@ -8,6 +8,9 @@
       location = "group:Projects"
       name = "Projects">
       <FileRef
+         location = "group:Data/WeightMonitorData.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Domain/WeightMonitorDomain.xcodeproj">
       </FileRef>
    </Group>
