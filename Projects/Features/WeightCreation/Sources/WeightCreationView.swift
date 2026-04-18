@@ -1,14 +1,14 @@
-import Foundation
-import SwiftUI
 //
-import WeightMonitorUIComponents
-import WeigthMonitorDomain
-
 //  WeightCreationView.swift
 //  WeightMonitor
 //
 //  Created by Александр Зиновьев on 26.10.2025.
 //
+
+import Foundation
+import SwiftUI
+import WeightMonitorUIComponents
+import WeigthMonitorDomain
 
 @MainActor
 public struct WeightCreationView<ViewModel: WeightCreationViewModelProtocol> {

@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import WeigthMonitorDomain
 import WeightMonitorUIComponents
+import WeigthMonitorDomain
 
-struct WeightsState: Equatable {
+public struct WeightsState: Equatable {
     static let pageSize = 20
 
     private(set) var pageCount = 1
@@ -55,8 +55,8 @@ struct WeightsState: Equatable {
     }
 }
 
-private extension WeightsState {
-    static func getCursorIfPossible(weights: [Weight]) -> WeightCursor? {
+extension WeightsState {
+    fileprivate static func getCursorIfPossible(weights: [Weight]) -> WeightCursor? {
         guard weights.count == pageSize, let last = weights.last else {
             return nil
         }
@@ -65,8 +65,8 @@ private extension WeightsState {
     }
 }
 
-private extension Array where Element == Weight {
-    func updateWeightsDiff() -> [Weight] {
+extension Array where Element == Weight {
+    fileprivate func updateWeightsDiff() -> [Weight] {
         self
             .enumerated()
             .map { index, record in

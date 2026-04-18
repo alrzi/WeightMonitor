@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4A7136A49DEEB4FA77A1DD2D /* WeightCreationInvalidComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CC919049CFE0AED25D524B /* WeightCreationInvalidComponent.swift */; };
+		515D2DB5A33E34EAB2CCD8DE /* TuistBundle+WeightMonitorFeatureWeightCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3A93176552905061F41DE /* TuistBundle+WeightMonitorFeatureWeightCreation.swift */; };
 		5406C812BD4E14DC6D5EF38D /* WeightMonitorFeatureWeightCreation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFC56F57B027F9456EA47EF1 /* WeightMonitorFeatureWeightCreation.framework */; };
 		5BF89A901B84D41D2A153B23 /* WeightCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BE7D802F4CB617B1A29EEF /* WeightCreationViewModel.swift */; };
+		642C589D50132150DF375719 /* WeightCreation.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 79419B1A8FA995CBBD8FA61A /* WeightCreation.xcstrings */; };
 		9A7FB6F591446BF3CF4E0EDF /* WeightCreationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE0EC0C906A1E5604FAF28 /* WeightCreationFactory.swift */; };
 		A23961C64EE61BD5BC3DA71D /* WeightMonitorDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2795299B9212FD53FD512867 /* WeightMonitorDomain.framework */; };
 		BC78409B383812CDBB8E8D25 /* WeightMonitorUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EC3D8D2AFBE88F09CB2D7D /* WeightMonitorUIComponents.framework */; };
@@ -54,10 +56,12 @@
 		05BE7D802F4CB617B1A29EEF /* WeightCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCreationViewModel.swift; sourceTree = "<group>"; };
 		05CC919049CFE0AED25D524B /* WeightCreationInvalidComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCreationInvalidComponent.swift; sourceTree = "<group>"; };
 		098727015EE5C6F7FF4609C7 /* WeightMonitorFeatureWeightCreation-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WeightMonitorFeatureWeightCreation-Info.plist"; sourceTree = "<group>"; };
+		0AA3A93176552905061F41DE /* TuistBundle+WeightMonitorFeatureWeightCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+WeightMonitorFeatureWeightCreation.swift"; sourceTree = "<group>"; };
 		2616977A7AED8980C6137C15 /* WeightCreationInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCreationInput.swift; sourceTree = "<group>"; };
 		2795299B9212FD53FD512867 /* WeightMonitorDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WeightMonitorDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6863A1AA8DA07441DCF54BCA /* WeightCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCreationView.swift; sourceTree = "<group>"; };
 		73A89FE80A7212185D69D8AD /* WeightMonitorFeatureWeightCreationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WeightMonitorFeatureWeightCreationTests-Info.plist"; sourceTree = "<group>"; };
+		79419B1A8FA995CBBD8FA61A /* WeightCreation.xcstrings */ = {isa = PBXFileReference; path = WeightCreation.xcstrings; sourceTree = "<group>"; };
 		AEC5570222937C0A2EA7DBA8 /* WeightMonitorFeatureWeightCreationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeightMonitorFeatureWeightCreationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3AE0EC0C906A1E5604FAF28 /* WeightCreationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCreationFactory.swift; sourceTree = "<group>"; };
 		D2EC3D8D2AFBE88F09CB2D7D /* WeightMonitorUIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WeightMonitorUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +97,14 @@
 			);
 			sourceTree = "<group>";
 		};
+		30212C7B640587E515F3A13C /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				0AA3A93176552905061F41DE /* TuistBundle+WeightMonitorFeatureWeightCreation.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		81C32AA5BEE12119017396E7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,9 +120,18 @@
 			isa = PBXGroup;
 			children = (
 				D33D96B71AAE575D1FAFEAE8 /* Derived */,
+				A3260A2B394162E30DEB3EF1 /* Resources */,
 				BE1D3D6233C5678C1CC1F1DA /* Sources */,
 			);
 			name = Project;
+			sourceTree = "<group>";
+		};
+		A3260A2B394162E30DEB3EF1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				79419B1A8FA995CBBD8FA61A /* WeightCreation.xcstrings */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		AD3AA6D52E9F56142EC209FB /* Items */ = {
@@ -137,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				F086589C71F8ED3232D7D900 /* InfoPlists */,
+				30212C7B640587E515F3A13C /* Sources */,
 			);
 			path = Derived;
 			sourceTree = "<group>";
@@ -228,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				642C589D50132150DF375719 /* WeightCreation.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				515D2DB5A33E34EAB2CCD8DE /* TuistBundle+WeightMonitorFeatureWeightCreation.swift in Sources */,
 				DAA23CC2E682D8715BE14C29 /* WeightCreationInput.swift in Sources */,
 				4A7136A49DEEB4FA77A1DD2D /* WeightCreationInvalidComponent.swift in Sources */,
 				9A7FB6F591446BF3CF4E0EDF /* WeightCreationFactory.swift in Sources */,

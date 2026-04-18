@@ -1,11 +1,11 @@
 import Combine
-import WeightMonitorUIComponents
 import CoreData
 import Foundation
+import WeightMonitorUIComponents
 import WeigthMonitorDomain
 
 @MainActor
-protocol WeightHistoryViewModelProtocol: ObservableObject {
+public protocol WeightHistoryViewModelProtocol: ObservableObject {
     var weightUnit: WeightUnit { get set }
     var alertModel: AlertModel? { get set }
     var weightsState: WeightsState? { get }
@@ -26,11 +26,11 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     private var weightsObservationTask: Task<(), Error>?
     private var isPaginating = false
 
-    @Published private(set) var weightsState: WeightsState?
+    @Published public private(set) var weightsState: WeightsState?
     @Published private(set) var isNewWeightAdded = false
 
-    @Published var alertModel: AlertModel?
-    @Published var weightUnit: WeightUnit = .metric
+    @Published public var alertModel: AlertModel?
+    @Published public var weightUnit: WeightUnit = .metric
 
     init(
         weightManager: any WeightManaging,
@@ -55,7 +55,7 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
         }
     }
 
-    func onAppear() {
+    public func onAppear() {
         Task {
             guard !isPaginating else { return }
             isPaginating = true
@@ -72,7 +72,7 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
         }
     }
 
-    func onWeightAppear(at index: Int) {
+    public func onWeightAppear(at index: Int) {
         guard weightsState?.shouldLoadMore(at: index) == true else {
             return
         }
@@ -93,7 +93,7 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
         }
     }
 
-    func onTap(at index: Int) {
+    public func onTap(at index: Int) {
         guard let weight = weightsState?.weights.elementOrNil(at: index) else {
             return
         }
@@ -101,11 +101,11 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
         router.openUpdateWeight(weight)
     }
 
-    func onCreateNewWeight() {
+    public func onCreateNewWeight() {
         router.openCreateWeight()
     }
 
-    func onDeleteTap(at index: Int) {
+    public func onDeleteTap(at index: Int) {
         guard let weight = weightsState?.weights.elementOrNil(at: index) else {
             return
         }

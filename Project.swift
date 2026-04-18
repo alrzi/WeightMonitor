@@ -35,6 +35,7 @@ let project = Project(
                 .project(target: "WeightMonitorData", path: "Projects/Data"),
                 .project(target: "WeightMonitorUIComponents", path: "Projects/UIComponents"),
                 .project(target: "WeightMonitorFeatureWeightCreation", path: "Projects/Features/WeightCreation"),
+                .project(target: "WeightMonitorFeatureWeightHistory", path: "Projects/Features/WeightHistory"),
                 .package(product: "Swinject"),
             ]
         ),

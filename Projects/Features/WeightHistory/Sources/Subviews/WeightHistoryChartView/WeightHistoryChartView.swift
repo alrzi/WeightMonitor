@@ -1,13 +1,13 @@
 //
-import WeightMonitorUIComponents
 //  WeightHistoryChartView.swift
 //  WeightMonitor
 //
 //  Created by Александр Зиновьев on 29.10.2025.
 //
 
-import SwiftUI
 import Charts
+import SwiftUI
+import WeightMonitorUIComponents
 import WeigthMonitorDomain
 
 struct WeightHistoryChartView: View {
@@ -22,7 +22,8 @@ struct WeightHistoryChartView: View {
             return weights.reversed()
         }
 
-        return weights
+        return
+            weights
             .filter { $0.createdAt >= start }
             .reversed()
     }
@@ -106,7 +107,8 @@ struct WeightHistoryChartView: View {
         let masses = filteredWeights.map(\.mass)
 
         guard let min = masses.min(),
-              let max = masses.max() else {
+            let max = masses.max()
+        else {
             return 0...150
         }
 

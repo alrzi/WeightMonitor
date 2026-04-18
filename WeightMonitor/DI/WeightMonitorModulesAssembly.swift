@@ -8,6 +8,7 @@
 import Foundation
 import Swinject
 import WeightMonitorFeatureWeightCreation
+import WeightMonitorFeatureWeightHistory
 import WeightMonitorUIComponents
 import WeigthMonitorDomain
 

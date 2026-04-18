@@ -1,13 +1,13 @@
-import Foundation
 //
-import WeightMonitorUIComponents
-import WeigthMonitorDomain
-
 //  WeightCreationViewModel.swift
 //  WeightMonitor
 //
 //  Created by Александр Зиновьев on 26.10.2025.
 //
+
+import Foundation
+import WeightMonitorUIComponents
+import WeigthMonitorDomain
 
 @MainActor
 public protocol WeightCreationViewModelProtocol: ObservableObject {

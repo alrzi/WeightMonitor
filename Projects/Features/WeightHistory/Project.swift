@@ -1,6 +1,6 @@
 //
 //  Project.swift
-//  WeightCreation
+//  WeightHistory
 //
 //  Created by Александр Зиновьев on 18.04.2026.
 //
@@ -8,13 +8,13 @@
 import ProjectDescription
 
 let project = Project(
-    name: "WeightMonitorFeatureWeightCreation",
+    name: "WeightMonitorFeatureWeightHistory",
     targets: [
         .target(
-            name: "WeightMonitorFeatureWeightCreation",
+            name: "WeightMonitorFeatureWeightHistory",
             destinations: .iOS,
             product: .framework,
-            bundleId: "com.alrzi.WeightMonitorFeatureWeightCreation",
+            bundleId: "com.alrzi.WeightMonitorFeatureWeightHistory",
             deploymentTargets: .iOS("16.0"),
             sources: ["Sources/**/*.swift"],
             resources: ["Resources/**/*.xcstrings"],
@@ -25,14 +25,14 @@ let project = Project(
         ),
 
         .target(
-            name: "WeightMonitorFeatureWeightCreationTests",
+            name: "WeightMonitorFeatureWeightHistoryTests",
             destinations: .iOS,
             product: .unitTests,
-            bundleId: "com.alrzi.WeightMonitorFeatureWeightCreationTests",
+            bundleId: "com.alrzi.WeightMonitorFeatureWeightHistoryTests",
             deploymentTargets: .iOS("16.0"),
             sources: ["Tests/**/*.swift"],
             dependencies: [
-                .target(name: "WeightMonitorFeatureWeightCreation")
+                .target(name: "WeightMonitorFeatureWeightHistory")
             ]
         ),
     ]

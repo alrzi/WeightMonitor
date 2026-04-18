@@ -6,21 +6,21 @@
 //
 
 import SwiftUI
-import WeigthMonitorDomain
 import WeightMonitorUIComponents
+import WeigthMonitorDomain
 
 @MainActor
-struct WeightHistoryView<ViewModel: WeightHistoryViewModelProtocol> {
+public struct WeightHistoryView<ViewModel: WeightHistoryViewModelProtocol> {
     @ObservedObject private var viewModel: ViewModel
     @Environment(\.colorScheme) private var colorScheme
 
-    init(viewModel: ViewModel) {
+    public init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
 }
 
 extension WeightHistoryView: View {
-    var body: some View {
+    public var body: some View {
         NavigationStack {
             Group {
                 if let weights = viewModel.weightsState?.weights {
@@ -53,7 +53,7 @@ extension WeightHistoryView: View {
                     }
                     else {
                         ZStack {
-                            Text("Пока пусто")
+                            Text(String.featureLocalized("weightHistory.empty"))
                                 .font(.system(size: 24, weight: .medium))
                                 .foregroundColor(.primary)
                         }
@@ -67,7 +67,7 @@ extension WeightHistoryView: View {
                     }
                 }
             }
-            .navigationTitle("Монитор веса")
+            .navigationTitle(String.featureLocalized("weightHistory.title"))
             .navigationBarTitleDisplayMode(.inline)
         }
         .safeAreaInset(edge: .bottom, alignment: .trailing, spacing: 0) {
@@ -96,7 +96,7 @@ private struct WeightInfoView: View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Текущий вес")
+                    Text(String.featureLocalized("weightHistory.currentWeight"))
                     HStack {
                         Text(weightFormatted)
                         Text(massDifferenceFormatted ?? 0.formatted())
@@ -105,13 +105,17 @@ private struct WeightInfoView: View {
 
                 Spacer(minLength: 0)
 
-                Image(.weight)
+                Image(systemName: "scalemass")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 80, height: 80)
+                    .foregroundColor(.accentColor)
                     .clipShape(.rect(cornerRadius: 12))
             }
             .padding(.leading)
 
             Toggle(
-                "Метрическая система",
+                String.featureLocalized("weightHistory.unitSystem.metric"),
                 isOn: .init(
                     get: { weightUnit.isMetric },
                     set: { weightUnit = $0 ? .metric : .imperial }

@@ -10,6 +10,7 @@ import SwiftUI
 import Swinject
 import UIKit
 import WeightMonitorFeatureWeightCreation
+import WeightMonitorFeatureWeightHistory
 import WeightMonitorUIComponents
 import WeigthMonitorData
 import WeigthMonitorDomain

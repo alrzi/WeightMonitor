@@ -22,6 +22,9 @@
          <FileRef
             location = "group:WeightCreation/WeightMonitorFeatureWeightCreation.xcodeproj">
          </FileRef>
+         <FileRef
+            location = "group:WeightHistory/WeightMonitorFeatureWeightHistory.xcodeproj">
+         </FileRef>
       </Group>
    </Group>
 </Workspace>

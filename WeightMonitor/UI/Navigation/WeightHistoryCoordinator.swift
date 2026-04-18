@@ -1,5 +1,4 @@
 //
-import WeightMonitorUIComponents
 //  WeightHistoryCoordinator.swift
 //  WeightMonitor
 //
@@ -8,6 +7,8 @@ import WeightMonitorUIComponents
 
 import Foundation
 import SwiftUI
+import WeightMonitorFeatureWeightHistory
+import WeightMonitorUIComponents
 import WeigthMonitorDomain
 
 @MainActor
