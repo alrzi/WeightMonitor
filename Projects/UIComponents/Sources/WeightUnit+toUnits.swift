@@ -8,7 +8,7 @@
 import Foundation
 import WeigthMonitorDomain
 
-extension WeightUnit {
+public extension WeightUnit {
     func toUnitMass() -> UnitMass {
         switch self {
         case .metric: .kilograms

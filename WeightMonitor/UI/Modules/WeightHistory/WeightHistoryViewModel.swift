@@ -1,4 +1,5 @@
 import Combine
+import WeightMonitorUIComponents
 import CoreData
 import Foundation
 import WeigthMonitorDomain

@@ -1,0 +1,608 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		12E3FB9FA8766DFBC9AD497C /* Weight+strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573BF2EFA123F83B10BCC9E6 /* Weight+strings.swift */; };
+		1BC6C0DEA92440D227BA6159 /* View+shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639D48E6FC21158D1E7C07BC /* View+shake.swift */; };
+		1DDE42797CFD819755E7E425 /* WeightUnit+toUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417EC636206F264A4E11651 /* WeightUnit+toUnits.swift */; };
+		34B13C91074AA3787EA9B6AA /* View+alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BF0BEB3CEDFB13DDF004BF /* View+alert.swift */; };
+		35686AB68E19EF1FB1F095CE /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4D41461500C1CDF8351BCE /* AlertModel.swift */; };
+		4C234C57058607597DD179F7 /* WeightMonitorUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE0A8AA5D1A0081AD1C079F /* WeightMonitorUIComponents.framework */; };
+		51A3C65A7E7D0D0286E8BF94 /* NumberFormatter+weightFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E661301403A7FD801594E303 /* NumberFormatter+weightFormatter.swift */; };
+		8F1CF02C63FB8225CDCDFDA8 /* Array+elementOrNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA65ED6C4A1AE9A1483EDF8 /* Array+elementOrNil.swift */; };
+		A2C8232DEEAB169E21B2A180 /* AlertBindingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269C78426465AB7E90E59A84 /* AlertBindingModifier.swift */; };
+		A832346C650430DB2B9C3ECC /* Measurement+formattedNarrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73F1B3C51C95EEEC3137D61 /* Measurement+formattedNarrow.swift */; };
+		AFE47CC466CF4B836E030329 /* Weight+mockWeights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A037A3AADFEAF5F3CD4925D /* Weight+mockWeights.swift */; };
+		BD24A9BBA4006A9F8A22F980 /* InvalidComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B023763FDAE54B5B3BD4C4FD /* InvalidComponentManager.swift */; };
+		EBA50AB4341C5C50875595DF /* Optional+isNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814201E1E8260AF3900C70D8 /* Optional+isNil.swift */; };
+		FAE080FF20350B5C7846053F /* Date+todayOrOtherDayString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F035BA6C5682C52AC387C9 /* Date+todayOrOtherDayString.swift */; };
+		FF8A0E36372B7BD08AD1914C /* InvalidComponentManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A127696880697E95CB3E2AF /* InvalidComponentManaging.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		665E39DFBE061F1F0CF527B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 59F53E36FC36195E8CA5F697 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 922D58EB83E47E2FC23C25F6;
+			remoteInfo = WeightMonitorUIComponents;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		53499230ECF8398ECE091EB0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCDD0D4DC7ED85FB30B6C5FF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		14F035BA6C5682C52AC387C9 /* Date+todayOrOtherDayString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+todayOrOtherDayString.swift"; sourceTree = "<group>"; };
+		269C78426465AB7E90E59A84 /* AlertBindingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBindingModifier.swift; sourceTree = "<group>"; };
+		31CF141BCFDEAD496F93DFA6 /* WeightMonitorUIComponentsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WeightMonitorUIComponentsTests-Info.plist"; sourceTree = "<group>"; };
+		573BF2EFA123F83B10BCC9E6 /* Weight+strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Weight+strings.swift"; sourceTree = "<group>"; };
+		5A7CEA23B98FDB0868E2069B /* WeightMonitorUIComponentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeightMonitorUIComponentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		639D48E6FC21158D1E7C07BC /* View+shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+shake.swift"; sourceTree = "<group>"; };
+		7A127696880697E95CB3E2AF /* InvalidComponentManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidComponentManaging.swift; sourceTree = "<group>"; };
+		7AE0A8AA5D1A0081AD1C079F /* WeightMonitorUIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WeightMonitorUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		814201E1E8260AF3900C70D8 /* Optional+isNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+isNil.swift"; sourceTree = "<group>"; };
+		9A037A3AADFEAF5F3CD4925D /* Weight+mockWeights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Weight+mockWeights.swift"; sourceTree = "<group>"; };
+		9FBEC4145C9DFE6A25CB20FC /* WeightMonitorUIComponents-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WeightMonitorUIComponents-Info.plist"; sourceTree = "<group>"; };
+		AFA65ED6C4A1AE9A1483EDF8 /* Array+elementOrNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+elementOrNil.swift"; sourceTree = "<group>"; };
+		B023763FDAE54B5B3BD4C4FD /* InvalidComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidComponentManager.swift; sourceTree = "<group>"; };
+		CF4D41461500C1CDF8351BCE /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
+		D73F1B3C51C95EEEC3137D61 /* Measurement+formattedNarrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Measurement+formattedNarrow.swift"; sourceTree = "<group>"; };
+		E417EC636206F264A4E11651 /* WeightUnit+toUnits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeightUnit+toUnits.swift"; sourceTree = "<group>"; };
+		E661301403A7FD801594E303 /* NumberFormatter+weightFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+weightFormatter.swift"; sourceTree = "<group>"; };
+		E8BF0BEB3CEDFB13DDF004BF /* View+alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+alert.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		92C47512A88C8A5FE54B373B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F088DC7C2F8DD8428430CE60 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C234C57058607597DD179F7 /* WeightMonitorUIComponents.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		03B580A17F4982B55137509D = {
+			isa = PBXGroup;
+			children = (
+				1679428EB180E9970E601274 /* Products */,
+				7B6E735EFE28776A8C251B17 /* Project */,
+			);
+			sourceTree = "<group>";
+		};
+		1679428EB180E9970E601274 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7AE0A8AA5D1A0081AD1C079F /* WeightMonitorUIComponents.framework */,
+				5A7CEA23B98FDB0868E2069B /* WeightMonitorUIComponentsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3B5C237B9D7DA9FE5366759E /* Derived */ = {
+			isa = PBXGroup;
+			children = (
+				B1DC46492DBB1E799E0DBBAB /* InfoPlists */,
+			);
+			path = Derived;
+			sourceTree = "<group>";
+		};
+		74C3BB0C57E95C45115E16AE /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				9A037A3AADFEAF5F3CD4925D /* Weight+mockWeights.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
+		7B6E735EFE28776A8C251B17 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				3B5C237B9D7DA9FE5366759E /* Derived */,
+				C536FCE1422CFE70A88B42E9 /* Sources */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		9110B27D3563621CA9723DAE /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				E661301403A7FD801594E303 /* NumberFormatter+weightFormatter.swift */,
+			);
+			path = Formatters;
+			sourceTree = "<group>";
+		};
+		B1DC46492DBB1E799E0DBBAB /* InfoPlists */ = {
+			isa = PBXGroup;
+			children = (
+				9FBEC4145C9DFE6A25CB20FC /* WeightMonitorUIComponents-Info.plist */,
+				31CF141BCFDEAD496F93DFA6 /* WeightMonitorUIComponentsTests-Info.plist */,
+			);
+			path = InfoPlists;
+			sourceTree = "<group>";
+		};
+		C536FCE1422CFE70A88B42E9 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				74C3BB0C57E95C45115E16AE /* Debug */,
+				9110B27D3563621CA9723DAE /* Formatters */,
+				269C78426465AB7E90E59A84 /* AlertBindingModifier.swift */,
+				CF4D41461500C1CDF8351BCE /* AlertModel.swift */,
+				AFA65ED6C4A1AE9A1483EDF8 /* Array+elementOrNil.swift */,
+				14F035BA6C5682C52AC387C9 /* Date+todayOrOtherDayString.swift */,
+				B023763FDAE54B5B3BD4C4FD /* InvalidComponentManager.swift */,
+				7A127696880697E95CB3E2AF /* InvalidComponentManaging.swift */,
+				D73F1B3C51C95EEEC3137D61 /* Measurement+formattedNarrow.swift */,
+				814201E1E8260AF3900C70D8 /* Optional+isNil.swift */,
+				E8BF0BEB3CEDFB13DDF004BF /* View+alert.swift */,
+				639D48E6FC21158D1E7C07BC /* View+shake.swift */,
+				573BF2EFA123F83B10BCC9E6 /* Weight+strings.swift */,
+				E417EC636206F264A4E11651 /* WeightUnit+toUnits.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1E63E68EA2EBC777EB911C7F /* WeightMonitorUIComponentsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D8E95D1C17858E067B970C1 /* Build configuration list for PBXNativeTarget "WeightMonitorUIComponentsTests" */;
+			buildPhases = (
+				3606A9305FA58E10D2163E98 /* Sources */,
+				E18E64B4A04B9FC18F40A133 /* Resources */,
+				F088DC7C2F8DD8428430CE60 /* Frameworks */,
+				53499230ECF8398ECE091EB0 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA77B85454E78D14961916E4 /* PBXTargetDependency */,
+			);
+			name = WeightMonitorUIComponentsTests;
+			packageProductDependencies = (
+			);
+			productName = WeightMonitorUIComponentsTests;
+			productReference = 5A7CEA23B98FDB0868E2069B /* WeightMonitorUIComponentsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		922D58EB83E47E2FC23C25F6 /* WeightMonitorUIComponents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8298CC8DED66FEC6FC3C0F3B /* Build configuration list for PBXNativeTarget "WeightMonitorUIComponents" */;
+			buildPhases = (
+				26484D1152584ECEBB9146CD /* Sources */,
+				3E7616A7D07FC81A9BC155E6 /* Resources */,
+				92C47512A88C8A5FE54B373B /* Frameworks */,
+				DCDD0D4DC7ED85FB30B6C5FF /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WeightMonitorUIComponents;
+			packageProductDependencies = (
+			);
+			productName = WeightMonitorUIComponents;
+			productReference = 7AE0A8AA5D1A0081AD1C079F /* WeightMonitorUIComponents.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		59F53E36FC36195E8CA5F697 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = C55FAD290810297707568167 /* Build configuration list for PBXProject "WeightMonitorUIComponents" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 03B580A17F4982B55137509D;
+			packageReferences = (
+				A718304FE6203B0FF80D6DB3 /* XCRemoteSwiftPackageReference "AsyncExtensions" */,
+			);
+			productRefGroup = 1679428EB180E9970E601274 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				922D58EB83E47E2FC23C25F6 /* WeightMonitorUIComponents */,
+				1E63E68EA2EBC777EB911C7F /* WeightMonitorUIComponentsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3E7616A7D07FC81A9BC155E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E18E64B4A04B9FC18F40A133 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		26484D1152584ECEBB9146CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2C8232DEEAB169E21B2A180 /* AlertBindingModifier.swift in Sources */,
+				35686AB68E19EF1FB1F095CE /* AlertModel.swift in Sources */,
+				8F1CF02C63FB8225CDCDFDA8 /* Array+elementOrNil.swift in Sources */,
+				FAE080FF20350B5C7846053F /* Date+todayOrOtherDayString.swift in Sources */,
+				AFE47CC466CF4B836E030329 /* Weight+mockWeights.swift in Sources */,
+				51A3C65A7E7D0D0286E8BF94 /* NumberFormatter+weightFormatter.swift in Sources */,
+				BD24A9BBA4006A9F8A22F980 /* InvalidComponentManager.swift in Sources */,
+				FF8A0E36372B7BD08AD1914C /* InvalidComponentManaging.swift in Sources */,
+				A832346C650430DB2B9C3ECC /* Measurement+formattedNarrow.swift in Sources */,
+				EBA50AB4341C5C50875595DF /* Optional+isNil.swift in Sources */,
+				34B13C91074AA3787EA9B6AA /* View+alert.swift in Sources */,
+				1BC6C0DEA92440D227BA6159 /* View+shake.swift in Sources */,
+				12E3FB9FA8766DFBC9AD497C /* Weight+strings.swift in Sources */,
+				1DDE42797CFD819755E7E425 /* WeightUnit+toUnits.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3606A9305FA58E10D2163E98 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EA77B85454E78D14961916E4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WeightMonitorUIComponents;
+			target = 922D58EB83E47E2FC23C25F6 /* WeightMonitorUIComponents */;
+			targetProxy = 665E39DFBE061F1F0CF527B6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		085FCAB871889A92FD2C8E47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/WeightMonitorUIComponents-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alrzi.WeightMonitorUIComponents;
+				PRODUCT_NAME = WeightMonitorUIComponents;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		304E5A53046501C6EF856B49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "Derived/InfoPlists/WeightMonitorUIComponentsTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alrzi.WeightMonitorUIComponentsTests;
+				PRODUCT_NAME = WeightMonitorUIComponentsTests;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7B5A282C32565BF097C105A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "Derived/InfoPlists/WeightMonitorUIComponentsTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alrzi.WeightMonitorUIComponentsTests;
+				PRODUCT_NAME = WeightMonitorUIComponentsTests;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7F694CF90A69E44722D071D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		84490565141743D81BC85480 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/WeightMonitorUIComponents-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alrzi.WeightMonitorUIComponents;
+				PRODUCT_NAME = WeightMonitorUIComponents;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9E4FA821BADF3D671B606714 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D8E95D1C17858E067B970C1 /* Build configuration list for PBXNativeTarget "WeightMonitorUIComponentsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B5A282C32565BF097C105A9 /* Debug */,
+				304E5A53046501C6EF856B49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8298CC8DED66FEC6FC3C0F3B /* Build configuration list for PBXNativeTarget "WeightMonitorUIComponents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				085FCAB871889A92FD2C8E47 /* Debug */,
+				84490565141743D81BC85480 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C55FAD290810297707568167 /* Build configuration list for PBXProject "WeightMonitorUIComponents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E4FA821BADF3D671B606714 /* Debug */,
+				7F694CF90A69E44722D071D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A718304FE6203B0FF80D6DB3 /* XCRemoteSwiftPackageReference "AsyncExtensions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alrzi/AsyncExtensions.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+	};
+	rootObject = 59F53E36FC36195E8CA5F697 /* Project object */;
+}

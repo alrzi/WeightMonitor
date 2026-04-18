@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension View {
+public extension View {
     /// Добавляет анимацию тряски
     /// - Parameters:
     ///   - isOn: флаг, указывающий нужно ли выполнять анимацию

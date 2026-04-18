@@ -1,4 +1,5 @@
 //
+import WeightMonitorUIComponents
 //  WeightMonitorModulesAssembly.swift
 //  WeightMonitor
 //

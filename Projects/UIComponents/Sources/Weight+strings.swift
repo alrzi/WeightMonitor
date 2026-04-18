@@ -8,7 +8,7 @@
 import Foundation
 import WeigthMonitorDomain
 
-extension Weight {
+public extension Weight {
     func weightFormatted(to unit: WeightUnit) -> String {
         mass.formattedWeight(to: unit)
     }
@@ -22,7 +22,7 @@ extension Weight {
     }
 }
 
-private extension Double {
+public extension Double {
     func formattedWeight(to unit: WeightUnit, showSign: Bool = false) -> String {
         Measurement(value: self, unit: .kilograms)
             .converted(to: unit.toUnitMass())

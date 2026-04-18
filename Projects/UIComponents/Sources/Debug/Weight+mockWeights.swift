@@ -9,7 +9,7 @@ import Foundation
 import WeigthMonitorDomain
 
 #if DEBUG
-extension Weight {
+public extension Weight {
     /// Returns ~365 days of realistic weight data.
     /// - Parameters:
     ///   - startMass: The weight on the most recent day (default 75 kg).
@@ -58,7 +58,7 @@ extension Weight {
 
 // MARK: - Small utilities
 
-private extension Double {
+public extension Double {
     func clamped(to range: ClosedRange<Double>) -> Double {
         min(max(self, range.lowerBound), range.upperBound)
     }

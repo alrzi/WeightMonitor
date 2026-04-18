@@ -1,4 +1,5 @@
 //
+import WeightMonitorUIComponents
 //  WeightsState.swift
 //  WeightMonitor
 //

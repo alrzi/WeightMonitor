@@ -33,6 +33,7 @@ let project = Project(
             dependencies: [
                 .project(target: "WeightMonitorDomain", path: "Projects/Domain"),
                 .project(target: "WeightMonitorData", path: "Projects/Data"),
+                .project(target: "WeightMonitorUIComponents", path: "Projects/UIComponents"),
                 .package(product: "Swinject"),
             ]
         ),

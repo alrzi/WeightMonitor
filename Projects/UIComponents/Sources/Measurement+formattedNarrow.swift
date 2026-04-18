@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Measurement where UnitType == UnitMass {
+public extension Measurement where UnitType == UnitMass {
     func formattedNarrow(asProvided: Bool = true, fractionRange: ClosedRange<Int> = 0...2, showSign: Bool = false) -> String {
         var numberStyle = FloatingPointFormatStyle<Double>.number.precision(.fractionLength(fractionRange))
 

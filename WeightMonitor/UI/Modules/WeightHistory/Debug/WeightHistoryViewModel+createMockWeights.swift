@@ -1,4 +1,5 @@
 //
+import WeightMonitorUIComponents
 //  WeightHistoryViewModel+createMockWeights.swift
 //  WeightMonitor
 //

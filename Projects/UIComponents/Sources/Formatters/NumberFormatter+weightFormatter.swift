@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension NumberFormatter {
+public extension NumberFormatter {
     static var weightFormatter: NumberFormatter {
         let f = NumberFormatter()
         f.locale = Locale.current

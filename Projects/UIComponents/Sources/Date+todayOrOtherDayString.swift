@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Date {
+public extension Date {
     func todayOrOtherDayString(calendar: Calendar = .autoupdatingCurrent) -> String {
         if calendar.isDateInToday(self) {
             "Today"

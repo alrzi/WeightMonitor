@@ -10,45 +10,33 @@
 		00EAA1DBCF60980509B9DBA9 /* WeightHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81DE31DDEE69DBF993B2456 /* WeightHistoryViewModel.swift */; };
 		0943363E69B3114176E531AD /* WeightHistoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0929FBCF51AE393DE29365 /* WeightHistoryFactory.swift */; };
 		17071E40E6F803FDD32DD1FD /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = EB7A068CDFB5EAA7C09A8641 /* Swinject */; };
-		1B92716DCA333841D71312CF /* Weight+strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7C933607BD192907B02655 /* Weight+strings.swift */; };
-		1FBEEF010E6E49F72D063C20 /* Array+elementOrNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA8723FBFF37DA7294DD04 /* Array+elementOrNil.swift */; };
-		25FFA55A729ABA2EF6179767 /* NumberFormatter+weightFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4013ECDD04FBA130907DAFF /* NumberFormatter+weightFormatter.swift */; };
 		29802A5C562DB6195B0547BA /* WeightHistoryViewModel+createMockWeights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED18C96F72FA5077940DAEE /* WeightHistoryViewModel+createMockWeights.swift */; };
 		29A4F86AA012B59A5B5DCE80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C69DC477A74C04200C50D7 /* AppDelegate.swift */; };
 		2E3F6E15FDDDD7BA2492A0BA /* WeightHistoryChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB2E59D97DC8D98E1E1AFC6 /* WeightHistoryChartView.swift */; };
-		3003ECFF0C2CFF8E86913093 /* Measurement+formattedNarrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095645F8328CA5E186D44B8E /* Measurement+formattedNarrow.swift */; };
 		31E4903E6C1E72AB88B56E07 /* WeightCreationInvalidComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3C1C4FEA451946B1D2F44 /* WeightCreationInvalidComponent.swift */; };
 		327D5B33494658D78AEC1301 /* WeightList.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 05E29B0D0882824690D4A8E5 /* WeightList.xcstrings */; };
-		378D9DB9124CEB7FC3F4846F /* WeightUnit+toUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0458ABCA85015E07A8B4D853 /* WeightUnit+toUnits.swift */; };
 		3851DB47A1BECF03A07EDC54 /* WeightsStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38A9BB564245C7817CDAA13 /* WeightsStateTest.swift */; };
 		3D63845CF219B4F619A4A5A5 /* WeightCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84573668F0C412DD2D975A40 /* WeightCreationView.swift */; };
 		417CDB604B48FEECC0E7E94A /* WeightMonitorDomain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 770B2AE1BA33249B9059519D /* WeightMonitorDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		41AA9AFEBEBF999941D8F576 /* View+alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F66DD157E6481A769A393 /* View+alert.swift */; };
 		51D4D1D81BF710FFE9A882AA /* WeightsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52C6C8F716ECB50F102A7F /* WeightsState.swift */; };
-		56437B05FFBB7AEEB0EFEEBA /* Weight+mockWeights.swift in Sources */ = {isa = PBXBuildFile; fileRef = B965DDE93A584620A1B38A33 /* Weight+mockWeights.swift */; };
 		60DC766B04F0F034BE7B2B6D /* WeightHistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE90DB18C29D590F961E9BB5 /* WeightHistoryCoordinator.swift */; };
 		68D60DBD601E6B03D5948E08 /* WeightCreationInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434F9355F6675D7E0645ECBF /* WeightCreationInput.swift */; };
-		70AFF606A5BF1312F781671A /* Optional+isNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E486E2E220076FF900D7A7CC /* Optional+isNil.swift */; };
 		768FF1FCD39F5F11BB2C7149 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57FFAD6C34AC40E60C26DA /* SceneDelegate.swift */; };
 		7AEC4D9D342BFEE74C95572F /* WeightCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593AF88E4CE4448A45F1C09 /* WeightCreationViewModel.swift */; };
+		89F459BA9F855C3126494CC0 /* WeightMonitorUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE358AD97F8140E01CE52D6 /* WeightMonitorUIComponents.framework */; };
 		973029499BEBF4D09A03642F /* WeightHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE82F730F60A7264703B789 /* WeightHistoryView.swift */; };
 		9FEB0A241642E4A2D8408FB3 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08A3195CF2948676219E8C6A /* Colors.xcassets */; };
-		A029C96B3D8EDA06153192D8 /* Date+todayOrOtherDayString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7617C0AFC2F8C5A5AF6B71E /* Date+todayOrOtherDayString.swift */; };
 		A110573558BBFDC87AFFAA3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 250FFE8FDC5F98E6538015D5 /* LaunchScreen.storyboard */; };
 		A8B696C8F5FFAB0328DB5697 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80B22D2F94FE6C84F9B38EC3 /* Assets.xcassets */; };
 		AB02C83F25856130F5969667 /* WeightMonitorData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B34C6363E5CFBF2C8E5EB16A /* WeightMonitorData.framework */; };
 		ACD3E18D6982E69407B53460 /* WeightHistoryChartPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDB944F416C89A162C4CD54 /* WeightHistoryChartPeriod.swift */; };
 		ACFC93651EBE829D04CBD9D0 /* WeightCreationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740157B69EEEFF664581386F /* WeightCreationFactory.swift */; };
-		AE5D2F4C0B71F0E9BB2544C7 /* InvalidComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8F98E967515BF10325616 /* InvalidComponentManager.swift */; };
 		BBBF4FF96636DD9279C68A53 /* WeightMonitorDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 770B2AE1BA33249B9059519D /* WeightMonitorDomain.framework */; };
-		BE4FD9DC1DB1C10BE25EEDB2 /* InvalidComponentManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C9691A61ED56D2106EA929 /* InvalidComponentManaging.swift */; };
 		C2E5E62D33DB900F0995B80C /* WeightCreation.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 7931758264077AB2F83111B5 /* WeightCreation.xcstrings */; };
 		C8DC4860C91BDF266135BB8C /* WeightMonitorData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B34C6363E5CFBF2C8E5EB16A /* WeightMonitorData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D234D61A93805C16B3130CE1 /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFD597E0C8CEA24AB37842F /* AlertModel.swift */; };
 		D4F210073D0681B637EA5A15 /* WeightMonitorModulesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87088D6CA433512118452B8E /* WeightMonitorModulesAssembly.swift */; };
-		DA7C8E1052434E52B190BB05 /* View+shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA461B5DE2555B76C4DB7340 /* View+shake.swift */; };
+		D891025B6039FFF249E6BD94 /* WeightMonitorUIComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE358AD97F8140E01CE52D6 /* WeightMonitorUIComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DD391DA3997B7D85524F977A /* TuistAssets+WeightMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB615A942A30D85796F69D63 /* TuistAssets+WeightMonitor.swift */; };
-		E0B03E20BCBC49DEA2A023A1 /* AlertBindingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D77EDB187AECC819835A8 /* AlertBindingModifier.swift */; };
 		E6FBC02869098E105BA9BD21 /* TuistBundle+WeightMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA39DBD1932050655F177D0 /* TuistBundle+WeightMonitor.swift */; };
 		F24CBF822312CC485F21E558 /* WeightHistoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136F2584FE35C1724FE43ECD /* WeightHistoryRouter.swift */; };
 		F7E73BAC7062E5E8ECB21ACD /* WeightHistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE71234C8B6AA29254BADA77 /* WeightHistoryListView.swift */; };
@@ -74,6 +62,7 @@
 			files = (
 				C8DC4860C91BDF266135BB8C /* WeightMonitorData.framework in Embed Frameworks */,
 				417CDB604B48FEECC0E7E94A /* WeightMonitorDomain.framework in Embed Frameworks */,
+				D891025B6039FFF249E6BD94 /* WeightMonitorUIComponents.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,14 +80,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0458ABCA85015E07A8B4D853 /* WeightUnit+toUnits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeightUnit+toUnits.swift"; sourceTree = "<group>"; };
 		05E29B0D0882824690D4A8E5 /* WeightList.xcstrings */ = {isa = PBXFileReference; path = WeightList.xcstrings; sourceTree = "<group>"; };
 		08A3195CF2948676219E8C6A /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		095645F8328CA5E186D44B8E /* Measurement+formattedNarrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Measurement+formattedNarrow.swift"; sourceTree = "<group>"; };
-		0E9D77EDB187AECC819835A8 /* AlertBindingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBindingModifier.swift; sourceTree = "<group>"; };
-		12C8F98E967515BF10325616 /* InvalidComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidComponentManager.swift; sourceTree = "<group>"; };
 		136F2584FE35C1724FE43ECD /* WeightHistoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightHistoryRouter.swift; sourceTree = "<group>"; };
-		25C9691A61ED56D2106EA929 /* InvalidComponentManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidComponentManaging.swift; sourceTree = "<group>"; };
 		3B7F7680D781950D3D080806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3CDB944F416C89A162C4CD54 /* WeightHistoryChartPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightHistoryChartPeriod.swift; sourceTree = "<group>"; };
 		434F9355F6675D7E0645ECBF /* WeightCreationInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCreationInput.swift; sourceTree = "<group>"; };
@@ -106,7 +90,6 @@
 		4E52C6C8F716ECB50F102A7F /* WeightsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsState.swift; sourceTree = "<group>"; };
 		50223398A2AEEB8C68E7E760 /* WeightHistoryNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightHistoryNavigationView.swift; sourceTree = "<group>"; };
 		5BE82F730F60A7264703B789 /* WeightHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightHistoryView.swift; sourceTree = "<group>"; };
-		679F66DD157E6481A769A393 /* View+alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+alert.swift"; sourceTree = "<group>"; };
 		740157B69EEEFF664581386F /* WeightCreationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCreationFactory.swift; sourceTree = "<group>"; };
 		7593AF88E4CE4448A45F1C09 /* WeightCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCreationViewModel.swift; sourceTree = "<group>"; };
 		770B2AE1BA33249B9059519D /* WeightMonitorDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WeightMonitorDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,29 +97,22 @@
 		80B22D2F94FE6C84F9B38EC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84573668F0C412DD2D975A40 /* WeightCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCreationView.swift; sourceTree = "<group>"; };
 		87088D6CA433512118452B8E /* WeightMonitorModulesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightMonitorModulesAssembly.swift; sourceTree = "<group>"; };
+		8AE358AD97F8140E01CE52D6 /* WeightMonitorUIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WeightMonitorUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE3C1C4FEA451946B1D2F44 /* WeightCreationInvalidComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCreationInvalidComponent.swift; sourceTree = "<group>"; };
 		8ED18C96F72FA5077940DAEE /* WeightHistoryViewModel+createMockWeights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeightHistoryViewModel+createMockWeights.swift"; sourceTree = "<group>"; };
 		A40117BFB1EC331075B391E9 /* WeightMonitorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeightMonitorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5AA8723FBFF37DA7294DD04 /* Array+elementOrNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+elementOrNil.swift"; sourceTree = "<group>"; };
 		A81DE31DDEE69DBF993B2456 /* WeightHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightHistoryViewModel.swift; sourceTree = "<group>"; };
 		AE90DB18C29D590F961E9BB5 /* WeightHistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightHistoryCoordinator.swift; sourceTree = "<group>"; };
 		B34C6363E5CFBF2C8E5EB16A /* WeightMonitorData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WeightMonitorData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B965DDE93A584620A1B38A33 /* Weight+mockWeights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Weight+mockWeights.swift"; sourceTree = "<group>"; };
 		BC0929FBCF51AE393DE29365 /* WeightHistoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightHistoryFactory.swift; sourceTree = "<group>"; };
 		BE71234C8B6AA29254BADA77 /* WeightHistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightHistoryListView.swift; sourceTree = "<group>"; };
 		C38A9BB564245C7817CDAA13 /* WeightsStateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsStateTest.swift; sourceTree = "<group>"; };
-		D4013ECDD04FBA130907DAFF /* NumberFormatter+weightFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+weightFormatter.swift"; sourceTree = "<group>"; };
-		DA461B5DE2555B76C4DB7340 /* View+shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+shake.swift"; sourceTree = "<group>"; };
-		DE7C933607BD192907B02655 /* Weight+strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Weight+strings.swift"; sourceTree = "<group>"; };
 		DFB2E59D97DC8D98E1E1AFC6 /* WeightHistoryChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightHistoryChartView.swift; sourceTree = "<group>"; };
-		E486E2E220076FF900D7A7CC /* Optional+isNil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+isNil.swift"; sourceTree = "<group>"; };
 		E84F8CFFD67A475942092B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EA57FFAD6C34AC40E60C26DA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		EFDCBE1C7DC4A4D785B398A1 /* WeightMonitorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WeightMonitorTests-Info.plist"; sourceTree = "<group>"; };
-		F7617C0AFC2F8C5A5AF6B71E /* Date+todayOrOtherDayString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+todayOrOtherDayString.swift"; sourceTree = "<group>"; };
 		F849F6B6AA0EB31E5013C4A1 /* WeightMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeightMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB615A942A30D85796F69D63 /* TuistAssets+WeightMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+WeightMonitor.swift"; sourceTree = "<group>"; };
-		FBFD597E0C8CEA24AB37842F /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		FDA39DBD1932050655F177D0 /* TuistBundle+WeightMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+WeightMonitor.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +130,7 @@
 			files = (
 				AB02C83F25856130F5969667 /* WeightMonitorData.framework in Frameworks */,
 				BBBF4FF96636DD9279C68A53 /* WeightMonitorDomain.framework in Frameworks */,
+				89F459BA9F855C3126494CC0 /* WeightMonitorUIComponents.framework in Frameworks */,
 				17071E40E6F803FDD32DD1FD /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,23 +180,6 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
-		227807C6E8B3A81DB737D37F /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				272640FFEFF4C706407FA310 /* InvalidComponentManager */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		272640FFEFF4C706407FA310 /* InvalidComponentManager */ = {
-			isa = PBXGroup;
-			children = (
-				12C8F98E967515BF10325616 /* InvalidComponentManager.swift */,
-				25C9691A61ED56D2106EA929 /* InvalidComponentManaging.swift */,
-			);
-			path = InvalidComponentManager;
-			sourceTree = "<group>";
-		};
 		27276830512D768CC80183E6 /* Derived */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,32 +187,6 @@
 				390F0B433E653109FD9036A0 /* Sources */,
 			);
 			path = Derived;
-			sourceTree = "<group>";
-		};
-		3219CBD067BCC4E3D839C8FC /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				C6E3B9F91F4E72AA4E5A0E42 /* Debug */,
-				C3F7784DFF57C84907E13021 /* Formatters */,
-				A5AA8723FBFF37DA7294DD04 /* Array+elementOrNil.swift */,
-				F7617C0AFC2F8C5A5AF6B71E /* Date+todayOrOtherDayString.swift */,
-				095645F8328CA5E186D44B8E /* Measurement+formattedNarrow.swift */,
-				E486E2E220076FF900D7A7CC /* Optional+isNil.swift */,
-				DA461B5DE2555B76C4DB7340 /* View+shake.swift */,
-				DE7C933607BD192907B02655 /* Weight+strings.swift */,
-				0458ABCA85015E07A8B4D853 /* WeightUnit+toUnits.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		37FCC9B1D006CEDFE6EF9098 /* Alert */ = {
-			isa = PBXGroup;
-			children = (
-				0E9D77EDB187AECC819835A8 /* AlertBindingModifier.swift */,
-				FBFD597E0C8CEA24AB37842F /* AlertModel.swift */,
-				679F66DD157E6481A769A393 /* View+alert.swift */,
-			);
-			path = Alert;
 			sourceTree = "<group>";
 		};
 		390F0B433E653109FD9036A0 /* Sources */ = {
@@ -271,14 +205,6 @@
 				8AE3C1C4FEA451946B1D2F44 /* WeightCreationInvalidComponent.swift */,
 			);
 			path = Items;
-			sourceTree = "<group>";
-		};
-		3DB1F781E09AF01FAFD3908B /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				37FCC9B1D006CEDFE6EF9098 /* Alert */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		3FE82F9A48DF64CA72F15A98 /* DI */ = {
@@ -312,7 +238,6 @@
 		8EF8BC2E2D9A88A8D31BD8C1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				3DB1F781E09AF01FAFD3908B /* Components */,
 				D14FDB6989FC054CB3D4B521 /* Modules */,
 				218EBB6E758888D07C032722 /* Navigation */,
 			);
@@ -334,6 +259,7 @@
 				B34C6363E5CFBF2C8E5EB16A /* WeightMonitorData.framework */,
 				770B2AE1BA33249B9059519D /* WeightMonitorDomain.framework */,
 				A40117BFB1EC331075B391E9 /* WeightMonitorTests.xctest */,
+				8AE358AD97F8140E01CE52D6 /* WeightMonitorUIComponents.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -342,10 +268,8 @@
 			isa = PBXGroup;
 			children = (
 				3FE82F9A48DF64CA72F15A98 /* DI */,
-				3219CBD067BCC4E3D839C8FC /* Extensions */,
 				250FFE8FDC5F98E6538015D5 /* LaunchScreen.storyboard */,
 				6D5C928285E53D84A9F2BBCC /* Localizable */,
-				227807C6E8B3A81DB737D37F /* Services */,
 				8EF8BC2E2D9A88A8D31BD8C1 /* UI */,
 				48C69DC477A74C04200C50D7 /* AppDelegate.swift */,
 				80B22D2F94FE6C84F9B38EC3 /* Assets.xcassets */,
@@ -354,22 +278,6 @@
 				EA57FFAD6C34AC40E60C26DA /* SceneDelegate.swift */,
 			);
 			path = WeightMonitor;
-			sourceTree = "<group>";
-		};
-		C3F7784DFF57C84907E13021 /* Formatters */ = {
-			isa = PBXGroup;
-			children = (
-				D4013ECDD04FBA130907DAFF /* NumberFormatter+weightFormatter.swift */,
-			);
-			path = Formatters;
-			sourceTree = "<group>";
-		};
-		C6E3B9F91F4E72AA4E5A0E42 /* Debug */ = {
-			isa = PBXGroup;
-			children = (
-				B965DDE93A584620A1B38A33 /* Weight+mockWeights.swift */,
-			);
-			path = Debug;
 			sourceTree = "<group>";
 		};
 		D14FDB6989FC054CB3D4B521 /* Modules */ = {
@@ -552,21 +460,7 @@
 				E6FBC02869098E105BA9BD21 /* TuistBundle+WeightMonitor.swift in Sources */,
 				29A4F86AA012B59A5B5DCE80 /* AppDelegate.swift in Sources */,
 				D4F210073D0681B637EA5A15 /* WeightMonitorModulesAssembly.swift in Sources */,
-				1FBEEF010E6E49F72D063C20 /* Array+elementOrNil.swift in Sources */,
-				A029C96B3D8EDA06153192D8 /* Date+todayOrOtherDayString.swift in Sources */,
-				56437B05FFBB7AEEB0EFEEBA /* Weight+mockWeights.swift in Sources */,
-				25FFA55A729ABA2EF6179767 /* NumberFormatter+weightFormatter.swift in Sources */,
-				3003ECFF0C2CFF8E86913093 /* Measurement+formattedNarrow.swift in Sources */,
-				70AFF606A5BF1312F781671A /* Optional+isNil.swift in Sources */,
-				DA7C8E1052434E52B190BB05 /* View+shake.swift in Sources */,
-				1B92716DCA333841D71312CF /* Weight+strings.swift in Sources */,
-				378D9DB9124CEB7FC3F4846F /* WeightUnit+toUnits.swift in Sources */,
 				768FF1FCD39F5F11BB2C7149 /* SceneDelegate.swift in Sources */,
-				AE5D2F4C0B71F0E9BB2544C7 /* InvalidComponentManager.swift in Sources */,
-				BE4FD9DC1DB1C10BE25EEDB2 /* InvalidComponentManaging.swift in Sources */,
-				E0B03E20BCBC49DEA2A023A1 /* AlertBindingModifier.swift in Sources */,
-				D234D61A93805C16B3130CE1 /* AlertModel.swift in Sources */,
-				41AA9AFEBEBF999941D8F576 /* View+alert.swift in Sources */,
 				68D60DBD601E6B03D5948E08 /* WeightCreationInput.swift in Sources */,
 				31E4903E6C1E72AB88B56E07 /* WeightCreationInvalidComponent.swift in Sources */,
 				ACFC93651EBE829D04CBD9D0 /* WeightCreationFactory.swift in Sources */,

@@ -1,4 +1,5 @@
 //
+import WeightMonitorUIComponents
 //  WeightHistoryCoordinator.swift
 //  WeightMonitor
 //

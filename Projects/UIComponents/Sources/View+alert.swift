@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension View {
+public extension View {
     func alert(model: Binding<AlertModel?>) -> some View {
         modifier(AlertBindingModifier(model: model))
     }
