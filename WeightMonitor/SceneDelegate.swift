@@ -1,14 +1,16 @@
 //
-import WeightMonitorUIComponents
+//
 //  SceneDelegate.swift
 //  WeightMonitor
 //
-//  Created by Александр Зиновьев on 02.05.2023.
+//  Created by Александр Зиновьев on 25.10.2025.
 //
 
 import SwiftUI
 import Swinject
 import UIKit
+import WeightMonitorFeatureWeightCreation
+import WeightMonitorUIComponents
 import WeigthMonitorData
 import WeigthMonitorDomain
 

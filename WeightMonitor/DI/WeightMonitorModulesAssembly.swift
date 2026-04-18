@@ -1,5 +1,4 @@
 //
-import WeightMonitorUIComponents
 //  WeightMonitorModulesAssembly.swift
 //  WeightMonitor
 //
@@ -8,6 +7,8 @@ import WeightMonitorUIComponents
 
 import Foundation
 import Swinject
+import WeightMonitorFeatureWeightCreation
+import WeightMonitorUIComponents
 import WeigthMonitorDomain
 
 public final class WeightMonitorModulesAssembly: Assembly {

@@ -16,5 +16,12 @@
       <FileRef
          location = "group:UIComponents/WeightMonitorUIComponents.xcodeproj">
       </FileRef>
+      <Group
+         location = "group:Features"
+         name = "Features">
+         <FileRef
+            location = "group:WeightCreation/WeightMonitorFeatureWeightCreation.xcodeproj">
+         </FileRef>
+      </Group>
    </Group>
 </Workspace>

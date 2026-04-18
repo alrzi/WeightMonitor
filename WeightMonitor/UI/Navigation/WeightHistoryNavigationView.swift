@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import WeightMonitorFeatureWeightCreation
+import WeightMonitorUIComponents
+import WeigthMonitorDomain
 
 @MainActor
 struct WeightHistoryNavigationView: View {

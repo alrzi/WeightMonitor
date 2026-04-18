@@ -1,5 +1,4 @@
 //
-import WeightMonitorUIComponents
 //  WeightHistoryViewModel+createMockWeights.swift
 //  WeightMonitor
 //
@@ -8,6 +7,7 @@ import WeightMonitorUIComponents
 
 import Foundation
 import WeigthMonitorDomain
+import WeightMonitorUIComponents
 
 #if DEBUG
 extension WeightHistoryViewModel {

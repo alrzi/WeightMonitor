@@ -1,16 +1,16 @@
+import Foundation
 //
 import WeightMonitorUIComponents
+import WeigthMonitorDomain
+
 //  WeightCreationViewModel.swift
 //  WeightMonitor
 //
 //  Created by Александр Зиновьев on 26.10.2025.
 //
 
-import Foundation
-import WeigthMonitorDomain
-
 @MainActor
-protocol WeightCreationViewModelProtocol: ObservableObject {
+public protocol WeightCreationViewModelProtocol: ObservableObject {
     var selectedDate: Date { get set }
     var weightInput: String { get set }
     var buttonTitle: String { get }
@@ -29,25 +29,25 @@ public final class WeightCreationViewModel: WeightCreationViewModelProtocol {
 
     private let weightManager: any WeightManaging
     private let weightUnitManager: any WeightUnitManaging
-    private let invalidComponentManager: any InvalidComponentManaging<InvalidComponent>
+    private let invalidComponentManager: any InvalidComponentManaging<WeightCreationInvalidComponent>
     private let input: WeightCreationInput
     private let onCompletion: @MainActor () -> Void
 
-    let weightUnitFormatter: String
-    let dateRange: ClosedRange<Date>
-    let buttonTitle: String
+    public let weightUnitFormatter: String
+    public let dateRange: ClosedRange<Date>
+    public let buttonTitle: String
 
-    @Published private(set) var isDatePickerVisible = false
-    @Published private(set) var invalidComponent: InvalidComponent?
+    @Published public private(set) var isDatePickerVisible = false
+    @Published public private(set) var invalidComponent: WeightCreationInvalidComponent?
 
-    @Published var alertModel: AlertModel?
-    @Published var selectedDate: Date
-    @Published var weightInput: String
+    @Published public var alertModel: AlertModel?
+    @Published public var selectedDate: Date
+    @Published public var weightInput: String
 
-    init(
+    public init(
         weightManager: some WeightManaging,
         weightUnitManager: some WeightUnitManaging,
-        invalidComponentManager: some InvalidComponentManaging<InvalidComponent>,
+        invalidComponentManager: some InvalidComponentManaging<WeightCreationInvalidComponent>,
         input: WeightCreationInput,
         onCompletion: @MainActor @escaping () -> Void
     ) {
@@ -66,11 +66,11 @@ public final class WeightCreationViewModel: WeightCreationViewModelProtocol {
         invalidComponentManager.invalidComponent.assign(to: &$invalidComponent)
     }
 
-    func onDateTap() {
+    public func onDateTap() {
         isDatePickerVisible = !isDatePickerVisible
     }
 
-    func onCreateWeightTap() {
+    public func onCreateWeightTap() {
         let unit = weightUnitManager.lastSelectedWeightUnit.toUnitMass()
 
         guard let massKg = Self.kilograms(from: weightInput, unit: unit) else {

@@ -84,6 +84,34 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3056065D952F496F82DBFD75"
+               BuildableName = "WeightMonitorFeatureWeightCreation.framework"
+               BlueprintName = "WeightMonitorFeatureWeightCreation"
+               ReferencedContainer = "container:Projects/Features/WeightCreation/WeightMonitorFeatureWeightCreation.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AAA2B452E8262D32ACA3D550"
+               BuildableName = "WeightMonitorFeatureWeightCreationTests.xctest"
+               BlueprintName = "WeightMonitorFeatureWeightCreationTests"
+               ReferencedContainer = "container:Projects/Features/WeightCreation/WeightMonitorFeatureWeightCreation.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "6E4F93F4404F2CBD946A351D"
                BuildableName = "WeightMonitorTests.xctest"
                BlueprintName = "WeightMonitorTests"
@@ -146,6 +174,17 @@
                BuildableName = "WeightMonitorDomainTests.xctest"
                BlueprintName = "WeightMonitorDomainTests"
                ReferencedContainer = "container:Projects/Domain/WeightMonitorDomain.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AAA2B452E8262D32ACA3D550"
+               BuildableName = "WeightMonitorFeatureWeightCreationTests.xctest"
+               BlueprintName = "WeightMonitorFeatureWeightCreationTests"
+               ReferencedContainer = "container:Projects/Features/WeightCreation/WeightMonitorFeatureWeightCreation.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference

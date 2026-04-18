@@ -1,5 +1,4 @@
 //
-import WeightMonitorUIComponents
 //  WeightCreationFactory.swift
 //  WeightMonitor
 //
@@ -8,6 +7,7 @@ import WeightMonitorUIComponents
 
 import Foundation
 import WeigthMonitorDomain
+import WeightMonitorUIComponents
 
 public struct WeightCreationFactory {
     private let weightManager: any WeightManaging

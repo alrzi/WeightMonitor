@@ -1,28 +1,28 @@
+import Foundation
+import SwiftUI
 //
 import WeightMonitorUIComponents
+import WeigthMonitorDomain
+
 //  WeightCreationView.swift
 //  WeightMonitor
 //
 //  Created by Александр Зиновьев on 26.10.2025.
 //
 
-import Foundation
-import SwiftUI
-import WeigthMonitorDomain
-
 @MainActor
-struct WeightCreationView<ViewModel: WeightCreationViewModelProtocol> {
+public struct WeightCreationView<ViewModel: WeightCreationViewModelProtocol> {
     @ObservedObject private var viewModel: ViewModel
     @Environment(\.locale) private var locale
     @FocusState private var isFocused: Bool
 
-    init(viewModel: ViewModel) {
+    public init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
 }
 
 extension WeightCreationView: View {
-    var body: some View {
+    public var body: some View {
         VStack {
             Text("Ввод веса")
                 .font(.largeTitle)
@@ -87,7 +87,7 @@ extension WeightCreationView: View {
                 Button("Done") {
                     isFocused = false
                 }
-            }            
+            }
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Button(action: viewModel.onCreateWeightTap) {
@@ -103,26 +103,26 @@ extension WeightCreationView: View {
 }
 
 #if DEBUG
-#Preview {
-    WeightCreationView(viewModel: ViewModel())
-}
-
-private final class ViewModel: WeightCreationViewModelProtocol {
-    @Published var selectedDate: Date = .now
-    @Published var weightInput: String = "12"
-    @Published private(set) var isDatePickerVisible = false
-    var alertModel: AlertModel?
-    let weightUnitFormatter: String = "kg"
-    let invalidComponent: WeightCreationInvalidComponent? = nil
-    let dateRange: ClosedRange<Date> = .distantPast...Date.now
-    let buttonTitle = "Create"
-
-    init() { }
-
-    func onDateTap() {
-        isDatePickerVisible = !isDatePickerVisible
+    #Preview {
+        WeightCreationView(viewModel: ViewModel())
     }
 
-    func onCreateWeightTap() { }
-}
+    private final class ViewModel: WeightCreationViewModelProtocol {
+        @Published var selectedDate: Date = .now
+        @Published var weightInput: String = "12"
+        @Published private(set) var isDatePickerVisible = false
+        var alertModel: AlertModel?
+        let weightUnitFormatter: String = "kg"
+        let invalidComponent: WeightCreationInvalidComponent? = nil
+        let dateRange: ClosedRange<Date> = .distantPast...Date.now
+        let buttonTitle = "Create"
+
+        init() {}
+
+        func onDateTap() {
+            isDatePickerVisible = !isDatePickerVisible
+        }
+
+        func onCreateWeightTap() {}
+    }
 #endif

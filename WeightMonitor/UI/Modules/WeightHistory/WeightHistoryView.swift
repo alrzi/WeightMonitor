@@ -1,5 +1,4 @@
 //
-import WeightMonitorUIComponents
 //  WeightHistoryView.swift
 //  WeightMonitor
 //
@@ -8,6 +7,7 @@ import WeightMonitorUIComponents
 
 import SwiftUI
 import WeigthMonitorDomain
+import WeightMonitorUIComponents
 
 @MainActor
 struct WeightHistoryView<ViewModel: WeightHistoryViewModelProtocol> {

@@ -1,13 +1,13 @@
 //
-import WeightMonitorUIComponents
 //  WeightsState.swift
 //  WeightMonitor
 //
-//  Created by Александр Зиновьев on 02.11.2025.
+//  Created by Александр Зиновьев на 02.11.2025.
 //
 
 import Foundation
 import WeigthMonitorDomain
+import WeightMonitorUIComponents
 
 struct WeightsState: Equatable {
     static let pageSize = 20
