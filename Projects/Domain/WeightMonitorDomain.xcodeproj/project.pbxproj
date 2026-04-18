@@ -1,0 +1,666 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		138ED989B4EAABA53347C943 /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E4D3BD67CE0FBCAECC263F /* Weight.swift */; };
+		26E77316CA77CC62975A2608 /* WeightUnitManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BE83190C71CDB83479689 /* WeightUnitManaging.swift */; };
+		2F8AFB43C06D5C4327B5D0CD /* WeightUnitDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406CC5AAA0B8690B5BB0EA12 /* WeightUnitDataStorage.swift */; };
+		4464BB1DF0F6F74B2EA7402F /* WeigthMonitorDomainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93256A571E7BBA9B97DB1FB8 /* WeigthMonitorDomainAssembly.swift */; };
+		45261A50D03B7F423D648CAE /* WeightCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B19AC55811159E247D2858 /* WeightCursor.swift */; };
+		556595FC5BB8DFFCB66F790B /* WeigthRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F3876C76702DAD34C7907E /* WeigthRepositoryProtocol.swift */; };
+		6879F3C8E1C92D6DBACB51CE /* WeightUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297D56D3B5E0D9B3939CC71C /* WeightUnit.swift */; };
+		76B35E328FB870BEE7A9F2A0 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = DD79BFAF7838A4102EFE578D /* Swinject */; };
+		8322BE6BB73B5A93E3F57342 /* AsyncExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 7AC8E0F1C7B03EAD879A226F /* AsyncExtensions */; };
+		886683C55026972EB788B156 /* WeightMonitorDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 686FDCA59D89FE8DE56008C1 /* WeightMonitorDomain.framework */; };
+		B010C208151F781BF341CB51 /* WeightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F59C7CE672682612F0F4B79 /* WeightManager.swift */; };
+		F2F660746521F5B79FEA73A6 /* WeightManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0956F44BC255218D833D581 /* WeightManaging.swift */; };
+		F39C452E140D76A410785D0B /* WeightUnitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62814CEC7648CB8BD0DBC52 /* WeightUnitManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5898C11DA34FA9E7B8BAFC8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF5683CACC369EE2D07C3F65 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD9C5E7D98B82824B484CED7;
+			remoteInfo = WeightMonitorDomain;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0C2C311ED9FEFC19AFAB5FDD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52EF3CC28230503104A92F5E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		297D56D3B5E0D9B3939CC71C /* WeightUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightUnit.swift; sourceTree = "<group>"; };
+		34F3876C76702DAD34C7907E /* WeigthRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeigthRepositoryProtocol.swift; sourceTree = "<group>"; };
+		3A8BE83190C71CDB83479689 /* WeightUnitManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightUnitManaging.swift; sourceTree = "<group>"; };
+		406CC5AAA0B8690B5BB0EA12 /* WeightUnitDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightUnitDataStorage.swift; sourceTree = "<group>"; };
+		4F59C7CE672682612F0F4B79 /* WeightManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightManager.swift; sourceTree = "<group>"; };
+		686FDCA59D89FE8DE56008C1 /* WeightMonitorDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WeightMonitorDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		823FE8242D5D88C83AE2FDC0 /* WeightMonitorDomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeightMonitorDomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		93256A571E7BBA9B97DB1FB8 /* WeigthMonitorDomainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeigthMonitorDomainAssembly.swift; sourceTree = "<group>"; };
+		B380AF5EB78DDF5B4F1327E4 /* WeightMonitorDomainTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WeightMonitorDomainTests-Info.plist"; sourceTree = "<group>"; };
+		C0956F44BC255218D833D581 /* WeightManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightManaging.swift; sourceTree = "<group>"; };
+		E4E4D3BD67CE0FBCAECC263F /* Weight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
+		E5B19AC55811159E247D2858 /* WeightCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCursor.swift; sourceTree = "<group>"; };
+		EBC1450583BA25F0B7172B59 /* WeightMonitorDomain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WeightMonitorDomain-Info.plist"; sourceTree = "<group>"; };
+		F62814CEC7648CB8BD0DBC52 /* WeightUnitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightUnitManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		142D4344F80A1FC870B500DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76B35E328FB870BEE7A9F2A0 /* Swinject in Frameworks */,
+				8322BE6BB73B5A93E3F57342 /* AsyncExtensions in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75F2BA5B311FA56757FFBC5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				886683C55026972EB788B156 /* WeightMonitorDomain.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1F5B16F97D885865F67D49EA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				686FDCA59D89FE8DE56008C1 /* WeightMonitorDomain.framework */,
+				823FE8242D5D88C83AE2FDC0 /* WeightMonitorDomainTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2040EC0DE5465640C30DEDC8 /* WeightUnitManager */ = {
+			isa = PBXGroup;
+			children = (
+				F62814CEC7648CB8BD0DBC52 /* WeightUnitManager.swift */,
+				3A8BE83190C71CDB83479689 /* WeightUnitManaging.swift */,
+			);
+			path = WeightUnitManager;
+			sourceTree = "<group>";
+		};
+		5EEDC1F4799EFB9C868148AE /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				34F3876C76702DAD34C7907E /* WeigthRepositoryProtocol.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		6D06E62A7441FB080A862662 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E4E4D3BD67CE0FBCAECC263F /* Weight.swift */,
+				297D56D3B5E0D9B3939CC71C /* WeightUnit.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		90369757EF258AD4F73352E7 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				93256A571E7BBA9B97DB1FB8 /* WeigthMonitorDomainAssembly.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		915CF9E6C2BC0F84EA6344AC /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E81CFCF3823AC41AE19B1262 /* WeightManager */,
+				2040EC0DE5465640C30DEDC8 /* WeightUnitManager */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		A3F73CAC588A9354B5697F62 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				90369757EF258AD4F73352E7 /* DI */,
+				FB29B846E63B4C5234D51367 /* Items */,
+				915CF9E6C2BC0F84EA6344AC /* Managers */,
+				6D06E62A7441FB080A862662 /* Models */,
+				5EEDC1F4799EFB9C868148AE /* Repositories */,
+				BF5189853D0B311985BE6C7D /* Storage */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		A8D6D4A680646FB00371AA0B /* Derived */ = {
+			isa = PBXGroup;
+			children = (
+				DCA23C5E3868F5F8A19A8348 /* InfoPlists */,
+			);
+			path = Derived;
+			sourceTree = "<group>";
+		};
+		AD81D1B04163D4DA51C1421E /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				A8D6D4A680646FB00371AA0B /* Derived */,
+				A3F73CAC588A9354B5697F62 /* Sources */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		BF5189853D0B311985BE6C7D /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				406CC5AAA0B8690B5BB0EA12 /* WeightUnitDataStorage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		DCA23C5E3868F5F8A19A8348 /* InfoPlists */ = {
+			isa = PBXGroup;
+			children = (
+				EBC1450583BA25F0B7172B59 /* WeightMonitorDomain-Info.plist */,
+				B380AF5EB78DDF5B4F1327E4 /* WeightMonitorDomainTests-Info.plist */,
+			);
+			path = InfoPlists;
+			sourceTree = "<group>";
+		};
+		E81CFCF3823AC41AE19B1262 /* WeightManager */ = {
+			isa = PBXGroup;
+			children = (
+				4F59C7CE672682612F0F4B79 /* WeightManager.swift */,
+				C0956F44BC255218D833D581 /* WeightManaging.swift */,
+			);
+			path = WeightManager;
+			sourceTree = "<group>";
+		};
+		F4D0B59D51719A2C5948C584 = {
+			isa = PBXGroup;
+			children = (
+				1F5B16F97D885865F67D49EA /* Products */,
+				AD81D1B04163D4DA51C1421E /* Project */,
+			);
+			sourceTree = "<group>";
+		};
+		FB29B846E63B4C5234D51367 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				E5B19AC55811159E247D2858 /* WeightCursor.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BD9C5E7D98B82824B484CED7 /* WeightMonitorDomain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 511950C5D7EC46778EA2A4AB /* Build configuration list for PBXNativeTarget "WeightMonitorDomain" */;
+			buildPhases = (
+				46C88996C667581FE942890C /* Sources */,
+				2AD56A0199C5987CFF5F54BB /* Resources */,
+				142D4344F80A1FC870B500DC /* Frameworks */,
+				52EF3CC28230503104A92F5E /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WeightMonitorDomain;
+			packageProductDependencies = (
+				DD79BFAF7838A4102EFE578D /* Swinject */,
+				7AC8E0F1C7B03EAD879A226F /* AsyncExtensions */,
+			);
+			productName = WeightMonitorDomain;
+			productReference = 686FDCA59D89FE8DE56008C1 /* WeightMonitorDomain.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EB1712F0A422C28EE20D5914 /* WeightMonitorDomainTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4CA9BFAFE843F8E2109B551 /* Build configuration list for PBXNativeTarget "WeightMonitorDomainTests" */;
+			buildPhases = (
+				9453E5DD32FACECA20039DC4 /* Sources */,
+				E9636FE2B4C30A54FF89A4ED /* Resources */,
+				75F2BA5B311FA56757FFBC5D /* Frameworks */,
+				0C2C311ED9FEFC19AFAB5FDD /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				731C49FA49EF2A5A6F8148CB /* PBXTargetDependency */,
+			);
+			name = WeightMonitorDomainTests;
+			packageProductDependencies = (
+			);
+			productName = WeightMonitorDomainTests;
+			productReference = 823FE8242D5D88C83AE2FDC0 /* WeightMonitorDomainTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AF5683CACC369EE2D07C3F65 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = CC890EADE15BF95A548C7823 /* Build configuration list for PBXProject "WeightMonitorDomain" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = F4D0B59D51719A2C5948C584;
+			packageReferences = (
+				EF0E2BAB691DCD732D62E8BE /* XCRemoteSwiftPackageReference "Swinject" */,
+				62DEF1599456DB6B800C3CB0 /* XCRemoteSwiftPackageReference "AsyncExtensions" */,
+			);
+			productRefGroup = 1F5B16F97D885865F67D49EA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BD9C5E7D98B82824B484CED7 /* WeightMonitorDomain */,
+				EB1712F0A422C28EE20D5914 /* WeightMonitorDomainTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2AD56A0199C5987CFF5F54BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9636FE2B4C30A54FF89A4ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		46C88996C667581FE942890C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4464BB1DF0F6F74B2EA7402F /* WeigthMonitorDomainAssembly.swift in Sources */,
+				45261A50D03B7F423D648CAE /* WeightCursor.swift in Sources */,
+				B010C208151F781BF341CB51 /* WeightManager.swift in Sources */,
+				F2F660746521F5B79FEA73A6 /* WeightManaging.swift in Sources */,
+				F39C452E140D76A410785D0B /* WeightUnitManager.swift in Sources */,
+				26E77316CA77CC62975A2608 /* WeightUnitManaging.swift in Sources */,
+				138ED989B4EAABA53347C943 /* Weight.swift in Sources */,
+				6879F3C8E1C92D6DBACB51CE /* WeightUnit.swift in Sources */,
+				556595FC5BB8DFFCB66F790B /* WeigthRepositoryProtocol.swift in Sources */,
+				2F8AFB43C06D5C4327B5D0CD /* WeightUnitDataStorage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9453E5DD32FACECA20039DC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		731C49FA49EF2A5A6F8148CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WeightMonitorDomain;
+			target = BD9C5E7D98B82824B484CED7 /* WeightMonitorDomain */;
+			targetProxy = 5898C11DA34FA9E7B8BAFC8B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3E0ED8AD8018F082891DA65C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "Derived/InfoPlists/WeightMonitorDomainTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alrzi.WeightMonitorDomainTests;
+				PRODUCT_NAME = WeightMonitorDomainTests;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		97710533479F8B79A91AB499 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/WeightMonitorDomain-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alrzi.WeightMonitorDomain;
+				PRODUCT_NAME = WeightMonitorDomain;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E49926C3640A7C9DD891929F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E4F7E1B0C2F96E5E53BC60FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E63A542E5753D716370EC35D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "Derived/InfoPlists/WeightMonitorDomainTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alrzi.WeightMonitorDomainTests;
+				PRODUCT_NAME = WeightMonitorDomainTests;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F34D281C4324424279D26A4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Derived/InfoPlists/WeightMonitorDomain-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-L$(DT_TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alrzi.WeightMonitorDomain;
+				PRODUCT_NAME = WeightMonitorDomain;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
+					"$(inherited)",
+					DEBUG,
+				);
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		511950C5D7EC46778EA2A4AB /* Build configuration list for PBXNativeTarget "WeightMonitorDomain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F34D281C4324424279D26A4C /* Debug */,
+				97710533479F8B79A91AB499 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC890EADE15BF95A548C7823 /* Build configuration list for PBXProject "WeightMonitorDomain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4F7E1B0C2F96E5E53BC60FD /* Debug */,
+				E49926C3640A7C9DD891929F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4CA9BFAFE843F8E2109B551 /* Build configuration list for PBXNativeTarget "WeightMonitorDomainTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E63A542E5753D716370EC35D /* Debug */,
+				3E0ED8AD8018F082891DA65C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		62DEF1599456DB6B800C3CB0 /* XCRemoteSwiftPackageReference "AsyncExtensions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alrzi/AsyncExtensions.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		EF0E2BAB691DCD732D62E8BE /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7AC8E0F1C7B03EAD879A226F /* AsyncExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AsyncExtensions;
+		};
+		DD79BFAF7838A4102EFE578D /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Swinject;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = AF5683CACC369EE2D07C3F65 /* Project object */;
+}

@@ -4,4 +4,11 @@
    <FileRef
       location = "group:WeightMonitor.xcodeproj">
    </FileRef>
+   <Group
+      location = "group:Projects"
+      name = "Projects">
+      <FileRef
+         location = "group:Domain/WeightMonitorDomain.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>

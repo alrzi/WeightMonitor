@@ -31,22 +31,9 @@ let project = Project(
                 "WeightMonitor/Base.lproj/LaunchScreen.storyboard",
             ],
             dependencies: [
-                .target(name: "WeigthMonitorDomain"),
+                .project(target: "WeightMonitorDomain", path: "Projects/Domain"),
                 .target(name: "WeigthMonitorData"),
                 .package(product: "Swinject"),
-            ]
-        ),
-
-        .target(
-            name: "WeigthMonitorDomain",
-            destinations: .iOS,
-            product: .framework,
-            bundleId: "com.alrzi.WeigthMonitorDomain",
-            deploymentTargets: .iOS("16.0"),
-            sources: ["WeigthMonitorDomain/**/*.swift"],
-            dependencies: [
-                .package(product: "Swinject"),
-                .package(product: "AsyncExtensions"),
             ]
         ),
 
@@ -58,7 +45,7 @@ let project = Project(
             deploymentTargets: .iOS("16.0"),
             sources: ["WeigthMonitorData/**/*.swift"],
             dependencies: [
-                .target(name: "WeigthMonitorDomain"),
+                .project(target: "WeightMonitorDomain", path: "Projects/Domain"),
                 .package(product: "Swinject"),
                 .package(product: "GRDB"),
                 .package(product: "KeyValueStorage"),
