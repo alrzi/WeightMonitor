@@ -20,6 +20,48 @@
                ReferencedContainer = "container:WeightMonitor.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6E4F93F4404F2CBD946A351D"
+               BuildableName = "WeightMonitorTests.xctest"
+               BlueprintName = "WeightMonitorTests"
+               ReferencedContainer = "container:WeightMonitor.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EC9CF4F704EE68EB8E26F64F"
+               BuildableName = "WeigthMonitorData.framework"
+               BlueprintName = "WeigthMonitorData"
+               ReferencedContainer = "container:WeightMonitor.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A48A79AF50F788E1B0271738"
+               BuildableName = "WeigthMonitorDomain.framework"
+               BlueprintName = "WeigthMonitorDomain"
+               ReferencedContainer = "container:WeightMonitor.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

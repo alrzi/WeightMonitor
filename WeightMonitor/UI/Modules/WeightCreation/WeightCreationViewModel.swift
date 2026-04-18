@@ -44,9 +44,9 @@ public final class WeightCreationViewModel: WeightCreationViewModelProtocol {
     @Published var weightInput: String
 
     init(
-        weightManager: any WeightManaging,
-        weightUnitManager: any WeightUnitManaging,
-        invalidComponentManager: some InvalidComponentManaging<InvalidComponent> = InvalidComponentManager(),
+        weightManager: some WeightManaging,
+        weightUnitManager: some WeightUnitManaging,
+        invalidComponentManager: some InvalidComponentManaging<InvalidComponent>,
         input: WeightCreationInput,
         onCompletion: @MainActor @escaping () -> Void
     ) {

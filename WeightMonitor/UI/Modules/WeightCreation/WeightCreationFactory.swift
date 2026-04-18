@@ -28,6 +28,7 @@ public struct WeightCreationFactory {
         WeightCreationViewModel(
             weightManager: weightManager,
             weightUnitManager: weightUnitManager,
+            invalidComponentManager: InvalidComponentManager(),
             input: input,
             onCompletion: onCompletion
         )
