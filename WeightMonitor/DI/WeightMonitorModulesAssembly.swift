@@ -10,21 +10,20 @@ import Swinject
 import WeigthMonitorDomain
 
 public final class WeightMonitorModulesAssembly: Assembly {
-    public init() { }
+    public init() {}
 
     public func assemble(container: Container) {
-        container.register(WeightHistoryAssembly.self) { r in
-            WeightHistoryAssembly(
+        container.register(WeightCreationFactory.self) { r in
+            WeightCreationFactory(
                 weightManager: r.resolve(WeightManaging.self)!,
-                weightUnitManager: r.resolve((any WeightUnitManaging).self)!,
-                weightCreationAssembly: r.resolve(WeightCreationAssembly.self)!,
+                weightUnitManager: r.resolve((any WeightUnitManaging).self)!
             )
         }
 
-        container.register(WeightCreationAssembly.self) { r in
-            WeightCreationAssembly(
+        container.register(WeightHistoryFactory.self) { r in
+            WeightHistoryFactory(
                 weightManager: r.resolve(WeightManaging.self)!,
-                weightUnitManager: r.resolve((any WeightUnitManaging).self)!,
+                weightUnitManager: r.resolve((any WeightUnitManaging).self)!
             )
         }
     }

@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum WeightCreationInvalidComponent: Equatable {
+public enum WeightCreationInvalidComponent: Equatable {
     case incorrectWeight
 }

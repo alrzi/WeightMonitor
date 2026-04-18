@@ -124,23 +124,22 @@ private struct WeightInfoView: View {
 }
 
 #if DEBUG
-#Preview {
-    WeightHistoryView(viewModel: ViewModel())
-}
+    #Preview {
+        WeightHistoryView(viewModel: ViewModel())
+    }
 
-private final class ViewModel: WeightHistoryViewModelProtocol {
-    var alertModel: AlertModel?
-    var weightUnit: WeightUnit = .imperial
-    var isNewWeightAdded: Bool = false
-    var weightsState: WeightsState? = .init(
-        weights:  Weight.mockYearlyWeights(startMass: 78.0, variation: 0.25, seed: 42)
-    )
-    var route: WeightHistoryRoute?
+    private final class ViewModel: WeightHistoryViewModelProtocol {
+        var alertModel: AlertModel?
+        var weightUnit: WeightUnit = .imperial
+        var isNewWeightAdded: Bool = false
+        var weightsState: WeightsState? = .init(
+            weights: Weight.mockYearlyWeights(startMass: 78.0, variation: 0.25, seed: 42)
+        )
 
-    func onAppear() { }
-    func onTap(at index: Int) { }
-    func onCreateNewWeight() { }
-    func onDeleteTap(at index: Int) { }
-    func onWeightAppear(at index: Int) { }
-}
+        func onAppear() {}
+        func onTap(at index: Int) {}
+        func onCreateNewWeight() {}
+        func onDeleteTap(at index: Int) {}
+        func onWeightAppear(at index: Int) {}
+    }
 #endif

@@ -5,11 +5,11 @@
 //  Created by Александр Зиновьев on 02.05.2023.
 //
 
-import UIKit
 import SwiftUI
 import Swinject
-import WeigthMonitorDomain
+import UIKit
 import WeigthMonitorData
+import WeigthMonitorDomain
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let assembler = Assembler()
@@ -32,16 +32,25 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             assemblies: [
                 WeigthMonitorDataAssembly(poolProviderGRDB: poolProviderGRDB),
                 WeigthMonitorDomainAssembly(),
-                WeightMonitorModulesAssembly()
+                WeightMonitorModulesAssembly(),
             ]
         )
 
         let window = UIWindow(windowScene: windowScene)
         self.window = window
 
-        let assembly = resolver.resolve(WeightHistoryAssembly.self)!
+        let weightCreationFactory = resolver.resolve(WeightCreationFactory.self)!
+        let weightHistoryFactory = resolver.resolve(WeightHistoryFactory.self)!
 
-        window.rootViewController = UIHostingController(rootView: assembly.assemble())
+        let coordinator = WeightHistoryCoordinator()
+
+        window.rootViewController = UIHostingController(
+            rootView: WeightHistoryNavigationView(
+                coordinator: coordinator,
+                weightHistoryFactory: weightHistoryFactory,
+                weightCreationFactory: weightCreationFactory
+            )
+        )
         window.makeKeyAndVisible()
     }
 

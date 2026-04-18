@@ -1,9 +1,10 @@
-import Foundation
-import CoreData
 import Combine
+import CoreData
+import Foundation
 import WeigthMonitorDomain
 
-protocol WeightHistoryViewModelProtocol: ObservableObject, WeightHistoryNavigationState {
+@MainActor
+protocol WeightHistoryViewModelProtocol: ObservableObject {
     var weightUnit: WeightUnit { get set }
     var alertModel: AlertModel? { get set }
     var weightsState: WeightsState? { get }
@@ -15,9 +16,10 @@ protocol WeightHistoryViewModelProtocol: ObservableObject, WeightHistoryNavigati
     func onDeleteTap(at index: Int)
 }
 
-final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
+public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     private let weightManager: any WeightManaging
     private let weightUnitManager: any WeightUnitManaging
+    private let router: WeightHistoryRouter
 
     private var weightUnitCancellable: AnyCancellable?
     private var weightsObservationTask: Task<(), Error>?
@@ -28,17 +30,19 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
 
     @Published var alertModel: AlertModel?
     @Published var weightUnit: WeightUnit = .metric
-    @Published var route: WeightHistoryRoute?
 
     init(
         weightManager: any WeightManaging,
-        weightUnitManager: any WeightUnitManaging
+        weightUnitManager: any WeightUnitManaging,
+        router: WeightHistoryRouter
     ) {
         self.weightManager = weightManager
         self.weightUnitManager = weightUnitManager
+        self.router = router
         self.weightUnit = weightUnitManager.lastSelectedWeightUnit
 
-        weightUnitCancellable = $weightUnit            
+        weightUnitCancellable =
+            $weightUnit
             .sink(receiveValue: { unit in
                 Task { await weightUnitManager.set(unit: unit) }
             })
@@ -93,11 +97,11 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
             return
         }
 
-        route = .update(weight: weight, onCompletion: { [weak self] in self?.route = nil })
+        router.openUpdateWeight(weight)
     }
 
     func onCreateNewWeight() {
-        route = .create(onCompletion: { [weak self] in self?.route = nil })
+        router.openCreateWeight()
     }
 
     func onDeleteTap(at index: Int) {
@@ -120,8 +124,8 @@ final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     }
 }
 
-private extension AlertModel {
-    static func loadFailed(retryHandler: @escaping () -> Void) -> Self {
+extension AlertModel {
+    fileprivate static func loadFailed(retryHandler: @escaping () -> Void) -> Self {
         Self(
             title: "Load failed",
             message: "We couldn’t retrieve the data. Please try again.",
@@ -129,7 +133,7 @@ private extension AlertModel {
         )
     }
 
-    static var paginationFailed: Self {
+    fileprivate static var paginationFailed: Self {
         Self(
             title: "Pagination error",
             message: "Unable to load more items. Please try again later.",
@@ -137,7 +141,7 @@ private extension AlertModel {
         )
     }
 
-    static func deletionFailed(retryHandler: @escaping () -> Void) -> Self {
+    fileprivate static func deletionFailed(retryHandler: @escaping () -> Void) -> Self {
         Self(
             title: "Deletion failed",
             message: "The item could not be removed. Please try again.",

@@ -8,7 +8,7 @@
 import Foundation
 import WeigthMonitorDomain
 
-enum WeightCreationInput {
+public enum WeightCreationInput {
     case create
     case update(Weight)
 }

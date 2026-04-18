@@ -23,7 +23,7 @@ protocol WeightCreationViewModelProtocol: ObservableObject {
     func onCreateWeightTap()
 }
 
-final class WeightCreationViewModel: WeightCreationViewModelProtocol {
+public final class WeightCreationViewModel: WeightCreationViewModelProtocol {
     typealias InvalidComponent = WeightCreationInvalidComponent
 
     private let weightManager: any WeightManaging
@@ -47,7 +47,7 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
         weightManager: any WeightManaging,
         weightUnitManager: any WeightUnitManaging,
         invalidComponentManager: some InvalidComponentManaging<InvalidComponent> = InvalidComponentManager(),
-        input:  WeightCreationInput,
+        input: WeightCreationInput,
         onCompletion: @MainActor @escaping () -> Void
     ) {
         self.weightManager = weightManager
@@ -102,8 +102,8 @@ final class WeightCreationViewModel: WeightCreationViewModelProtocol {
 
 // MARK: - Private
 
-private extension WeightCreationViewModel {
-    static func kilograms(from input: String, unit: UnitMass) -> Double? {
+extension WeightCreationViewModel {
+    fileprivate static func kilograms(from input: String, unit: UnitMass) -> Double? {
         guard let raw = input.toDoubleIfPossible() else {
             return nil
         }
@@ -113,8 +113,8 @@ private extension WeightCreationViewModel {
     }
 }
 
-private extension String {
-    func toDoubleIfPossible() -> Double? {
+extension String {
+    fileprivate func toDoubleIfPossible() -> Double? {
         let trimmed = self.trimmingCharacters(in: .whitespacesAndNewlines)
 
         guard !trimmed.isEmpty else { return nil }
@@ -133,32 +133,33 @@ private extension String {
     }
 }
 
-private extension WeightCreationInput {
-    var selectedDate: Date {
+extension WeightCreationInput {
+    fileprivate var selectedDate: Date {
         switch self {
         case .create: .now
         case .update(let weight): weight.createdAt
         }
     }
 
-    func weightInput(unit: WeightUnit) -> String {
+    fileprivate func weightInput(unit: WeightUnit) -> String {
         switch self {
         case .create: ""
-        case .update(let weight): Measurement(value: weight.mass, unit: .kilograms)
+        case .update(let weight):
+            Measurement(value: weight.mass, unit: .kilograms)
                 .converted(to: unit.toUnitMass())
                 .value
                 .formatted()
         }
     }
 
-    var buttonTitle: String {
+    fileprivate var buttonTitle: String {
         switch self {
         case .create: "Create"
         case .update: "Update"
         }
     }
 
-    var isUpdate: Bool {
+    fileprivate var isUpdate: Bool {
         switch self {
         case .create: false
         case .update: true
@@ -166,13 +167,14 @@ private extension WeightCreationInput {
     }
 }
 
-private extension AlertModel {
-    static func weightOperationFailed(isUpdate: Bool, retryHandler: @escaping () -> Void) -> AlertModel {
+extension AlertModel {
+    fileprivate static func weightOperationFailed(isUpdate: Bool, retryHandler: @escaping () -> Void) -> AlertModel {
         let primary = Action.AlertButton(title: "OK")
         let secondary = Action.AlertButton(title: "Retry", handler: retryHandler)
 
         let title = isUpdate ? "Update failed" : "Create failed"
-        let message = isUpdate
+        let message =
+            isUpdate
             ? "The weight could not be updated. Please try again."
             : "The weight could not be saved. Please try again."
 
