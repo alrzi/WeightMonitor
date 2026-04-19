@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import WeigthMonitorDomain
+import Domain
 
 public enum WeightCreationInput {
     case create

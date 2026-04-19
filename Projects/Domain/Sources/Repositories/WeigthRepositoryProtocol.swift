@@ -1,13 +1,13 @@
 //
-//  WeigthRepositoryProtocol.swift
-//  WeigthMonitorDomain
+//  WeightRepositoryProtocol.swift
+//  Domain
 //
 //  Created by Александр Зиновьев on 25.10.2025.
 //
 
 import Foundation
 
-public protocol WeigthRepositoryProtocol: Sendable {
+public protocol WeightRepositoryProtocol: Sendable {
     @MainActor
     func observe() -> AsyncThrowingStream<[Weight], any Error>
 

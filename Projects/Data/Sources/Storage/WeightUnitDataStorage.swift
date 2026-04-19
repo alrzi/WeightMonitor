@@ -7,7 +7,7 @@
 
 import Foundation
 import KeyValueStorage
-import WeigthMonitorDomain
+import Domain
 
 extension KeyValueStorageProtocol where Self: WeightUnitDataStorage {
     public var weightUnit: WeightUnit {

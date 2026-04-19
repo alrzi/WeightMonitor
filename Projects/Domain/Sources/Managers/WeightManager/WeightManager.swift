@@ -1,6 +1,6 @@
 //
 //  WeightManager.swift
-//  WeigthMonitorDomain
+//  Domain
 //
 //  Created by Александр Зиновьев on 25.10.2025.
 //
@@ -8,10 +8,10 @@
 import Foundation
 
 final class WeightManager: WeightManaging {
-    private let weightRepository: WeigthRepositoryProtocol
+    private let weightRepository: WeightRepositoryProtocol
 
     init(
-        weightRepository: WeigthRepositoryProtocol
+        weightRepository: WeightRepositoryProtocol
     ) {
         self.weightRepository = weightRepository
     }

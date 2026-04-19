@@ -1,16 +1,16 @@
 //
-//  WeigthRepository.swift
-//  WeigthMonitorData
+//  WeightRepository.swift
+//  WeightMonitorData
 //
 //  Created by Александр Зиновьев on 25.10.2025.
 //
 
 import Foundation
 internal import GRDB
-import WeigthMonitorDomain
+import Domain
 internal import Combine
 
-struct WeigthRepository: WeigthRepositoryProtocol {
+struct WeightRepository: WeightRepositoryProtocol {
     private let dbPool: any DatabaseWriter
 
     init(dbPool: any DatabaseWriter) {
@@ -100,7 +100,7 @@ struct WeigthRepository: WeigthRepositoryProtocol {
     }
 }
 
-private extension WeigthRepository {
+private extension WeightRepository {
     static func fetchAll(db: Database) throws -> [Weight] {
         try WeightDB
             .order(WeightDB.Columns.createdAt.desc, Column("id").desc)

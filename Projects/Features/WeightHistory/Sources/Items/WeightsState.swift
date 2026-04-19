@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import WeightMonitorUIComponents
-import WeigthMonitorDomain
+import UIComponents
+import Domain
 
 public struct WeightsState: Equatable {
     static let pageSize = 20
@@ -21,7 +21,7 @@ public struct WeightsState: Equatable {
         self.nextCursor = Self.getCursorIfPossible(weights: weights)
     }
 
-    mutating func onWeigthLoaded(newWeights: [Weight]) {
+    mutating func onWeightLoaded(newWeights: [Weight]) {
         let withLast = weights.last.flatMap { [$0] + newWeights } ?? newWeights
         let start = weights.count - 1
         let end = weights.count

@@ -7,8 +7,8 @@
 
 import Charts
 import SwiftUI
-import WeightMonitorUIComponents
-import WeigthMonitorDomain
+import UIComponents
+import Domain
 
 struct WeightHistoryChartView: View {
     let weights: [Weight]

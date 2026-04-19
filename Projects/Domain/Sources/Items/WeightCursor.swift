@@ -1,6 +1,6 @@
 //
 //  WeightCursor.swift
-//  WeigthMonitorDomain
+//  Domain
 //
 //  Created by Александр Зиновьев on 29.10.2025.
 //

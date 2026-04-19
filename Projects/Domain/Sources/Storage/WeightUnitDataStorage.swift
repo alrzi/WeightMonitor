@@ -1,6 +1,6 @@
 //
 //  WeightUnitDataStorage.swift
-//  WeigthMonitorDomain
+//  Domain
 //
 //  Created by Александр Зиновьев on 25.10.2025.
 //

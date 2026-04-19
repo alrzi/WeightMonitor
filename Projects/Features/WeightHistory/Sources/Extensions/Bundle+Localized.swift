@@ -1,6 +1,6 @@
 //
 //  Bundle+Localized.swift
-//  WeightMonitorFeatureWeightHistory
+//  WeightHistory
 //
 //  Created by Александр Зиновьев on 18.04.2026.
 //

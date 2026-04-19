@@ -5,8 +5,9 @@
 //  Created by Александр Зиновьев on 03.11.2025.
 //
 
+import Charts
 import SwiftUI
-import WeigthMonitorDomain
+import Domain
 
 struct WeightHistoryListView: View {
     let weights: [Weight]

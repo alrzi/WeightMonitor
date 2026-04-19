@@ -1,8 +1,8 @@
 import Combine
 import CoreData
 import Foundation
-import WeightMonitorUIComponents
-import WeigthMonitorDomain
+import UIComponents
+import Domain
 
 @MainActor
 public protocol WeightHistoryViewModelProtocol: ObservableObject {
@@ -42,8 +42,7 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
         self.router = router
         self.weightUnit = weightUnitManager.lastSelectedWeightUnit
 
-        weightUnitCancellable =
-            $weightUnit
+        weightUnitCancellable = $weightUnit
             .sink(receiveValue: { unit in
                 Task { await weightUnitManager.set(unit: unit) }
             })
@@ -85,7 +84,7 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
             do {
                 let newWeights = try await weightManager.paginate(after: cursor, limit: WeightsState.pageSize)
 
-                weightsState?.onWeigthLoaded(newWeights: newWeights)
+                weightsState?.onWeightLoaded(newWeights: newWeights)
             }
             catch {
                 alertModel = .paginationFailed

@@ -1,6 +1,6 @@
 //
-//  WeigthMonitorDomainAssembly.swift
-//  WeigthMonitorDomain
+//  DomainAssembly.swift
+//  Domain
 //
 //  Created by Александр Зиновьев on 25.10.2025.
 //
@@ -8,7 +8,7 @@
 import Foundation
 import Swinject
 
-public final class WeigthMonitorDomainAssembly: Assembly {
+public final class DomainAssembly: Assembly {
     public init() { }
 
     public func assemble(container: Container) {
@@ -21,7 +21,7 @@ public final class WeigthMonitorDomainAssembly: Assembly {
 
         container.register(WeightManaging.self) { r in
             WeightManager(
-                weightRepository: r.resolve(WeigthRepositoryProtocol.self)!
+                weightRepository: r.resolve(WeightRepositoryProtocol.self)!
             )
         }
         .inObjectScope(.container)

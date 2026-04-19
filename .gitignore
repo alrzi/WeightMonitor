@@ -1,15 +1,16 @@
-### macOS
-# Finder metadata
+### macOS ###
+# General
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two
+Icon
 
 # Thumbnails
 ._*
 
-# Custom folder icons
-Icon
-
-
-# Volume root files
+# Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
@@ -18,63 +19,55 @@ Icon
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
 
-### VS Code
-# VSCode settings (keep shared configuration)
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
-# Local History for Visual Studio Code
-.history/
+### Xcode ###
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-# Built Visual Studio Code Extensions
-*.vsix
-
-### Xcode
-# Xcode user settings
+## User settings
 xcuserdata/
 
-# Xcode build artifacts
+## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+*.xcscmblueprint
+*.xccheckout
+
+## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
 build/
 DerivedData/
-
-# Obj-C/Swift specific
-*.hmap
-*.ipa
-*.dSYM.zip
-*.dSYM
-
-# Playgrounds
-timeline.xctimeline
-playground.xcworkspace
-
-# Xcode state files
-*.xccheckout
 *.moved-aside
-*.xcuserstate
-*.xcscmblueprint
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
 
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+/*.gcno
 
-### Swift
-# Xcode user settings
-xcuserdata/
+### Projects ###
+*.xcodeproj
+*.xcworkspace
 
-# Xcode build data
-DerivedData/
+### Tuist derived files ###
+graph.dot
+Derived/
 
-# Swift/Obj-C specific
-*.hmap
-
-# App packaging
-*.ipa
-*.dSYM.zip
-*.dSYM
-
-# Playgrounds
-timeline.xctimeline
-playground.xcworkspace
+### Tuist managed dependencies ###
+Tuist/.build
 
 # Swift Package Manager
 # Package.resolved

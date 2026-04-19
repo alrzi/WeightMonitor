@@ -1,6 +1,6 @@
 //
 //  WeightManaging.swift
-//  WeigthMonitorDomain
+//  Domain
 //
 //  Created by Александр Зиновьев on 03.11.2025.
 //

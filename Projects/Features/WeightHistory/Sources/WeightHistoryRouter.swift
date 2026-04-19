@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import WeigthMonitorDomain
+import Domain
 
 @MainActor
 public protocol WeightHistoryRouter: AnyObject {

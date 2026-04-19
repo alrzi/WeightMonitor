@@ -1,13 +1,13 @@
 //
 //  WeightDB.swift
-//  WeigthMonitorData
+//  WeightMonitorData
 //
 //  Created by Александр Зиновьев on 25.10.2025.
 //
 
 import Foundation
 internal import GRDB
-import WeigthMonitorDomain
+import Domain
 
 struct WeightDB {
     var id: Int64?

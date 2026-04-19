@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import WeightMonitorUIComponents
-import WeigthMonitorDomain
+import UIComponents
+import Domain
 
 @MainActor
 public protocol WeightCreationViewModelProtocol: ObservableObject {

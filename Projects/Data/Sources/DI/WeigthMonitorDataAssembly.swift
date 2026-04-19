@@ -1,6 +1,6 @@
 //
-//  WeigthMonitorDataAssembly.swift
-//  WeigthMonitorData
+//  WeightMonitorDataAssembly.swift
+//  WeightMonitorData
 //
 //  Created by Александр Зиновьев on 25.10.2025.
 //
@@ -8,9 +8,9 @@
 import Foundation
 import Swinject
 import KeyValueStorage
-import WeigthMonitorDomain
+import Domain
 
-public final class WeigthMonitorDataAssembly: Assembly {
+public final class WeightMonitorDataAssembly: Assembly {
     private let poolProviderGRDB: GRDBPoolProvider
 
     public init(poolProviderGRDB: GRDBPoolProvider) {
@@ -18,8 +18,8 @@ public final class WeigthMonitorDataAssembly: Assembly {
     }
 
     public func assemble(container: Container) {
-        container.register(WeigthRepositoryProtocol.self) { [poolProviderGRDB] r in
-            WeigthRepository(dbPool: poolProviderGRDB.db)
+        container.register(WeightRepositoryProtocol.self) { [poolProviderGRDB] r in
+            WeightRepository(dbPool: poolProviderGRDB.db)
         }
         .inObjectScope(.container)
 

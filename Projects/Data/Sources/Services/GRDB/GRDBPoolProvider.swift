@@ -1,6 +1,6 @@
 //
 //  GRDBPoolProvider.swift
-//  WeigthMonitorData
+//  WeightMonitorData
 //
 //  Created by Александр Зиновьев on 25.10.2025.
 //

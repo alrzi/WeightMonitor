@@ -7,8 +7,8 @@
 
 import Foundation
 import SwiftUI
-import WeightMonitorUIComponents
-import WeigthMonitorDomain
+import UIComponents
+import Domain
 
 @MainActor
 public struct WeightCreationView<ViewModel: WeightCreationViewModelProtocol> {
