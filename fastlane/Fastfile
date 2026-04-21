@@ -2,15 +2,21 @@ default_platform(:ios)
 
 platform :ios do
   
+  desc "Проверка стиля кода"
+  lane :lint do
+    Dir.chdir("..") do
+      sh("swiftlint lint Projects")
+    end
+  end
+
   desc "Полная подготовка проекта и запуск тестов"
   lane :check do
+    # 1. Сначала запускаем линтер
+    lint
     
-    # Переходим в корень (на уровень выше папки fastlane)
-    Dir.chdir("..") do
-      # 1. Устанавливаем внешние зависимости
+    # 2. Переходим в корень и работаем с Tuist
+    Dir.chdir("..") do     
       sh("tuist install")
-      
-      # 2. Генерируем Xcode проект
       sh("tuist generate --no-open")
       sh("tuist test")
     end    

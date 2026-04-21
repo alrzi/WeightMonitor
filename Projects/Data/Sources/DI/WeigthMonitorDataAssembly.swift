@@ -5,10 +5,10 @@
 //  Created by Александр Зиновьев on 25.10.2025.
 //
 
-import Foundation
-import Swinject
-import KeyValueStorage
 import Domain
+import Foundation
+import KeyValueStorage
+import Swinject
 
 public final class WeightMonitorDataAssembly: Assembly {
     private let poolProviderGRDB: GRDBPoolProvider
@@ -18,7 +18,7 @@ public final class WeightMonitorDataAssembly: Assembly {
     }
 
     public func assemble(container: Container) {
-        container.register(WeightRepositoryProtocol.self) { [poolProviderGRDB] r in
+        container.register(WeightRepositoryProtocol.self) { [poolProviderGRDB] _ in
             WeightRepository(dbPool: poolProviderGRDB.db)
         }
         .inObjectScope(.container)

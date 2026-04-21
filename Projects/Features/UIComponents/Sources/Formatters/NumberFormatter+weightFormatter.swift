@@ -7,23 +7,23 @@
 
 import Foundation
 
-public extension NumberFormatter {
-    static var weightFormatter: NumberFormatter {
-        let f = NumberFormatter()
-        f.locale = Locale.current
-        f.numberStyle = .decimal
-        f.maximumFractionDigits = 2
-        f.minimumFractionDigits = 0
-        f.usesGroupingSeparator = true
-        return f
+extension NumberFormatter {
+    public static var weightFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.locale = Locale.current
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 0
+        formatter.usesGroupingSeparator = true
+        return formatter
     }
 
-    static var dotOnlyNumberFormatter: NumberFormatter {
-        let f = NumberFormatter()
-        f.locale = Locale(identifier: "en_US_POSIX")
-        f.decimalSeparator = "."
-        f.numberStyle = .decimal
-        f.maximumFractionDigits = 2
-        return f
+    public static var dotOnlyNumberFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.decimalSeparator = "."
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        return formatter
     }
 }

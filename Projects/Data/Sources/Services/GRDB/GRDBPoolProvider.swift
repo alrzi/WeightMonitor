@@ -34,15 +34,15 @@ public struct GRDBPoolProvider: Sendable {
         var migrator = DatabaseMigrator()
 
         #if DEBUG
-        migrator.eraseDatabaseOnSchemaChange = true
+            migrator.eraseDatabaseOnSchemaChange = true
         #endif
 
         migrator.registerMigration("v1") { db in
-            try db.create(table: WeightDB.databaseTableName) { t in
-                t.autoIncrementedPrimaryKey("id").unique()
-                t.column("createdAt", .date).notNull()
-                t.column("mass", .double).notNull()
-                t.column("massDifference", .double)
+            try db.create(table: WeightDB.databaseTableName) { table in
+                table.autoIncrementedPrimaryKey("id").unique()
+                table.column("createdAt", .date).notNull()
+                table.column("mass", .double).notNull()
+                table.column("massDifference", .double)
             }
         }
 

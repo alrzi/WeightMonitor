@@ -6,9 +6,9 @@
 //
 
 import Charts
+import Domain
 import SwiftUI
 import UIComponents
-import Domain
 
 struct WeightHistoryChartView: View {
     let weights: [Weight]
@@ -31,9 +31,9 @@ struct WeightHistoryChartView: View {
     var body: some View {
         Section {
             Picker("Period", selection: $period) {
-                ForEach(WeightHistoryChartPeriod.allCases) { p in
-                    Text(p.rawValue)
-                        .tag(p)
+                ForEach(WeightHistoryChartPeriod.allCases) { period in
+                    Text(period.rawValue)
+                        .tag(period)
                 }
             }
             .pickerStyle(.segmented)

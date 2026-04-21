@@ -9,19 +9,19 @@ import Foundation
 import Swinject
 
 public final class DomainAssembly: Assembly {
-    public init() { }
+    public init() {}
 
     public func assemble(container: Container) {
-        container.register((any WeightUnitManaging).self) { r in
+        container.register((any WeightUnitManaging).self) { resolver in
             WeightUnitManager(
-                weightUnitDataStorage: r.resolve(WeightUnitDataStorage.self)!
+                weightUnitDataStorage: resolver.resolve(WeightUnitDataStorage.self)!
             )
         }
         .inObjectScope(.container)
 
-        container.register(WeightManaging.self) { r in
+        container.register(WeightManaging.self) { resolver in
             WeightManager(
-                weightRepository: r.resolve(WeightRepositoryProtocol.self)!
+                weightRepository: resolver.resolve(WeightRepositoryProtocol.self)!
             )
         }
         .inObjectScope(.container)

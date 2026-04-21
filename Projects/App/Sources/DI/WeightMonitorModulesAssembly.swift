@@ -5,28 +5,28 @@
 //  Created by Александр Зиновьев on 25.10.2025.
 //
 
+import Domain
 import Foundation
 import Swinject
+import UIComponents
 import WeightCreation
 import WeightHistory
-import UIComponents
-import Domain
 
 public final class WeightMonitorModulesAssembly: Assembly {
     public init() {}
 
     public func assemble(container: Container) {
-        container.register(WeightCreationFactory.self) { r in
+        container.register(WeightCreationFactory.self) { resolver in
             WeightCreationFactory(
-                weightManager: r.resolve(WeightManaging.self)!,
-                weightUnitManager: r.resolve((any WeightUnitManaging).self)!
+                weightManager: resolver.resolve(WeightManaging.self)!,
+                weightUnitManager: resolver.resolve((any WeightUnitManaging).self)!
             )
         }
 
-        container.register(WeightHistoryFactory.self) { r in
+        container.register(WeightHistoryFactory.self) { resolver in
             WeightHistoryFactory(
-                weightManager: r.resolve(WeightManaging.self)!,
-                weightUnitManager: r.resolve((any WeightUnitManaging).self)!
+                weightManager: resolver.resolve(WeightManaging.self)!,
+                weightUnitManager: resolver.resolve((any WeightUnitManaging).self)!
             )
         }
     }
