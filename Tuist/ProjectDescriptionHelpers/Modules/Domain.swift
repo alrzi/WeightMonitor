@@ -1,4 +1,3 @@
-//
 //  Domain.swift
 //  ProjectDescriptionHelpers
 //
@@ -9,28 +8,19 @@ import ProjectDescription
 
 enum DomainModuleName: String, CaseIterable {
     case Domain
-    case DomainTests
 }
 
 extension DomainModuleName {
-    var target: Target {
+    var targets: [Target] {
         switch self {
         case .Domain:
-            .common(
+            Target.module(
                 name: rawValue,
                 product: .staticFramework,
-                dependencies: {
-                    TargetDependency.external(.Swinject)
-                    TargetDependency.external(.AsyncExtensions)
-                }
-            )
-        case .DomainTests:
-            .common(
-                name: rawValue,
-                product: .unitTests,
-                dependencies: {
-                    TargetDependency.target(name: Self.Domain.rawValue)
-                }
+                dependencies: [
+                    TargetDependency.external(.Swinject),
+                    TargetDependency.external(.AsyncExtensions),
+                ]
             )
         }
     }

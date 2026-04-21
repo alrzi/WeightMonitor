@@ -1,4 +1,3 @@
-//
 //  UIComponents.swift
 //  ProjectDescriptionHelpers
 //
@@ -9,27 +8,18 @@ import ProjectDescription
 
 enum UIComponentsModuleName: String, CaseIterable {
     case UIComponents
-    case UIComponentsTests
 }
 
 extension UIComponentsModuleName {
-    var target: Target {
+    var targets: [Target] {
         switch self {
         case .UIComponents:
-            .common(
+            Target.module(
                 name: rawValue,
                 product: .staticFramework,
-                dependencies: {
+                dependencies: [
                     TargetDependency.module(.Domain)
-                }
-            )
-        case .UIComponentsTests:
-            .common(
-                name: rawValue,
-                product: .unitTests,
-                dependencies: {
-                    TargetDependency.target(name: Self.UIComponents.rawValue)
-                }
+                ]
             )
         }
     }

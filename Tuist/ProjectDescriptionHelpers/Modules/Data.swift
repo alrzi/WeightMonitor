@@ -1,4 +1,3 @@
-//
 //  Data.swift
 //  ProjectDescriptionHelpers
 //
@@ -9,30 +8,21 @@ import ProjectDescription
 
 enum DataModuleName: String, CaseIterable {
     case Data
-    case DataTests
 }
 
 extension DataModuleName {
-    var target: Target {
+    var targets: [Target] {
         switch self {
         case .Data:
-            .common(
+            Target.module(
                 name: rawValue,
                 product: .staticFramework,
-                dependencies: {
-                    TargetDependency.module(.Domain)
-                    TargetDependency.external(.GRDB)
-                    TargetDependency.external(.KeyValueStorage)
-                    TargetDependency.external(.Swinject)
-                },
-            )
-        case .DataTests:
-            .common(
-                name: rawValue,
-                product: .unitTests,
-                dependencies: {
-                    TargetDependency.target(name: Self.Data.rawValue)
-                }
+                dependencies: [
+                    TargetDependency.module(.Domain),
+                    TargetDependency.external(.GRDB),
+                    TargetDependency.external(.KeyValueStorage),
+                    TargetDependency.external(.Swinject),
+                ]
             )
         }
     }

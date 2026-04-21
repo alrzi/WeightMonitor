@@ -9,27 +9,17 @@ import ProjectDescription
 
 enum WeightHistoryModuleName: String, CaseIterable {
     case WeightHistory
-    case WeightHistoryTests
 }
 
 extension WeightHistoryModuleName {
-    var target: Target {
+    var targets: [Target] {
         switch self {
         case .WeightHistory:
-            .common(
+            Target.module(
                 name: rawValue,
-                product: .framework,
-                dependencies: {
+                dependencies: .build {
                     TargetDependency.module(.Domain)
                     TargetDependency.module(.UIComponents)
-                }
-            )
-        case .WeightHistoryTests:
-            .common(
-                name: rawValue,
-                product: .unitTests,
-                dependencies: {
-                    TargetDependency.target(name: Self.WeightHistory.rawValue)
                 }
             )
         }

@@ -1,4 +1,3 @@
-//
 //  WeightMonitor.swift
 //  ProjectDescriptionHelpers
 //
@@ -22,32 +21,32 @@ extension WeightMonitor {
         case .Domain:
             Project(
                 name: rawValue,
-                targets: DomainModuleName.allCases.map(\.target)
+                targets: DomainModuleName.allCases.flatMap(\.targets)
             )
         case .Data:
             Project(
                 name: rawValue,
-                targets: DataModuleName.allCases.map(\.target)
+                targets: DataModuleName.allCases.flatMap(\.targets)
             )
         case .UIComponents:
             Project(
                 name: rawValue,
-                targets: UIComponentsModuleName.allCases.map(\.target)
+                targets: UIComponentsModuleName.allCases.flatMap(\.targets)
             )
         case .WeightCreation:
             Project(
                 name: rawValue,
-                targets: WeightCreationModuleName.allCases.map(\.target),
+                targets: WeightCreationModuleName.allCases.flatMap(\.targets),
             )
         case .WeightHistory:
             Project(
                 name: rawValue,
-                targets: WeightHistoryModuleName.allCases.map(\.target)
+                targets: WeightHistoryModuleName.allCases.flatMap(\.targets)
             )
         case .App:
             Project(
                 name: rawValue,
-                targets: AppModuleName.allCases.map(\.target)
+                targets: AppModuleName.allCases.flatMap(\.targets)
             )
         }
     }

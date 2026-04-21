@@ -1,4 +1,3 @@
-//
 //  Target.swift
 //  ProjectDescriptionHelpers
 //
@@ -8,26 +7,43 @@
 import ProjectDescription
 
 extension Target {
-    static func common(
+    static func module(
         name: String,
-        product: Product,
-        deployment: DeploymentTargets = .iOS("17.0"),
-        infoPlist: InfoPlist? = .default,
-        resources: ResourceFileElements = .resources(["Resources/**/*"]),
-        @ArrayBuilder<TargetDependency> dependencies: () -> [TargetDependency],
-    ) -> Target {
-        let isTest = product == .unitTests
-        return .target(
+        product: Product = .staticFramework,
+        deploymentTargets: DeploymentTargets = .iOS("17.0"),
+        infoPlist: InfoPlist = .default,
+        hasTests: Bool = true,
+        dependencies: [TargetDependency] = [],
+        testDependencies: [TargetDependency] = []
+    ) -> [Target] {
+        let mainTarget = Target.target(
             name: name,
             destinations: .iOS,
             product: product,
             bundleId: "com.alrzi.\(name)",
-            deploymentTargets: deployment,
+            deploymentTargets: deploymentTargets,
             infoPlist: infoPlist,
-            sources: isTest ? ["Tests/**/*.swift"] : ["Sources/**/*.swift"],
-            resources: resources,
-            dependencies: dependencies()
+            sources: ["Sources/**/*.swift"],
+            resources: ["Resources/**"],
+            dependencies: dependencies
         )
+
+        if !hasTests {
+            return [mainTarget]
+        }
+
+        let testTarget = Target.target(
+            name: "\(name)Tests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "com.alrzi.\(name)Tests",
+            deploymentTargets: deploymentTargets,
+            infoPlist: .default,
+            sources: ["Tests/**/*.swift"],
+            dependencies: [.target(name: name)] + testDependencies
+        )
+
+        return [mainTarget, testTarget]
     }
 }
 

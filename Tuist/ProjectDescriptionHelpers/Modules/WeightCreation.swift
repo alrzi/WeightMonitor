@@ -1,4 +1,3 @@
-//
 //  WeightCreation.swift
 //  ProjectDescriptionHelpers
 //
@@ -9,28 +8,19 @@ import ProjectDescription
 
 enum WeightCreationModuleName: String, CaseIterable {
     case WeightCreation
-    case WeightCreationTests
 }
 
 extension WeightCreationModuleName {
-    var target: Target {
+    var targets: [Target] {
         switch self {
         case .WeightCreation:
-            .common(
+            Target.module(
                 name: rawValue,
                 product: .framework,
-                dependencies: {
-                    TargetDependency.module(.Domain)
-                    TargetDependency.module(.UIComponents)
-                },
-            )
-        case .WeightCreationTests:
-            .common(
-                name: rawValue,
-                product: .unitTests,
-                dependencies: {
-                    TargetDependency.target(name: Self.WeightCreation.rawValue)
-                }
+                dependencies: [
+                    TargetDependency.module(.Domain),
+                    TargetDependency.module(.UIComponents),
+                ]
             )
         }
     }
