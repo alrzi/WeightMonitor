@@ -17,6 +17,7 @@ extension WeightHistoryModuleName {
         case .WeightHistory:
             Target.module(
                 name: rawValue,
+                product: .framework,
                 dependencies: .build {
                     TargetDependency.module(.Domain)
                     TargetDependency.module(.UIComponents)

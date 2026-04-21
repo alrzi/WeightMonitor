@@ -17,6 +17,7 @@ extension WeightCreationModuleName {
             Target.module(
                 name: rawValue,
                 product: .framework,
+                hasTests: false,
                 dependencies: [
                     TargetDependency.module(.Domain),
                     TargetDependency.module(.UIComponents),

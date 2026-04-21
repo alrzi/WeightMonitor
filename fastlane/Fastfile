@@ -1,0 +1,18 @@
+default_platform(:ios)
+
+platform :ios do
+  
+  desc "Полная подготовка проекта и запуск тестов"
+  lane :check do
+    
+    # Переходим в корень (на уровень выше папки fastlane)
+    Dir.chdir("..") do
+      # 1. Устанавливаем внешние зависимости
+      sh("tuist install")
+      
+      # 2. Генерируем Xcode проект
+      sh("tuist generate --no-open")
+      sh("tuist test")
+    end    
+  end
+end

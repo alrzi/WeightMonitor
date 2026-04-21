@@ -18,6 +18,7 @@ extension AppModuleName {
                 name: rawValue,
                 product: .app,
                 infoPlist: .file(path: .relativeToManifest("Info.plist")),
+                hasTests: false,
                 dependencies: [
                     TargetDependency.module(.Data),
                     TargetDependency.module(.Domain),

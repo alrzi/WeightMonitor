@@ -73,3 +73,15 @@ Tuist/.build
 # Swift Package Manager
 # Package.resolved
 buildServer.json
+
+### mise ###
+.mise
+.ruby-version
+
+### Fastlane ###
+fastlane/README.md
+fastlane/report.xml
+fastlane/screenshots
+fastlane/test_output
+Gemfile.lock
+vendor/bundle

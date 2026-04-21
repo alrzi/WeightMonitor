@@ -9,10 +9,11 @@ import ProjectDescription
 extension Target {
     static func module(
         name: String,
-        product: Product = .staticFramework,
+        product: Product,
         deploymentTargets: DeploymentTargets = .iOS("17.0"),
         infoPlist: InfoPlist = .default,
         hasTests: Bool = true,
+        resources: ResourceFileElements = .resources(["Resources/**"]),
         dependencies: [TargetDependency] = [],
         testDependencies: [TargetDependency] = []
     ) -> [Target] {
@@ -24,7 +25,7 @@ extension Target {
             deploymentTargets: deploymentTargets,
             infoPlist: infoPlist,
             sources: ["Sources/**/*.swift"],
-            resources: ["Resources/**"],
+            resources: resources,
             dependencies: dependencies
         )
 
@@ -38,7 +39,7 @@ extension Target {
             product: .unitTests,
             bundleId: "com.alrzi.\(name)Tests",
             deploymentTargets: deploymentTargets,
-            infoPlist: .default,
+            infoPlist: infoPlist,
             sources: ["Tests/**/*.swift"],
             dependencies: [.target(name: name)] + testDependencies
         )

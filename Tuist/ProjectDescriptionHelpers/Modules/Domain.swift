@@ -17,6 +17,8 @@ extension DomainModuleName {
             Target.module(
                 name: rawValue,
                 product: .staticFramework,
+                hasTests: false,
+                resources: [],
                 dependencies: [
                     TargetDependency.external(.Swinject),
                     TargetDependency.external(.AsyncExtensions),

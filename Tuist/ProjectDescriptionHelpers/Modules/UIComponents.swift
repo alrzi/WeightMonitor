@@ -17,6 +17,8 @@ extension UIComponentsModuleName {
             Target.module(
                 name: rawValue,
                 product: .staticFramework,
+                hasTests: false,
+                resources: [],
                 dependencies: [
                     TargetDependency.module(.Domain)
                 ]

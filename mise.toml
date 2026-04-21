@@ -1,0 +1,12 @@
+[tools]
+# Стабильная версия Ruby на которой Fastlane работает гарантированно
+ruby = "3.3"
+"gem:fastlane" = "latest"
+
+tuist = "4.21.0"
+swiftlint = "latest"
+
+[env]
+# Исправляем вечные ошибки кодировки которые валят Fastlane
+LANG = "en_US.UTF-8"
+LC_ALL = "en_US.UTF-8"
