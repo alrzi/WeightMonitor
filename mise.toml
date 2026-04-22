@@ -10,3 +10,16 @@ swiftlint = "latest"
 # Исправляем вечные ошибки кодировки которые валят Fastlane
 LANG = "en_US.UTF-8"
 LC_ALL = "en_US.UTF-8"
+
+[tasks]
+install = "tuist install"
+i = "tuist install"
+generate = "tuist generate"
+g = "tuist generate"
+edit = "tuist edit"
+e = "tuist edit"
+clean = "tuist clean"
+fetch = "tuist fetch"
+test = "tuist test"
+lint = "fastlane lint"
+check = "fastlane check"
