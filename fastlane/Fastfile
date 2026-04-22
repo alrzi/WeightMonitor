@@ -1,0 +1,24 @@
+default_platform(:ios)
+
+platform :ios do
+  
+  desc "Проверка стиля кода"
+  lane :lint do
+    Dir.chdir("..") do
+      sh("swiftlint lint Projects")
+    end
+  end
+
+  desc "Полная подготовка проекта и запуск тестов"
+  lane :check do
+    # 1. Сначала запускаем линтер
+    lint
+    
+    # 2. Переходим в корень и работаем с Tuist
+    Dir.chdir("..") do     
+      sh("tuist install")
+      sh("tuist generate --no-open")
+      sh("tuist test")
+    end    
+  end
+end

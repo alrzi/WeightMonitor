@@ -1,20 +1,9 @@
+ included:
+  - Projects
+
 excluded:
-  - fastlane
-  - .github
-  - .git
-
-  - BabycareScreenshots/*
-  - BabycareTests/*
-  - BabycareUITests/*
-  - BabycareData/Tests/*
-  - BabycareDataModelsTests/*
-  - Mocks/*
-
-  # Карантин
-  - Babycare/Helpers/UI/Animation/TimingFunction/Provider/CubicBezier/CubicBezierTimingFunctionProvider.swift
-  - Babycare/Containers/AppContainer.swift
-  - Babycare/Types/Track/TrackType.swift
-  - BabycareData/BabycareDataAssembly.swift
+  - Projects/*/Derived
+  - Projects/*/Tests
 
 disabled_rules:
   # Выключаем:
