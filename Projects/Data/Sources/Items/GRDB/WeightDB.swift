@@ -17,17 +17,17 @@ struct WeightDB {
 }
 
 extension WeightDB: Codable, PersistableRecord, FetchableRecord {
-    enum Columns {
-        static let createdAt = Column(CodingKeys.createdAt)
-        static let mass = Column(CodingKeys.mass)
-        static let massDifference = Column(CodingKeys.massDifference)
-    }
-
     static let databaseTableName = "weights"
 
     /// Updates a player id after it has been inserted in the database.
     mutating func didInsert(_ inserted: InsertionSuccess) {
         id = inserted.rowID
+    }
+
+    enum Columns {
+        static let createdAt = Column(CodingKeys.createdAt)
+        static let mass = Column(CodingKeys.mass)
+        static let massDifference = Column(CodingKeys.massDifference)
     }
 }
 
