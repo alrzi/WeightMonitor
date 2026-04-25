@@ -13,7 +13,8 @@ import Domain
 @MainActor
 public struct WeightHistoryView<ViewModel: WeightHistoryViewModelProtocol> {
     @ObservedObject private var viewModel: ViewModel
-    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.colorScheme)
+    private var colorScheme
 
     public init(viewModel: ViewModel) {
         self.viewModel = viewModel
