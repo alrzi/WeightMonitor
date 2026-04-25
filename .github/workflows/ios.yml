@@ -9,29 +9,18 @@ on:
 jobs:
   check:
     runs-on: macos-15
+    timeout-minutes: 30
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Show available Xcode
-        run: |
-          ls -d /Applications/Xcode_*.app
-          xcodebuild -version
-
-      - name: Select Highest Xcode
-        run: |
-          # Пытаемся найти 16.2 явно, если нет - берем самый старший
-          if [ -d "/Applications/Xcode_16.2.app" ]; then
-            sudo xcode-select -s /Applications/Xcode_16.2.app
-          else
-            LATEST_XCODE=$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)
-            sudo xcode-select -s "$LATEST_XCODE"
-          fi
-          echo "Selected Xcode: $(xcode-select -p)"
-          swift --version
+      - name: Select Xcode 26.3       
+        run: sudo xcode-select -s /Applications/Xcode_26.3.app
 
       - name: Install tools (mise)
         uses: jdx/mise-action@v2
+        with:
+          cache: true
 
       - name: Run CI
         run: mise run check
