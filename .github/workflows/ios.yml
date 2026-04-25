@@ -8,13 +8,24 @@ on:
 
 jobs:
   check:
-    runs-on: macos-latest
+    runs-on: macos-15
+    timeout-minutes: 30
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install tools
+      - name: Select Latest Xcode
+        run: |
+          LATEST_XCODE=$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)
+          sudo xcode-select -s "$LATEST_XCODE"
+          echo "Selected: $LATEST_XCODE"
+          swift --version
+
+      - name: Install tools (mise)
         uses: jdx/mise-action@v2
+        with:
+          cache: true
+          install: true
 
       - name: Run CI
         run: mise run check
