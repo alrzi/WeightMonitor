@@ -9,16 +9,16 @@ import Foundation
 import Domain
 
 public extension Weight {
+    var createdAtFormatted: String {
+        createdAt.formatted(.relative(presentation: .numeric, unitsStyle: .abbreviated))
+    }
+
     func weightFormatted(to unit: WeightUnit) -> String {
         mass.formattedWeight(to: unit)
     }
 
     func massDifferenceFormatted(to unit: WeightUnit) -> String? {
         massDifference.map { $0.formattedWeight(to: unit, showSign: true) }
-    }
-
-    var createdAtFormatted: String {
-        createdAt.formatted(.relative(presentation: .numeric, unitsStyle: .abbreviated))
     }
 }
 
