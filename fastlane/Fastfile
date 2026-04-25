@@ -5,20 +5,27 @@ platform :ios do
   desc "Проверка стиля кода"
   lane :lint do
     Dir.chdir("..") do
-      sh("swiftlint lint Projects")
+      # --strict заставит билд упасть, если есть ошибки стиля
+      sh("swiftlint lint Projects --config .swiftlint.yml --strict")
     end
   end
 
   desc "Полная подготовка проекта и запуск тестов"
   lane :check do
-    # 1. Сначала запускаем линтер
+    # 1. Запуск линтера
     lint
     
-    # 2. Переходим в корень и работаем с Tuist
+    # 2. Работа с Tuist
     Dir.chdir("..") do     
       sh("tuist install")
       sh("tuist generate --no-open")
-      sh("tuist test")
+      
+      # Автоматический поиск доступного iPhone на сервере
+      device_name = sh("xcrun simctl list devices available | grep 'iPhone' | grep -v 'Pro' | head -1 | cut -d '(' -f 1 | xargs").strip
+      UI.message("🚀 Запуск тестов на устройстве: #{device_name}")
+      
+      # Запуск тестов через Tuist на найденном симуляторе
+      sh("tuist test --device '#{device_name}'")
     end    
   end
 end
