@@ -16,5 +16,5 @@ public enum WeightUnit: String, Decodable, Sendable {
         case .metric: true
         case .imperial: false
         }
-    }    
+    }
 }

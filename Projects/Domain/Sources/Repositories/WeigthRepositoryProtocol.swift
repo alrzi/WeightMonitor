@@ -18,4 +18,3 @@ public protocol WeightRepositoryProtocol: Sendable {
     func delete(weight: Weight) async throws
     func deleteAll() async throws
 }
-
