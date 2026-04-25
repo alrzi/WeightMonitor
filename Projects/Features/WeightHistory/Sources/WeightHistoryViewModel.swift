@@ -56,7 +56,9 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
 
     public func onAppear() {
         Task {
-            guard !isPaginating else { return }
+            guard !isPaginating else {
+                return
+            }
             isPaginating = true
             defer { isPaginating = false }
 
@@ -77,7 +79,9 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
         }
 
         Task {
-            guard !isPaginating, let cursor = weightsState?.nextCursor else { return }
+            guard !isPaginating, let cursor = weightsState?.nextCursor else {
+                return
+            }
             isPaginating = true
             defer { isPaginating = false }
 
@@ -125,19 +129,19 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
 }
 
 extension AlertModel {
-    fileprivate static func loadFailed(retryHandler: @escaping () -> Void) -> Self {
-        Self(
-            title: "Load failed",
-            message: "We couldn’t retrieve the data. Please try again.",
-            action: .cancel(Action.AlertButton(title: "Retry", handler: retryHandler))
-        )
-    }
-
     fileprivate static var paginationFailed: Self {
         Self(
             title: "Pagination error",
             message: "Unable to load more items. Please try again later.",
             action: .cancel(Action.AlertButton(title: "Cancel"))
+        )
+    }
+
+    fileprivate static func loadFailed(retryHandler: @escaping () -> Void) -> Self {
+        Self(
+            title: "Load failed",
+            message: "We couldn't retrieve the data. Please try again.",
+            action: .cancel(Action.AlertButton(title: "Retry", handler: retryHandler))
         )
     }
 

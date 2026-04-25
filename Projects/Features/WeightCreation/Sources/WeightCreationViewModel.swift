@@ -67,7 +67,7 @@ public final class WeightCreationViewModel: WeightCreationViewModelProtocol {
     }
 
     public func onDateTap() {
-        isDatePickerVisible = !isDatePickerVisible
+        isDatePickerVisible.toggle()
     }
 
     public func onCreateWeightTap() {
@@ -118,7 +118,9 @@ extension String {
     fileprivate func toDoubleIfPossible() -> Double? {
         let trimmed = self.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        guard !trimmed.isEmpty else { return nil }
+        guard !trimmed.isEmpty else {
+            return nil
+        }
 
         if let number = NumberFormatter.weightFormatter.number(from: trimmed) {
             return number.doubleValue
@@ -138,24 +140,15 @@ extension WeightCreationInput {
     fileprivate var selectedDate: Date {
         switch self {
         case .create: .now
-        case .update(let weight): weight.createdAt
-        }
-    }
 
-    fileprivate func weightInput(unit: WeightUnit) -> String {
-        switch self {
-        case .create: ""
-        case .update(let weight):
-            Measurement(value: weight.mass, unit: .kilograms)
-                .converted(to: unit.toUnitMass())
-                .value
-                .formatted()
+        case .update(let weight): weight.createdAt
         }
     }
 
     fileprivate var buttonTitle: String {
         switch self {
         case .create: "Create"
+
         case .update: "Update"
         }
     }
@@ -163,7 +156,20 @@ extension WeightCreationInput {
     fileprivate var isUpdate: Bool {
         switch self {
         case .create: false
+
         case .update: true
+        }
+    }
+
+    fileprivate func weightInput(unit: WeightUnit) -> String {
+        switch self {
+        case .create: ""
+
+        case .update(let weight):
+            Measurement(value: weight.mass, unit: .kilograms)
+                .converted(to: unit.toUnitMass())
+                .value
+                .formatted()
         }
     }
 }

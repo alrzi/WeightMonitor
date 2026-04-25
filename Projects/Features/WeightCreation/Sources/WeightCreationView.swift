@@ -13,7 +13,8 @@ import Domain
 @MainActor
 public struct WeightCreationView<ViewModel: WeightCreationViewModelProtocol> {
     @ObservedObject private var viewModel: ViewModel
-    @Environment(\.locale) private var locale
+    @Environment(\.locale)
+    private var locale
     @FocusState private var isFocused: Bool
 
     public init(viewModel: ViewModel) {
@@ -120,7 +121,7 @@ extension WeightCreationView: View {
         init() {}
 
         func onDateTap() {
-            isDatePickerVisible = !isDatePickerVisible
+            isDatePickerVisible.toggle()
         }
 
         func onCreateWeightTap() {}
