@@ -108,4 +108,3 @@ private extension WeightRepository {
             .map { $0.toPlain() }
     }
 }
-

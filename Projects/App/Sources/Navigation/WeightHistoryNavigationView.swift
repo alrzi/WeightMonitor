@@ -12,12 +12,11 @@ import WeightCreation
 import WeightHistory
 
 @MainActor
-struct WeightHistoryNavigationView: View {
-    private let weightHistoryFactory: WeightHistoryFactory
-    private let weightCreationFactory: WeightCreationFactory
-
+struct WeightHistoryNavigationView {
     @Bindable private var coordinator: WeightHistoryCoordinator
     @StateObject private var viewModel: WeightHistoryViewModel
+    private let weightHistoryFactory: WeightHistoryFactory
+    private let weightCreationFactory: WeightCreationFactory
 
     init(
         coordinator: WeightHistoryCoordinator,
@@ -29,7 +28,9 @@ struct WeightHistoryNavigationView: View {
         self.weightCreationFactory = weightCreationFactory
         self._viewModel = StateObject(wrappedValue: weightHistoryFactory.makeViewModel(router: coordinator))
     }
+}
 
+extension WeightHistoryNavigationView: View {
     var body: some View {
         WeightHistoryView(viewModel: viewModel)
             .sheet(item: $coordinator.route) { route in

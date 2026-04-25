@@ -26,7 +26,7 @@ public struct Weight: Equatable, Identifiable, Sendable {
     }
 
     public func difference(with other: Self) -> Self {
-        Weight(
+        Self(
             id: id,
             createdAt: createdAt,
             mass: mass,
