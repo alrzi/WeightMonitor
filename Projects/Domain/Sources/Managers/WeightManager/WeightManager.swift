@@ -43,6 +43,6 @@ final class WeightManager: WeightManaging {
     }
 
     func paginate(after cursor: WeightCursor?, limit: Int) async throws -> [Weight] {
-        try await weightRepository.paginate(after: cursor, limit: limit)        
+        try await weightRepository.paginate(after: cursor, limit: limit)
     }
 }

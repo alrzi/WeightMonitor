@@ -14,7 +14,8 @@ struct WeightHistoryChartView: View {
     let weights: [Weight]
     let weightUnit: WeightUnit
 
-    @Environment(\.locale) private var locale
+    @Environment(\.locale)
+    private var locale
     @State private var period: WeightHistoryChartPeriod = .all
 
     private var filteredWeights: [Weight] {
@@ -30,62 +31,69 @@ struct WeightHistoryChartView: View {
 
     var body: some View {
         Section {
-            Picker("Period", selection: $period) {
-                ForEach(WeightHistoryChartPeriod.allCases) { period in
-                    Text(period.rawValue)
-                        .tag(period)
-                }
-            }
-            .pickerStyle(.segmented)
-            .padding(.bottom, 8)
-
-            Chart(filteredWeights, id: \.id) { weight in
-                LineMark(
-                    x: .value("Date", weight.createdAt),
-                    y: .value("Weight (kg)", weight.mass)
-                )
-                .foregroundStyle(.blue)
-                .interpolationMethod(.catmullRom)
-
-                PointMark(
-                    x: .value("Date", weight.createdAt),
-                    y: .value("Weight (\(weightUnit.toUnitMass().symbol))", weight.mass)
-                )
-                .foregroundStyle(.blue)
-                .symbolSize(30)
-            }
-            .chartXAxis {
-                AxisMarks(values: .automatic(desiredCount: 5)) { value in
-                    AxisGridLine()
-                    AxisTick()
-                    AxisValueLabel {
-                        if let date = value.as(Date.self) {
-                            Text(date.formatted(date: .abbreviated, time: .omitted))
-                        }
-                    }
-                }
-            }
-            .chartYAxis {
-                AxisMarks(position: .leading) { value in
-                    AxisGridLine()
-                    AxisTick()
-                    AxisValueLabel {
-                        if let mass = value.as(Double.self) {
-                            Text(
-                                Measurement(value: mass, unit: weightUnit.toUnitMass())
-                                    .converted(to: weightUnit.toUnitMass())
-                                    .formattedNarrow()
-                            )
-                        }
-                    }
-                }
-            }
-            .chartYScale(domain: yDomain)
-            .frame(height: 240)
-            .animation(.easeInOut, value: filteredWeights)
+            periodPicker
+            weightChart
         } header: {
             headerView
         }
+    }
+
+    private var periodPicker: some View {
+        Picker("Period", selection: $period) {
+            ForEach(WeightHistoryChartPeriod.allCases) { period in
+                Text(period.rawValue)
+                    .tag(period)
+            }
+        }
+        .pickerStyle(.segmented)
+        .padding(.bottom, 8)
+    }
+
+    private var weightChart: some View {
+        Chart(filteredWeights, id: \.id) { weight in
+            LineMark(
+                x: .value("Date", weight.createdAt),
+                y: .value("Weight (kg)", weight.mass)
+            )
+            .foregroundStyle(.blue)
+            .interpolationMethod(.catmullRom)
+
+            PointMark(
+                x: .value("Date", weight.createdAt),
+                y: .value("Weight (\(weightUnit.toUnitMass().symbol))", weight.mass)
+            )
+            .foregroundStyle(.blue)
+            .symbolSize(30)
+        }
+        .chartXAxis {
+            AxisMarks(values: .automatic(desiredCount: 5)) { value in
+                AxisGridLine()
+                AxisTick()
+                AxisValueLabel {
+                    if let date = value.as(Date.self) {
+                        Text(date.formatted(date: .abbreviated, time: .omitted))
+                    }
+                }
+            }
+        }
+        .chartYAxis {
+            AxisMarks(position: .leading) { value in
+                AxisGridLine()
+                AxisTick()
+                AxisValueLabel {
+                    if let mass = value.as(Double.self) {
+                        Text(
+                            Measurement(value: mass, unit: weightUnit.toUnitMass())
+                                .converted(to: weightUnit.toUnitMass())
+                                .formattedNarrow()
+                        )
+                    }
+                }
+            }
+        }
+        .chartYScale(domain: yDomain)
+        .frame(height: 240)
+        .animation(.easeInOut, value: filteredWeights)
     }
 
     private var headerView: some View {
