@@ -1,26 +1,20 @@
 name: CI
 
 on:
-  pull_request:
-    branches: [ main ]
   push:
-    branches: [ main ]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   check:
     runs-on: macos-latest
-    timeout-minutes: 30
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install tools (mise)
+      - name: Install tools
         uses: jdx/mise-action@v2
-        with:
-          # Включает кэширование установленных инструментов
-          cache: true
-          # Позволяет mise устанавливать зависимости без лишних вопросов
-          install: true
 
-      - name: Run CI check
+      - name: Run CI
         run: mise run check
