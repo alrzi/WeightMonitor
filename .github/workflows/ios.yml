@@ -19,11 +19,16 @@ jobs:
         with:
           cache: true
      
-      # 2. Выбираем Xcode, читая версию прямо из файла .xcode-version
+      # 1. Читаем версию из файла в переменную окружения
+      - name: Read Xcode version
+        id: xcode_version
+        run: echo "VERSION=$(cat .xcode-version)" >> $GITHUB_OUTPUT
+
+      # 2. Передаем эту переменную в setup-xcode
       - name: Set up Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: from-file # Автоматически найдет .xcode-version
+          xcode-version: ${{ steps.xcode_version.outputs.VERSION }}
 
       - name: Run CI
         run: mise run check
