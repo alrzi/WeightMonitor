@@ -2,30 +2,36 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "alrzi-patch-1" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
   check:
     runs-on: macos-15
-    timeout-minutes: 30
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Select Latest Xcode
+      - name: Show available Xcode
         run: |
-          LATEST_XCODE=$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)
-          sudo xcode-select -s "$LATEST_XCODE"
-          echo "Selected: $LATEST_XCODE"
+          ls -d /Applications/Xcode_*.app
+          xcodebuild -version
+
+      - name: Select Highest Xcode
+        run: |
+          # Пытаемся найти 16.2 явно, если нет - берем самый старший
+          if [ -d "/Applications/Xcode_16.2.app" ]; then
+            sudo xcode-select -s /Applications/Xcode_16.2.app
+          else
+            LATEST_XCODE=$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)
+            sudo xcode-select -s "$LATEST_XCODE"
+          fi
+          echo "Selected Xcode: $(xcode-select -p)"
           swift --version
 
       - name: Install tools (mise)
         uses: jdx/mise-action@v2
-        with:
-          cache: true
-          install: true
 
       - name: Run CI
         run: mise run check
