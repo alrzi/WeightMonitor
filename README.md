@@ -8,8 +8,8 @@
 ### 1. Установи Mise
 brew install mise
 
-### 2. Всё остальное сделает само
 mise install
+
 mise run check
 
 ✅ Готово. Открывай `WeightMonitor.xcworkspace`
