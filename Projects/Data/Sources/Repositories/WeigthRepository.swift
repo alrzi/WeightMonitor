@@ -12,19 +12,21 @@ internal import Combine
 
 struct WeightRepository: WeightRepositoryProtocol {
     private let dbPool: any DatabaseWriter
+    private let queue = DispatchQueue(label: "com.alrzi.queue.weight.monitor", qos: .userInitiated)
 
     init(dbPool: any DatabaseWriter) {
         self.dbPool = dbPool
     }
 
     func observe() -> AsyncThrowingStream<[Weight], any Error> {
-        AsyncThrowingStream { continuation in
+        AsyncThrowingStream { [queue] continuation in
             let observation = ValueObservation.tracking { db in
                 try Self.fetchAll(db: db)
             }
 
             let cancellable = observation.start(
                 in: dbPool,
+                scheduling: .async(onQueue: queue),
                 onError: { continuation.finish(throwing: $0) },
                 onChange: { continuation.yield($0) }
             )
