@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol WeightRepositoryProtocol: Sendable {   
+public protocol WeightRepositoryProtocol: Sendable {
     func observe() -> AsyncThrowingStream<[Weight], any Error>
 
     func create(weight: Weight) async throws

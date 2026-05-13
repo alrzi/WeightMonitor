@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol WeightManaging: Sendable {   
+public protocol WeightManaging: Sendable {
     func observe() -> AsyncMapSequence<AsyncThrowingStream<[Weight], any Error>, [Weight]>
 
     func create(weight: Weight) async throws
