@@ -22,16 +22,12 @@ public struct WeightCreationFactory {
     }
 
     @MainActor
-    public func makeViewModel(
-        input: WeightCreationInput,
-        onCompletion: @escaping @MainActor @Sendable () -> Void
-    ) -> WeightCreationViewModel {
+    public func makeViewModel(input: WeightCreationInput) -> WeightCreationViewModel {
         WeightCreationViewModel(
             weightManager: weightManager,
             weightUnitManager: weightUnitManager,
             invalidComponentManager: InvalidComponentManager(),
-            input: input,
-            onCompletion: onCompletion
+            input: input
         )
     }
 }

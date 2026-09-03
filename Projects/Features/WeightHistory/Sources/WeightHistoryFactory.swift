@@ -22,11 +22,10 @@ public struct WeightHistoryFactory {
     }
 
     @MainActor
-    public func makeViewModel(router: WeightHistoryRouter) -> WeightHistoryViewModel {
+    public func makeViewModel() -> WeightHistoryViewModel {
         WeightHistoryViewModel(
             weightManager: weightManager,
-            weightUnitManager: weightUnitManager,
-            router: router
+            weightUnitManager: weightUnitManager
         )
     }
 }

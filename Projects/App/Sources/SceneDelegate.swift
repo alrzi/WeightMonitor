@@ -46,14 +46,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let weightCreationFactory = resolver.resolve(WeightCreationFactory.self)!
         let weightHistoryFactory = resolver.resolve(WeightHistoryFactory.self)!
 
-        let coordinator = WeightHistoryCoordinator()
+        let flow = WeightHistoryFlow(
+            modelFactory: WeightHistoryFlowModelFactory(
+                weightCreationFactory: weightCreationFactory,
+                weightHistoryFactory: weightHistoryFactory
+            )
+        )
 
         window.rootViewController = UIHostingController(
-            rootView: WeightHistoryNavigationView(
-                coordinator: coordinator,
-                weightHistoryFactory: weightHistoryFactory,
-                weightCreationFactory: weightCreationFactory
-            )
+            rootView: WeightHistoryFlowContainer(flow: flow)
         )
         window.makeKeyAndVisible()
     }

@@ -12,15 +12,12 @@ public protocol WeightHistoryViewModelProtocol: ObservableObject {
 
     func onAppear()
     func onWeightAppear(at index: Int)
-    func onTap(at index: Int)
-    func onCreateNewWeight()
     func onDeleteTap(at index: Int)
 }
 
 public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     private let weightManager: any WeightManaging
     private let weightUnitManager: any WeightUnitManaging
-    private let router: WeightHistoryRouter
 
     private var weightUnitCancellable: AnyCancellable?
     private var weightsObservationTask: Task<(), Error>?
@@ -34,12 +31,10 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
 
     init(
         weightManager: any WeightManaging,
-        weightUnitManager: any WeightUnitManaging,
-        router: WeightHistoryRouter
+        weightUnitManager: any WeightUnitManaging
     ) {
         self.weightManager = weightManager
         self.weightUnitManager = weightUnitManager
-        self.router = router
         self.weightUnit = weightUnitManager.lastSelectedWeightUnit
 
         weightUnitCancellable = $weightUnit
@@ -94,18 +89,6 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
                 alertModel = .paginationFailed
             }
         }
-    }
-
-    public func onTap(at index: Int) {
-        guard let weight = weightsState?.weights.elementOrNil(at: index) else {
-            return
-        }
-
-        router.openUpdateWeight(weight)
-    }
-
-    public func onCreateNewWeight() {
-        router.openCreateWeight()
     }
 
     public func onDeleteTap(at index: Int) {
