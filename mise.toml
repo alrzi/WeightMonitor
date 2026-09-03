@@ -1,10 +1,9 @@
 [tools]
 # Стабильная версия Ruby на которой Fastlane работает гарантированно
 ruby = "3.3"
-"gem:fastlane" = "latest"
 
 tuist = "4.21.0"
-swiftlint = "latest"
+swiftlint = "0.63.2"
 
 [env]
 # Исправляем вечные ошибки кодировки которые валят Fastlane
@@ -21,5 +20,12 @@ e = "tuist edit"
 clean = "tuist clean"
 fetch = "tuist fetch"
 test = "tuist test"
-lint = "fastlane lint"
-check = "fastlane check"
+install-fastlane = "gem list -i fastlane -v 2.238.0 || gem install fastlane --version 2.238.0 --no-document"
+
+[tasks.lint]
+depends = ["install-fastlane"]
+run = "fastlane lint"
+
+[tasks.check]
+depends = ["install-fastlane"]
+run = "fastlane check"
