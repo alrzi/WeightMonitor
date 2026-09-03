@@ -13,67 +13,73 @@ import Domain
 @MainActor
 public struct WeightHistoryView<ViewModel: WeightHistoryViewModelProtocol> {
     @ObservedObject private var viewModel: ViewModel
+    private let onCreateWeight: @MainActor () -> Void
+    private let onSelectWeight: @MainActor (Weight) -> Void
     @Environment(\.colorScheme)
     private var colorScheme
 
-    public init(viewModel: ViewModel) {
+    public init(
+        viewModel: ViewModel,
+        onCreateWeight: @escaping @MainActor () -> Void,
+        onSelectWeight: @escaping @MainActor (Weight) -> Void
+    ) {
         self.viewModel = viewModel
+        self.onCreateWeight = onCreateWeight
+        self.onSelectWeight = onSelectWeight
     }
 }
 
 extension WeightHistoryView: View {
     public var body: some View {
-        NavigationStack {
-            Group {
-                if let weights = viewModel.weightsState?.weights {
-                    if let first = weights.first {
-                        ScrollView {
-                            LazyVStack(spacing: 12) {
-                                WeightInfoView(
-                                    weightFormatted: first.weightFormatted(to: viewModel.weightUnit),
-                                    massDifferenceFormatted: first.massDifferenceFormatted(to: viewModel.weightUnit),
-                                    weightUnit: $viewModel.weightUnit,
-                                )
+        Group {
+            if let weights = viewModel.weightsState?.weights {
+                if let first = weights.first {
+                    ScrollView {
+                        LazyVStack(spacing: 12) {
+                            WeightInfoView(
+                                weightFormatted: first.weightFormatted(to: viewModel.weightUnit),
+                                massDifferenceFormatted: first.massDifferenceFormatted(to: viewModel.weightUnit),
+                                weightUnit: $viewModel.weightUnit,
+                            )
 
-                                WeightHistoryChartView(
-                                    weights: weights,
-                                    weightUnit: viewModel.weightUnit,
-                                )
+                            WeightHistoryChartView(
+                                weights: weights,
+                                weightUnit: viewModel.weightUnit,
+                            )
 
-                                WeightHistoryListView(
-                                    weights: weights,
-                                    weightUnit: viewModel.weightUnit,
-                                    onTapAtIndex: viewModel.onTap,
-                                    onDeleteAtIndex: viewModel.onDeleteTap,
-                                    onWeightAppear: viewModel.onWeightAppear
-                                )
-                            }
-                            .padding(.horizontal, colorScheme == .light ? 6 : 0)
-                            .animation(.easeInOut, value: viewModel.weightsState)
+                            WeightHistoryListView(
+                                weights: weights,
+                                weightUnit: viewModel.weightUnit,
+                                onSelectWeight: onSelectWeight,
+                                onDeleteAtIndex: viewModel.onDeleteTap,
+                                onWeightAppear: viewModel.onWeightAppear
+                            )
                         }
-                        .scrollIndicators(.hidden)
+                        .padding(.horizontal, colorScheme == .light ? 6 : 0)
+                        .animation(.easeInOut, value: viewModel.weightsState)
                     }
-                    else {
-                        ZStack {
-                            Text(String.featureLocalized("weightHistory.empty"))
-                                .font(.system(size: 24, weight: .medium))
-                                .foregroundColor(.primary)
-                        }
-                    }
+                    .scrollIndicators(.hidden)
                 }
                 else {
                     ZStack {
-                        ProgressView()
-                            .tint(.blue)
-                            .controlSize(.large)
+                        Text(String.featureLocalized("weightHistory.empty"))
+                            .font(.system(size: 24, weight: .medium))
+                            .foregroundColor(.primary)
                     }
                 }
             }
-            .navigationTitle(String.featureLocalized("weightHistory.title"))
-            .navigationBarTitleDisplayMode(.inline)
+            else {
+                ZStack {
+                    ProgressView()
+                        .tint(.blue)
+                        .controlSize(.large)
+                }
+            }
         }
+        .navigationTitle(String.featureLocalized("weightHistory.title"))
+        .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom, alignment: .trailing, spacing: 0) {
-            Button(action: viewModel.onCreateNewWeight) {
+            Button(action: onCreateWeight) {
                 Image(systemName: "plus")
                     .resizable()
                     .frame(width: 18, height: 18)
@@ -132,7 +138,11 @@ private struct WeightInfoView: View {
 
 #if DEBUG
     #Preview {
-        WeightHistoryView(viewModel: ViewModel())
+        WeightHistoryView(
+            viewModel: ViewModel(),
+            onCreateWeight: {},
+            onSelectWeight: { _ in }
+        )
     }
 
     private final class ViewModel: WeightHistoryViewModelProtocol {
@@ -144,8 +154,6 @@ private struct WeightInfoView: View {
         )
 
         func onAppear() {}
-        func onTap(at index: Int) {}
-        func onCreateNewWeight() {}
         func onDeleteTap(at index: Int) {}
         func onWeightAppear(at index: Int) {}
     }

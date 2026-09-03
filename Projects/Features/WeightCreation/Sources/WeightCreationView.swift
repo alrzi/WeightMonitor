@@ -13,12 +13,14 @@ import Domain
 @MainActor
 public struct WeightCreationView<ViewModel: WeightCreationViewModelProtocol> {
     @ObservedObject private var viewModel: ViewModel
+    private let onCompletion: @MainActor () -> Void
     @Environment(\.locale)
     private var locale
     @FocusState private var isFocused: Bool
 
-    public init(viewModel: ViewModel) {
+    public init(viewModel: ViewModel, onCompletion: @escaping @MainActor () -> Void) {
         self.viewModel = viewModel
+        self.onCompletion = onCompletion
     }
 }
 
@@ -100,18 +102,26 @@ extension WeightCreationView: View {
             .padding(.horizontal, 24)
         }
         .alert(model: $viewModel.alertModel)
+        .onChange(of: viewModel.isCompleted) { _, isCompleted in
+            guard isCompleted else {
+                return
+            }
+
+            onCompletion()
+        }
     }
 }
 
 #if DEBUG
     #Preview {
-        WeightCreationView(viewModel: ViewModel())
+        WeightCreationView(viewModel: ViewModel(), onCompletion: {})
     }
 
     private final class ViewModel: WeightCreationViewModelProtocol {
         @Published var selectedDate: Date = .now
         @Published var weightInput: String = "12"
         @Published private(set) var isDatePickerVisible = false
+        var isCompleted = false
         var alertModel: AlertModel?
         let weightUnitFormatter: String = "kg"
         let invalidComponent: WeightCreationInvalidComponent? = nil

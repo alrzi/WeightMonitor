@@ -12,7 +12,7 @@ import Domain
 struct WeightHistoryListView: View {
     let weights: [Weight]
     let weightUnit: WeightUnit
-    let onTapAtIndex: (Int) -> Void
+    let onSelectWeight: (Weight) -> Void
     let onDeleteAtIndex: (Int) -> Void
     let onWeightAppear: (Int) -> Void
 
@@ -26,7 +26,7 @@ struct WeightHistoryListView: View {
                         createdAtFormatted: weight.createdAtFormatted,
                     )
                     .transition(.opacity)
-                    .onTapGesture { onTapAtIndex(index) }
+                    .onTapGesture { onSelectWeight(weight) }
                     .contextMenu {
                         Button("Delete", action: { onDeleteAtIndex(index) })
                     }
@@ -84,7 +84,7 @@ private struct WeightHistoryRow: View {
     WeightHistoryListView(
         weights: [],
         weightUnit: .metric,
-        onTapAtIndex: { _ in },
+        onSelectWeight: { _ in },
         onDeleteAtIndex: { _ in },
         onWeightAppear: { _ in }
     )

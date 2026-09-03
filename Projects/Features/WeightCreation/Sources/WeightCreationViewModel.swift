@@ -18,6 +18,7 @@ public protocol WeightCreationViewModelProtocol: ObservableObject {
     var dateRange: ClosedRange<Date> { get }
     var weightUnitFormatter: String { get }
     var isDatePickerVisible: Bool { get }
+    var isCompleted: Bool { get }
     var invalidComponent: WeightCreationInvalidComponent? { get }
 
     func onDateTap()
@@ -31,13 +32,13 @@ public final class WeightCreationViewModel: WeightCreationViewModelProtocol {
     private let weightUnitManager: any WeightUnitManaging
     private let invalidComponentManager: any InvalidComponentManaging<WeightCreationInvalidComponent>
     private let input: WeightCreationInput
-    private let onCompletion: @MainActor () -> Void
 
     public let weightUnitFormatter: String
     public let dateRange: ClosedRange<Date>
     public let buttonTitle: String
 
     @Published public private(set) var isDatePickerVisible = false
+    @Published public private(set) var isCompleted = false
     @Published public private(set) var invalidComponent: WeightCreationInvalidComponent?
 
     @Published public var alertModel: AlertModel?
@@ -48,14 +49,12 @@ public final class WeightCreationViewModel: WeightCreationViewModelProtocol {
         weightManager: some WeightManaging,
         weightUnitManager: some WeightUnitManaging,
         invalidComponentManager: some InvalidComponentManaging<WeightCreationInvalidComponent>,
-        input: WeightCreationInput,
-        onCompletion: @MainActor @escaping () -> Void
+        input: WeightCreationInput
     ) {
         self.weightManager = weightManager
         self.weightUnitManager = weightUnitManager
         self.invalidComponentManager = invalidComponentManager
         self.input = input
-        self.onCompletion = onCompletion
 
         selectedDate = input.selectedDate
         dateRange = Date.distantPast...Date.now
@@ -90,7 +89,7 @@ public final class WeightCreationViewModel: WeightCreationViewModelProtocol {
                     try await weightManager.update(weight: weight)
                 }
 
-                onCompletion()
+                isCompleted = true
             }
             catch {
                 alertModel = .weightOperationFailed(isUpdate: input.isUpdate) { [weak self] in
