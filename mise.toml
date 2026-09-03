@@ -3,7 +3,7 @@
 ruby = "3.3"
 
 tuist = "4.21.0"
-swiftlint = "latest"
+swiftlint = "0.63.2"
 
 [env]
 # Исправляем вечные ошибки кодировки которые валят Fastlane
@@ -20,7 +20,7 @@ e = "tuist edit"
 clean = "tuist clean"
 fetch = "tuist fetch"
 test = "tuist test"
-install-fastlane = "gem install fastlane --version 2.238.0 --no-document"
+install-fastlane = "gem list -i fastlane -v 2.238.0 || gem install fastlane --version 2.238.0 --no-document"
 
 [tasks.lint]
 depends = ["install-fastlane"]
