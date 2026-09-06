@@ -7,6 +7,7 @@ final class WatchConnectivitySyncTransport: SyncTransport {
     private let encoder = JSONEncoder()
     private let session: any WatchConnectivitySession
     private var continuation: AsyncStream<WatchConnectivitySyncTransportEvent>.Continuation?
+    private var lastSessionAvailability: WatchConnectivitySessionAvailability = .inactive
 
     init(session: some WatchConnectivitySession) {
         self.session = session
@@ -41,11 +42,11 @@ final class WatchConnectivitySyncTransport: SyncTransport {
 
 extension WatchConnectivitySyncTransport: WatchConnectivitySessionDelegate {
     func sessionActivationDidComplete() {
-        notifySessionDidBecomeReadyIfAvailable()
+        updateSessionReadiness(session.availability)
     }
 
     func sessionAvailabilityDidChange() {
-        notifySessionDidBecomeReadyIfAvailable()
+        updateSessionReadiness(session.availability)
     }
 
     func sessionDidReceiveMessageData(_ data: Data) {
@@ -60,8 +61,12 @@ extension WatchConnectivitySyncTransport: WatchConnectivitySessionDelegate {
         receiveEnvelope(from: applicationContext)
     }
 
-    private func notifySessionDidBecomeReadyIfAvailable() {
-        guard session.availability == .ready else {
+    private func updateSessionReadiness(_ availability: WatchConnectivitySessionAvailability) {
+        defer {
+            lastSessionAvailability = availability
+        }
+
+        guard availability == .ready, lastSessionAvailability != .ready else {
             return
         }
 

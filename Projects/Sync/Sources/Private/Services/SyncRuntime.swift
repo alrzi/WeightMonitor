@@ -8,6 +8,7 @@ final actor SyncRuntime: SyncService {
     private let orchestrator: SyncOrchestrator
     private let receiver: SyncReceiver
     private let resourceRegistry: SyncResourceRegistry
+    private var isStarted = false
 
     // MARK: - Lifecycle
 
@@ -30,7 +31,7 @@ final actor SyncRuntime: SyncService {
 
     nonisolated func start() {
         Task { [weak self] in
-            await self?.consumeTransportEvents()
+            await self?.startIfNeeded()
         }
     }
 
@@ -39,6 +40,15 @@ final actor SyncRuntime: SyncService {
     }
 
     // MARK: - Private methods
+
+    private func startIfNeeded() async {
+        guard !isStarted else {
+            return
+        }
+
+        isStarted = true
+        await consumeTransportEvents()
+    }
 
     private func consumeTransportEvents() async {
         let events = transport.activate()

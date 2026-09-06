@@ -8,6 +8,7 @@ public final class WeightSyncRuntime {
 
     private let syncRuntime: any SyncService
     private let weightManager: any WeightManaging
+    private var isStarted = false
     private var weightsObservationTask: Task<Void, Never>?
 
     // MARK: - Lifecycle
@@ -23,6 +24,11 @@ public final class WeightSyncRuntime {
     // MARK: - Public methods
 
     public func start() {
+        guard !isStarted else {
+            return
+        }
+
+        isStarted = true
         observeWeightChanges()
         syncRuntime.start()
     }

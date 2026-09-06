@@ -169,7 +169,7 @@ final class WatchConnectivitySyncTransportTests {
     }
 
     @Test
-    func test_activationAndAvailabilityChangeNotifyReadyHandlerWhenSessionIsReady() async {
+    func test_activationAndRepeatedReadyAvailabilityChangeNotifyReadyHandlerOnce() async {
         // GIVEN
         let session = WatchConnectivitySessionSpy()
         let transport = WatchConnectivitySyncTransport(session: session)
@@ -181,7 +181,6 @@ final class WatchConnectivitySyncTransportTests {
 
         // THEN
         var iterator = events.makeAsyncIterator()
-        #expect(await iterator.next() == .sessionDidBecomeReady)
         #expect(await iterator.next() == .sessionDidBecomeReady)
         #expect(session.activateCallCount == 1)
         withExtendedLifetime(transport) {}
