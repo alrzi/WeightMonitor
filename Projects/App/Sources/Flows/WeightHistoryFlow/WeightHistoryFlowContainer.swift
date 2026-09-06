@@ -13,9 +13,11 @@ struct WeightHistoryFlowContainer: View {
                 onCreateWeight: flow.openCreateWeight,
                 onSelectWeight: flow.openUpdateWeight
             )
-        }
-        .sheet(item: $flow.routeModel) { routeModel in
-            destination(for: routeModel)
+            .sheet(item: $flow.routeModel) { routeModel in
+                NavigationStack {
+                    destination(for: routeModel)
+                }
+            }
         }
     }
 

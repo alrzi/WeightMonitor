@@ -27,10 +27,6 @@ public struct WeightCreationView<ViewModel: WeightCreationViewModelProtocol> {
 extension WeightCreationView: View {
     public var body: some View {
         VStack {
-            Text("Ввод веса")
-                .font(.largeTitle)
-                .padding(.top, 24)
-
             Spacer()
 
             HStack {
@@ -82,8 +78,16 @@ extension WeightCreationView: View {
             Spacer()
         }
         .animation(.linear, value: viewModel.isDatePickerVisible)
+        .navigationTitle("Ввод веса")
+        .navigationBarTitleDisplayMode(.inline)
         .padding(.horizontal, 24)
         .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: onCompletion) {
+                    Image(systemName: "xmark")
+                }
+            }
+
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
 
