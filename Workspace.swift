@@ -10,5 +10,5 @@ import ProjectDescriptionHelpers
 
 let workspace = Workspace(
     name: "WeightMonitor",
-    projects: WeightMonitor.allCases.map(\.projectPath)
+    projects: WeightMonitor.allCases.filter { $0 != .WatchApp }.map(\.projectPath)
 )

@@ -8,11 +8,13 @@ import ProjectDescription
 
 public enum WeightMonitor: String, CaseIterable {
     case Domain
+    case Sync
     case Data
     case UIComponents
     case WeightCreation
     case WeightHistory
     case App
+    case WatchApp
 }
 
 extension WeightMonitor {
@@ -22,6 +24,11 @@ extension WeightMonitor {
             Project(
                 name: rawValue,
                 targets: DomainModuleName.allCases.flatMap(\.targets)
+            )
+        case .Sync:
+            Project(
+                name: rawValue,
+                targets: SyncModuleName.allCases.flatMap(\.targets)
             )
         case .Data:
             Project(
@@ -47,6 +54,12 @@ extension WeightMonitor {
             Project(
                 name: rawValue,
                 targets: AppModuleName.allCases.flatMap(\.targets)
+                    + WatchAppModuleName.allCases.flatMap(\.targets)
+            )
+        case .WatchApp:
+            Project(
+                name: rawValue,
+                targets: WatchAppModuleName.allCases.flatMap(\.targets)
             )
         }
     }
@@ -55,7 +68,7 @@ extension WeightMonitor {
 extension WeightMonitor {
     public var projectPath: Path {
         switch self {
-        case .Domain, .Data, .App: .relativeToRoot("Projects/\(rawValue)")
+        case .Domain, .Sync, .Data, .App, .WatchApp: .relativeToRoot("Projects/\(rawValue)")
         case .UIComponents, .WeightCreation, .WeightHistory: .relativeToRoot("Projects/Features/\(rawValue)")
         }
     }

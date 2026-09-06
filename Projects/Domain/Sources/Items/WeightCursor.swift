@@ -9,9 +9,9 @@ import Foundation
 
 public struct WeightCursor: Sendable, Equatable {
     public let createdAt: Date
-    public let id: Int64
+    public let id: UUID
 
-    public init(createdAt: Date, id: Int64) {
+    public init(createdAt: Date, id: UUID) {
         self.createdAt = createdAt
         self.id = id
     }

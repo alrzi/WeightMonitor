@@ -37,7 +37,7 @@ public struct WeightsState: Equatable {
         let weightsToAdd = Array(newWeights.dropLast(count))
 
         weights = weightsToAdd.updateWeightsDiff()
-        nextCursor = weightsToAdd.last?.toCursorIfPossible()
+        nextCursor = weightsToAdd.last.map { $0.toCursor() }
     }
 
     func shouldLoadMore(at index: Int) -> Bool {
@@ -61,7 +61,7 @@ extension WeightsState {
             return nil
         }
 
-        return last.toCursorIfPossible()
+        return last.toCursor()
     }
 }
 

@@ -16,20 +16,39 @@ struct WeightsStatessTest {
 
     private let pageSize = WeightsState.pageSize
 
-    private func makeFullPageWeights(startingAt start: Int64 = 1) -> [Weight] {
-        let range: ClosedRange<Int64> = start...(start + Int64(pageSize) - 1)
-        return range.map { Weight(id: $0, createdAt: .now, mass: 70.0) }
+    private func makeFullPageWeights(startingAt start: Int = 1) -> [Weight] {
+        let range = start...(start + pageSize - 1)
+        return range.map { Weight(id: makeID($0), createdAt: .now, mass: 70.0) }
     }
 
     private func makeWeights(count: Int, mass: Double = 75.0) -> [Weight] {
-        (0..<count).map { Weight(id: Int64($0), createdAt: .now, mass: mass) }
+        (0..<count).map { Weight(id: makeID($0), createdAt: .now, mass: mass) }
+    }
+
+    private func makeID(_ value: Int) -> UUID {
+        UUID(uuidString: String(format: "00000000-0000-0000-0000-%012d", value))!
     }
 
     // MARK: – Initialization
 
+    @Test func test_weightUsesStableUUID() {
+        // GIVEN
+        let id = makeID(1)
+
+        // WHEN
+        let firstWeight = Weight(createdAt: .now, mass: 70.5)
+        let secondWeight = Weight(createdAt: .now, mass: 70.5)
+        let weightWithExplicitID = Weight(id: id, createdAt: .now, mass: 70.5)
+
+        // THEN
+        #expect(firstWeight.id != secondWeight.id)
+        #expect(weightWithExplicitID.id == id)
+        #expect(weightWithExplicitID.toCursor().id == id)
+    }
+
     @Test func test_initialState_hasCorrectPageCount_andWeightCount() {
         // GIVEN
-        let initial = [Weight(id: 1, createdAt: .now, mass: 70.5)]
+        let initial = [Weight(id: makeID(1), createdAt: .now, mass: 70.5)]
 
         // WHEN
         let state = WeightsState(weights: initial)
@@ -41,7 +60,7 @@ struct WeightsStatessTest {
 
     @Test func test_initialState_hasNoNextCursor_whenOnlyOnePage() {
         // GIVEN
-        let initial = [Weight(id: 1, createdAt: .now, mass: 70.5)]
+        let initial = [Weight(id: makeID(1), createdAt: .now, mass: 70.5)]
 
         // WHEN
         let state = WeightsState(weights: initial)
@@ -66,7 +85,7 @@ struct WeightsStatessTest {
     @Test func test_onWeightLoaded_incrementsPageCount() {
         // GIVEN
         var state = WeightsState(weights: makeFullPageWeights())
-        let newPage = makeFullPageWeights(startingAt: Int64(pageSize) + 1)
+        let newPage = makeFullPageWeights(startingAt: pageSize + 1)
 
         // WHEN
         state.onWeightLoaded(newWeights: newPage)
@@ -78,7 +97,7 @@ struct WeightsStatessTest {
     @Test func test_onWeightLoaded_updatesNextCursor() {
         // GIVEN
         var state = WeightsState(weights: makeFullPageWeights())
-        let newPage = makeFullPageWeights(startingAt: Int64(pageSize) + 1)
+        let newPage = makeFullPageWeights(startingAt: pageSize + 1)
 
         // WHEN
         state.onWeightLoaded(newWeights: newPage)
@@ -90,7 +109,7 @@ struct WeightsStatessTest {
     @Test func test_onWeightLoaded_accumulatesWeights_toExpectedCount() {
         // GIVEN
         var state = WeightsState(weights: makeFullPageWeights())
-        let newPage = makeFullPageWeights(startingAt: Int64(pageSize) + 1)
+        let newPage = makeFullPageWeights(startingAt: pageSize + 1)
 
         // WHEN
         state.onWeightLoaded(newWeights: newPage)
@@ -103,7 +122,7 @@ struct WeightsStatessTest {
     @Test func test_onWeightLoaded_setsMassDifference_forAllButLast() {
         // GIVEN
         var state = WeightsState(weights: makeFullPageWeights())
-        let newPage = makeFullPageWeights(startingAt: Int64(pageSize) + 1)
+        let newPage = makeFullPageWeights(startingAt: pageSize + 1)
 
         // WHEN
         state.onWeightLoaded(newWeights: newPage)
@@ -154,8 +173,8 @@ struct WeightsStatessTest {
         // GIVEN
         var state = WeightsState(weights: makeFullPageWeights())
         let originalPageCount = state.pageCount
-        let updated = makeFullPageWeights(startingAt: Int64(pageSize) + 1)
-            .map { Weight(id: $0.id! + Int64(pageSize), createdAt: .now, mass: 75.0) }
+        let updated = makeFullPageWeights(startingAt: pageSize * 2 + 1)
+            .map { Weight(id: $0.id, createdAt: .now, mass: 75.0) }
 
         // WHEN
         state.onObservedWeithsChenged(newWeights: updated)
@@ -167,8 +186,8 @@ struct WeightsStatessTest {
     @Test func test_onObservedWeightsChanged_limitsWeightCount_toPageSize() {
         // GIVEN
         var state = WeightsState(weights: makeFullPageWeights())
-        let updated = makeFullPageWeights(startingAt: Int64(pageSize) + 1)
-            .map { Weight(id: $0.id! + Int64(pageSize), createdAt: .now, mass: 75.0) }
+        let updated = makeFullPageWeights(startingAt: pageSize * 2 + 1)
+            .map { Weight(id: $0.id, createdAt: .now, mass: 75.0) }
 
         // WHEN
         state.onObservedWeithsChenged(newWeights: updated)
@@ -180,8 +199,8 @@ struct WeightsStatessTest {
     @Test func test_onObservedWeightsChanged_preservesNextCursor() {
         // GIVEN
         var state = WeightsState(weights: makeFullPageWeights())
-        let updated = makeFullPageWeights(startingAt: Int64(pageSize) + 1)
-            .map { Weight(id: $0.id! + Int64(pageSize), createdAt: .now, mass: 75.0) }
+        let updated = makeFullPageWeights(startingAt: pageSize * 2 + 1)
+            .map { Weight(id: $0.id, createdAt: .now, mass: 75.0) }
 
         // WHEN
         state.onObservedWeithsChenged(newWeights: updated)
@@ -193,8 +212,8 @@ struct WeightsStatessTest {
     @Test func test_onObservedWeightsChanged_setsMassDifference_forAllButLast() {
         // GIVEN
         var state = WeightsState(weights: makeFullPageWeights())
-        let updated = makeFullPageWeights(startingAt: Int64(pageSize) + 1)
-            .map { Weight(id: $0.id! + Int64(pageSize), createdAt: .now, mass: 75.0) }
+        let updated = makeFullPageWeights(startingAt: pageSize * 2 + 1)
+            .map { Weight(id: $0.id, createdAt: .now, mass: 75.0) }
 
         // WHEN
         state.onObservedWeithsChenged(newWeights: updated)
@@ -207,7 +226,7 @@ struct WeightsStatessTest {
     @Test func test_onObservedWeightsChanged_withManyItems_keepsPageCount() {
         // GIVEN
         var state = WeightsState(weights: makeFullPageWeights())
-        let many = (0...100).map { Weight(id: Int64($0), createdAt: .now, mass: 75.0) }
+        let many = (0...100).map { Weight(id: makeID($0), createdAt: .now, mass: 75.0) }
 
         state.onWeightLoaded(newWeights: many)
         let pageCountAfterLoad = state.pageCount
@@ -222,7 +241,7 @@ struct WeightsStatessTest {
     @Test func test_onObservedWeightsChanged_withManyItems_keepsCorrectWeightCount() {
         // GIVEN
         var state = WeightsState(weights: makeFullPageWeights())
-        let many = (0...100).map { Weight(id: Int64($0), createdAt: .now, mass: 75.0) }
+        let many = (0...100).map { Weight(id: makeID($0), createdAt: .now, mass: 75.0) }
 
         state.onWeightLoaded(newWeights: many)
         let expectedCount = WeightsState.pageSize * state.pageCount

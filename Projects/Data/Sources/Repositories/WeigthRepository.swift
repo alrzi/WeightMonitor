@@ -9,14 +9,26 @@ import Foundation
 internal import GRDB
 import Domain
 internal import Combine
+import Sync
 
 struct WeightRepository: WeightRepositoryProtocol {
+    // MARK: - Private properties
+
     private let dbPool: any DatabaseWriter
     private let queue = DispatchQueue(label: "com.alrzi.queue.weight.monitor", qos: .userInitiated)
+    private let syncResource: GRDBSyncResource<WeightDB>
 
-    init(dbPool: any DatabaseWriter) {
+    // MARK: - Lifecycle
+
+    init(
+        dbPool: any DatabaseWriter,
+        syncResource: GRDBSyncResource<WeightDB>
+    ) {
         self.dbPool = dbPool
+        self.syncResource = syncResource
     }
+
+    // MARK: - Internal methods
 
     func observe() -> AsyncThrowingStream<[Weight], any Error> {
         AsyncThrowingStream { [queue] continuation in
@@ -38,11 +50,7 @@ struct WeightRepository: WeightRepositoryProtocol {
     }
 
     func create(weight: Weight) async throws {
-        try await dbPool.write { db in
-            try WeightDB
-                .from(plain: weight)
-                .insert(db)
-        }
+        try await syncResource.create(weight)
     }
 
     func readAll() async throws -> [Weight] {
@@ -62,7 +70,7 @@ struct WeightRepository: WeightRepositoryProtocol {
                 let idColumn = Column("id")
 
                 let earlierCreatedAt = createdAtColumn < cursor.createdAt
-                let sameCreatedAtEarlierId = createdAtColumn == cursor.createdAt && idColumn < cursor.id
+                let sameCreatedAtEarlierId = createdAtColumn == cursor.createdAt && idColumn < cursor.id.uuidString
 
                 request = WeightDB
                     .filter(earlierCreatedAt || sameCreatedAtEarlierId)
@@ -75,30 +83,22 @@ struct WeightRepository: WeightRepositoryProtocol {
                     .limit(limit)
             }
 
-            let rows = try request.fetchAll(db).map { $0.toPlain() }
+            let rows = try request.fetchAll(db).map { try $0.toPlain() }
 
             return rows
         }
     }
 
     func update(weight: Weight) async throws {
-        try await dbPool.write { db in
-            try WeightDB.from(plain: weight)
-                .upsert(db)
-        }
+        try await syncResource.update(weight)
     }
 
     func delete(weight: Weight) async throws {
-        _ = try await dbPool.write { db in
-            try WeightDB.from(plain: weight)
-                .delete(db)
-        }
+        try await syncResource.delete(recordID: weight.id)
     }
 
     func deleteAll() async throws {
-        _ = try await dbPool.write { db in
-            try WeightDB.deleteAll(db)
-        }
+        try await syncResource.deleteAll()
     }
 }
 
@@ -107,6 +107,6 @@ private extension WeightRepository {
         try WeightDB
             .order(WeightDB.Columns.createdAt.desc, Column("id").desc)
             .fetchAll(db)
-            .map { $0.toPlain() }
+            .map { try $0.toPlain() }
     }
 }

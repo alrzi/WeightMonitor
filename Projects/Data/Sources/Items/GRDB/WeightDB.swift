@@ -10,19 +10,18 @@ internal import GRDB
 import Domain
 
 struct WeightDB {
-    var id: Int64?
+    let id: String
     let createdAt: Date
     let mass: Double
     let massDifference: Double?
 }
 
+extension WeightDB: GRDBSyncRecord {
+    typealias Value = Weight
+}
+
 extension WeightDB: Codable, PersistableRecord, FetchableRecord {
     static let databaseTableName = "weights"
-
-    /// Updates a player id after it has been inserted in the database.
-    mutating func didInsert(_ inserted: InsertionSuccess) {
-        id = inserted.rowID
-    }
 
     enum Columns {
         static let createdAt = Column(CodingKeys.createdAt)
@@ -34,15 +33,19 @@ extension WeightDB: Codable, PersistableRecord, FetchableRecord {
 extension WeightDB {
     static func from(plain: Weight) -> Self {
         .init(
-            id: plain.id,
+            id: plain.id.uuidString,
             createdAt: plain.createdAt,
             mass: plain.mass,
             massDifference: plain.massDifference
         )
     }
 
-    func toPlain() -> Weight {
-        .init(
+    func toPlain() throws -> Weight {
+        guard let id = UUID(uuidString: id) else {
+            throw WeightDBMappingError.invalidIdentifier(id)
+        }
+
+        return .init(
             id: id,
             createdAt: createdAt,
             mass: mass,
