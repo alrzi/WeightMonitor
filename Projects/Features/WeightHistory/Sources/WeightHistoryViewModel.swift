@@ -8,9 +8,11 @@ import Domain
 public protocol WeightHistoryViewModelProtocol: ObservableObject {
     var weightUnit: WeightUnit { get set }
     var alertModel: AlertModel? { get set }
+    var loadState: WeightHistoryLoadState { get }
     var weightsState: WeightsState? { get }
 
     func onAppear()
+    func onRetryTap()
     func onWeightAppear(at index: Int)
     func onDeleteTap(at index: Int)
 }
@@ -24,6 +26,7 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
     private var isPaginating = false
 
     @Published public private(set) var weightsState: WeightsState?
+    @Published public private(set) var loadState: WeightHistoryLoadState = .loading
     @Published private(set) var isNewWeightAdded = false
 
     @Published public var alertModel: AlertModel?
@@ -45,11 +48,31 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
         weightsObservationTask = Task { @MainActor [weak self] in
             for try await weights in weightManager.observe().dropFirst() {
                 self?.weightsState?.onObservedWeithsChenged(newWeights: weights)
+                self?.loadState = weights.isEmpty ? .empty : .content
             }
         }
     }
 
     public func onAppear() {
+        guard loadState == .loading else {
+            return
+        }
+
+        loadInitialWeights()
+    }
+
+    public func onRetryTap() {
+        guard !isPaginating else {
+            return
+        }
+
+        loadState = .loading
+        loadInitialWeights()
+    }
+
+    // MARK: - Private methods
+
+    private func loadInitialWeights() {
         Task {
             guard !isPaginating else {
                 return
@@ -61,9 +84,10 @@ public final class WeightHistoryViewModel: WeightHistoryViewModelProtocol {
                 let newWeights = try await weightManager.paginate(after: nil, limit: WeightsState.pageSize)
 
                 weightsState = .init(weights: newWeights)
+                loadState = newWeights.isEmpty ? .empty : .content
             }
             catch {
-                alertModel = .loadFailed { [weak self] in self?.onAppear() }
+                loadState = .failure
             }
         }
     }
@@ -117,14 +141,6 @@ extension AlertModel {
             title: "Pagination error",
             message: "Unable to load more items. Please try again later.",
             action: .cancel(Action.AlertButton(title: "Cancel"))
-        )
-    }
-
-    fileprivate static func loadFailed(retryHandler: @escaping () -> Void) -> Self {
-        Self(
-            title: "Load failed",
-            message: "We couldn't retrieve the data. Please try again.",
-            action: .cancel(Action.AlertButton(title: "Retry", handler: retryHandler))
         )
     }
 

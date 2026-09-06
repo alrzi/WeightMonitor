@@ -32,8 +32,12 @@ public struct WeightHistoryView<ViewModel: WeightHistoryViewModelProtocol> {
 extension WeightHistoryView: View {
     public var body: some View {
         Group {
-            if let weights = viewModel.weightsState?.weights {
-                if let first = weights.first {
+            switch viewModel.loadState {
+            case .loading:
+                WeightHistoryLoadingStateView()
+
+            case .content:
+                if let weights = viewModel.weightsState?.weights, let first = weights.first {
                     ScrollView {
                         LazyVStack(spacing: 12) {
                             WeightInfoView(
@@ -60,34 +64,28 @@ extension WeightHistoryView: View {
                     }
                     .scrollIndicators(.hidden)
                 }
-                else {
-                    ZStack {
-                        Text(String.featureLocalized("weightHistory.empty"))
-                            .font(.system(size: 24, weight: .medium))
-                            .foregroundColor(.primary)
-                    }
-                }
-            }
-            else {
-                ZStack {
-                    ProgressView()
-                        .tint(.blue)
-                        .controlSize(.large)
-                }
+
+            case .empty:
+                WeightHistoryEmptyStateView(onCreateWeight: onCreateWeight)
+
+            case .failure:
+                WeightHistoryErrorStateView(onRetry: viewModel.onRetryTap)
             }
         }
         .navigationTitle(String.featureLocalized("weightHistory.title"))
         .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom, alignment: .trailing, spacing: 0) {
-            Button(action: onCreateWeight) {
-                Image(systemName: "plus")
-                    .resizable()
-                    .frame(width: 18, height: 18)
-                    .foregroundStyle(.white)
-                    .padding(16)
-                    .background(.blue, in: .circle)
+            if viewModel.loadState == .content {
+                Button(action: onCreateWeight) {
+                    Image(systemName: "plus")
+                        .resizable()
+                        .frame(width: 18, height: 18)
+                        .foregroundStyle(.white)
+                        .padding(16)
+                        .background(.blue, in: .circle)
+                }
+                .padding(16)
             }
-            .padding(16)
         }
         .alert(model: $viewModel.alertModel)
         .onAppear(perform: viewModel.onAppear)
@@ -149,11 +147,13 @@ private struct WeightInfoView: View {
         var alertModel: AlertModel?
         var weightUnit: WeightUnit = .imperial
         var isNewWeightAdded: Bool = false
+        var loadState: WeightHistoryLoadState = .content
         var weightsState: WeightsState? = .init(
             weights: Weight.mockYearlyWeights(startMass: 78.0, variation: 0.25, seed: 42)
         )
 
         func onAppear() {}
+        func onRetryTap() {}
         func onDeleteTap(at index: Int) {}
         func onWeightAppear(at index: Int) {}
     }
