@@ -20,8 +20,11 @@ extension AppModuleName {
                 infoPlist: .file(path: .relativeToManifest("Info.plist")),
                 hasTests: false,
                 dependencies: [
+                    .target(name: WeightMonitor.WatchApp.rawValue),
                     TargetDependency.module(.Data),
                     TargetDependency.module(.Domain),
+                    TargetDependency.module(.Sync),
+                    TargetDependency.syncImplementation,
                     TargetDependency.module(.UIComponents),
                     TargetDependency.module(.WeightHistory),
                     TargetDependency.module(.WeightCreation),

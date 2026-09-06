@@ -47,7 +47,6 @@ import Foundation
 
                 result.append(
                     Weight(
-                        id: Int64(offset),
                         createdAt: date,
                         mass: (currentMass * 10).rounded() / 10  // round to 0.1 kg
                     )

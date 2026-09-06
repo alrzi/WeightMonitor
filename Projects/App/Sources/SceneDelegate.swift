@@ -14,9 +14,14 @@ import WeightHistory
 import UIComponents
 import Data
 import Domain
+import Sync
+import SyncImplementation
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    private static let weightSyncDataType = SyncDataType(rawValue: "weight")
+
     private let assembler = Assembler()
+    private var weightSyncRuntime: WeightSyncRuntime?
     private var resolver: Resolver { assembler.resolver }
 
     var window: UIWindow?
@@ -34,11 +39,25 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         assembler.apply(
             assemblies: [
-                WeightMonitorDataAssembly(poolProviderGRDB: poolProviderGRDB),
+                WeightMonitorDataAssembly(
+                    poolProviderGRDB: poolProviderGRDB,
+                    weightSyncDataType: Self.weightSyncDataType
+                ),
                 DomainAssembly(),
                 WeightMonitorModulesAssembly(),
             ]
         )
+
+        let syncRuntime = SyncFactory.makeService(
+            outboxStore: resolver.resolve((any SyncOutboxStore).self)!,
+            resources: [resolver.resolve((any SyncResource).self)!]
+        )
+        let weightSyncRuntime = WeightSyncRuntime(
+            syncRuntime: syncRuntime,
+            weightManager: resolver.resolve(WeightManaging.self)!
+        )
+        self.weightSyncRuntime = weightSyncRuntime
+        weightSyncRuntime.start()
 
         let window = UIWindow(windowScene: windowScene)
         self.window = window

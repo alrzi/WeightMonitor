@@ -10,21 +10,25 @@ extension Target {
     static func module(
         name: String,
         product: Product,
+        bundleId: String? = nil,
+        destinations: Destinations = .iOS,
         deploymentTargets: DeploymentTargets = .iOS("17.0"),
+        testDeploymentTargets: DeploymentTargets? = nil,
         infoPlist: InfoPlist = .default,
         hasTests: Bool = true,
+        sources: SourceFilesList = ["Sources/**/*.swift"],
         resources: ResourceFileElements = .resources(["Resources/**"]),
         dependencies: [TargetDependency] = [],
         testDependencies: [TargetDependency] = []
     ) -> [Target] {
         let mainTarget = Target.target(
             name: name,
-            destinations: .iOS,
+            destinations: destinations,
             product: product,
-            bundleId: "com.alrzi.\(name)",
+            bundleId: bundleId ?? "com.alrzi.\(name)",
             deploymentTargets: deploymentTargets,
             infoPlist: infoPlist,
-            sources: ["Sources/**/*.swift"],
+            sources: sources,
             resources: resources,
             dependencies: dependencies
         )
@@ -38,7 +42,7 @@ extension Target {
             destinations: .iOS,
             product: .unitTests,
             bundleId: "com.alrzi.\(name)Tests",
-            deploymentTargets: deploymentTargets,
+            deploymentTargets: testDeploymentTargets ?? deploymentTargets,
             infoPlist: infoPlist,
             sources: ["Tests/**/*.swift"],
             dependencies: [.target(name: name)] + testDependencies
@@ -51,5 +55,9 @@ extension Target {
 extension TargetDependency {
     public static func module(_ module: WeightMonitor) -> TargetDependency {
         .project(target: module.rawValue, path: module.projectPath)
+    }
+
+    public static var syncImplementation: TargetDependency {
+        .project(target: "SyncImplementation", path: WeightMonitor.Sync.projectPath)
     }
 }

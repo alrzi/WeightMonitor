@@ -17,6 +17,9 @@ extension DomainModuleName {
             Target.module(
                 name: rawValue,
                 product: .staticFramework,
+                destinations: [.iPhone, .appleWatch],
+                deploymentTargets: .multiplatform(iOS: "17.0", watchOS: "10.0"),
+                testDeploymentTargets: .iOS("17.0"),
                 hasTests: false,
                 resources: [],
                 dependencies: [

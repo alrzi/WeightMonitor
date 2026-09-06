@@ -17,13 +17,22 @@ extension DataModuleName {
             Target.module(
                 name: rawValue,
                 product: .staticFramework,
-                hasTests: false,
+                destinations: [.iPhone, .appleWatch],
+                deploymentTargets: .multiplatform(iOS: "17.0", watchOS: "10.0"),
+                testDeploymentTargets: .iOS("17.0"),
+                hasTests: true,
                 resources: [],
                 dependencies: [
                     TargetDependency.module(.Domain),
+                    TargetDependency.module(.Sync),
                     TargetDependency.external(.GRDB),
                     TargetDependency.external(.KeyValueStorage),
                     TargetDependency.external(.Swinject),
+                ],
+                testDependencies: [
+                    TargetDependency.external(.GRDB),
+                    TargetDependency.module(.Domain),
+                    TargetDependency.module(.Sync),
                 ]
             )
         }

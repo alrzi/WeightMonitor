@@ -7,14 +7,14 @@
 
 import Foundation
 
-public struct Weight: Equatable, Identifiable, Sendable {
-    public let id: Int64?
+public struct Weight: Codable, Equatable, Identifiable, Sendable {
+    public let id: UUID
     public let createdAt: Date
     public let mass: Double
     public let massDifference: Double?
 
     public init(
-        id: Int64? = nil,
+        id: UUID = UUID(),
         createdAt: Date,
         mass: Double,
         massDifference: Double? = nil
@@ -36,7 +36,7 @@ public struct Weight: Equatable, Identifiable, Sendable {
 }
 
 public extension Weight {
-    func toCursorIfPossible() -> WeightCursor? {
-        id.map { .init(createdAt: createdAt, id: $0) }
+    func toCursor() -> WeightCursor {
+        .init(createdAt: createdAt, id: id)
     }
 }
