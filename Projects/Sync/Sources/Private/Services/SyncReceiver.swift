@@ -18,14 +18,27 @@ final class SyncReceiver {
             return
         }
 
-        let wasApplied = try await resourceRegistry.apply(payload)
-
-        guard wasApplied else {
-            return
-        }
+        _ = try await resourceRegistry.apply(payload)
 
         processedPayloadIDs.insert(payload.id)
         try await sendAcknowledgement(for: payload)
+    }
+
+    func receive(_ snapshot: SyncSnapshot) async throws {
+        var firstError: (any Error)?
+
+        for payload in snapshot.payloads {
+            do {
+                try await receive(payload)
+            }
+            catch {
+                firstError = firstError ?? error
+            }
+        }
+
+        if let firstError {
+            throw firstError
+        }
     }
 
     private func sendAcknowledgement(for payload: SyncPayload) async throws {

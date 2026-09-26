@@ -74,9 +74,7 @@ final actor SyncRuntime: SyncService {
                 try await receiver.receive(payload)
 
             case .snapshot(let snapshot):
-                for payload in snapshot.payloads {
-                    try await receiver.receive(payload)
-                }
+                try await receiver.receive(snapshot)
             }
         }
         catch {

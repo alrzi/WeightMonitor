@@ -15,7 +15,7 @@ struct SyncOrchestratorTests {
         try await orchestrator.flush()
 
         // THEN
-        #expect(await store.events == [.recoveredInterruptedDeliveries, .markedSending(payload.id), .markedAwaitingAcknowledgement(payload.id)])
+        #expect(await store.events == [.markedSending(payload.id), .markedAwaitingAcknowledgement(payload.id)])
         #expect(transport.sentPayloadIDs == [payload.id])
     }
 
@@ -29,7 +29,7 @@ struct SyncOrchestratorTests {
         try await orchestrator.flush()
 
         // THEN
-        #expect(await store.events == [.recoveredInterruptedDeliveries, .markedSending(payload.id), .markedFailed(payload.id)])
+        #expect(await store.events == [.markedSending(payload.id), .markedFailed(payload.id)])
     }
 
     @Test func acknowledgeMarksPayloadSynced() async throws {
@@ -43,6 +43,20 @@ struct SyncOrchestratorTests {
 
         // THEN
         #expect(await store.events == [.markedSynced(payload.id)])
+    }
+
+    @Test func flushRetriesPayloadAwaitingAcknowledgement() async throws {
+        // GIVEN
+        let payload = makePayload()
+        let store = OutboxStoreSpy(payloads: [], awaitingAcknowledgementPayloads: [payload])
+        let transport = TransportSpy()
+        let orchestrator = SyncOrchestrator(outboxStore: store, transport: transport)
+
+        // WHEN
+        try await orchestrator.flush()
+
+        // THEN
+        #expect(transport.sentPayloadIDs == [payload.id])
     }
 
     private func makePayload() -> SyncPayload {

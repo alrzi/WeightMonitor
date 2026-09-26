@@ -9,17 +9,10 @@ struct GRDBSyncOutboxStore: SyncOutboxStore {
         self.dbPool = dbPool
     }
 
-    func recoverInterruptedDeliveries() async throws {
-        try await update(status: .pending, where: Column("status") == OutboxStatus.sending.rawValue)
-    }
-
-    func pendingPayloads() async throws -> [SyncPayload] {
+    func retryablePayloads() async throws -> [SyncPayload] {
         try await dbPool.read { db in
             try OutboxDB
-                .filter(
-                    Column("status") == OutboxStatus.pending.rawValue
-                        || Column("status") == OutboxStatus.failed.rawValue
-                )
+                .filter(Column("status") != OutboxStatus.synced.rawValue)
                 .order(Column("createdAt").asc)
                 .fetchAll(db)
                 .map { try $0.toPayload() }

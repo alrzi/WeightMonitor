@@ -4,26 +4,26 @@ import Sync
 
 actor OutboxStoreSpy: SyncOutboxStore {
     enum Event: Equatable {
-        case recoveredInterruptedDeliveries,
-             markedSending(UUID),
+        case markedSending(UUID),
              markedAwaitingAcknowledgement(UUID),
              markedFailed(UUID),
              markedSynced(UUID)
     }
 
     private let payloads: [SyncPayload]
+    private let awaitingAcknowledgementPayloads: [SyncPayload]
     private(set) var events: [Event] = []
 
-    init(payloads: [SyncPayload]) {
+    init(
+        payloads: [SyncPayload],
+        awaitingAcknowledgementPayloads: [SyncPayload] = []
+    ) {
         self.payloads = payloads
+        self.awaitingAcknowledgementPayloads = awaitingAcknowledgementPayloads
     }
 
-    func recoverInterruptedDeliveries() {
-        events.append(.recoveredInterruptedDeliveries)
-    }
-
-    func pendingPayloads() -> [SyncPayload] {
-        payloads
+    func retryablePayloads() -> [SyncPayload] {
+        payloads + awaitingAcknowledgementPayloads
     }
 
     func markSending(payloadID: UUID) {

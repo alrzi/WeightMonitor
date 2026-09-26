@@ -7,30 +7,37 @@ import Testing
 @Suite
 struct GRDBSyncOutboxStoreTests {
     @Test
-    func test_recoversInterruptedDeliveriesAndReturnsRetryablePayloadsInFIFOOrder() async throws {
+    func test_returnsAllUnsyncedPayloadsAsRetryableInFIFOOrder() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()
         let store = GRDBSyncOutboxStore(dbPool: dbPool)
         let firstPayload = makePayload(recordID: UUID(), createdAt: 1_000)
         let secondPayload = makePayload(recordID: UUID(), createdAt: 2_000)
         let interruptedPayload = makePayload(recordID: UUID(), createdAt: 3_000)
+        let unacknowledgedPayload = makePayload(recordID: UUID(), createdAt: 4_000)
+        let syncedPayload = makePayload(recordID: UUID(), createdAt: 5_000)
 
         try await dbPool.write { db in
             try OutboxDB(payload: firstPayload).insert(db)
             try OutboxDB(payload: secondPayload).insert(db)
             try OutboxDB(payload: interruptedPayload).insert(db)
+            try OutboxDB(payload: unacknowledgedPayload).insert(db)
+            try OutboxDB(payload: syncedPayload).insert(db)
             _ = try OutboxDB.filter(Column("id") == secondPayload.id.uuidString)
                 .updateAll(db, [Column("status").set(to: OutboxStatus.failed.rawValue)])
             _ = try OutboxDB.filter(Column("id") == interruptedPayload.id.uuidString)
                 .updateAll(db, [Column("status").set(to: OutboxStatus.sending.rawValue)])
+            _ = try OutboxDB.filter(Column("id") == unacknowledgedPayload.id.uuidString)
+                .updateAll(db, [Column("status").set(to: OutboxStatus.awaitingAcknowledgement.rawValue)])
+            _ = try OutboxDB.filter(Column("id") == syncedPayload.id.uuidString)
+                .updateAll(db, [Column("status").set(to: OutboxStatus.synced.rawValue)])
         }
 
         // WHEN
-        try await store.recoverInterruptedDeliveries()
-        let payloads = try await store.pendingPayloads()
+        let payloads = try await store.retryablePayloads()
 
         // THEN
-        #expect(payloads.map(\.id) == [firstPayload.id, secondPayload.id, interruptedPayload.id])
+        #expect(payloads.map(\.id) == [firstPayload.id, secondPayload.id, interruptedPayload.id, unacknowledgedPayload.id])
     }
 
     @Test("Отправленное изменение остаётся в очереди до подтверждения другим устройством, а после подтверждения не отправляется повторно")

@@ -25,8 +25,9 @@ final class SyncOrchestrator {
     ///
     /// Вызывайте после сохранения локальных изменений или восстановления связи,
     /// чтобы передать ожидающие отправки данные и повторить неудачные попытки.
-    /// Сначала восстанавливает прерванные отправки, затем последовательно обрабатывает
-    /// текущую выборку очереди. Новые записи обрабатываются при следующем вызове.
+    /// Последовательно обрабатывает все незавершённые записи очереди, включая
+    /// прерванные отправки и записи без подтверждения. Новые записи обрабатываются
+    /// при следующем вызове.
     ///
     /// После отправки запись ожидает подтверждения от другого устройства:
     /// синхронизация завершается только при вызове `acknowledge(_:)`.
@@ -43,9 +44,7 @@ final class SyncOrchestrator {
         isFlushing = true
         defer { isFlushing = false }
 
-        try await outboxStore.recoverInterruptedDeliveries()
-
-        for payload in try await outboxStore.pendingPayloads() {
+        for payload in try await outboxStore.retryablePayloads() {
             try await outboxStore.markSending(payloadID: payload.id)
 
             do {

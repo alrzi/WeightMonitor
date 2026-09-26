@@ -62,6 +62,41 @@ struct SyncReceiverTests {
         #expect(transport.sentAcknowledgementIDs == [payload.id])
     }
 
+    @Test func acknowledgesSnapshotPayloadThatIsAlreadyApplied() async throws {
+        // GIVEN
+        let payload = makePayload()
+        let applier = PayloadApplierSpy(result: false)
+        let transport = TransportSpy()
+        let receiver = SyncReceiver(resourceRegistry: SyncResourceRegistry(resources: [applier]), transport: transport)
+
+        // WHEN
+        try await receiver.receive(SyncSnapshot(payloads: [payload]))
+
+        // THEN
+        #expect(transport.sentAcknowledgementIDs == [payload.id])
+    }
+
+    @Test func continuesSnapshotAfterOnePayloadFails() async throws {
+        // GIVEN
+        let firstPayload = makePayload()
+        let secondPayload = makePayload()
+        let applier = PayloadApplierSpy(failuresBeforeSuccess: 1)
+        let transport = TransportSpy()
+        let receiver = SyncReceiver(resourceRegistry: SyncResourceRegistry(resources: [applier]), transport: transport)
+
+        // WHEN
+        do {
+            try await receiver.receive(SyncSnapshot(payloads: [firstPayload, secondPayload]))
+        }
+        catch {
+            // The first payload intentionally fails; the remaining payloads must still be processed.
+        }
+
+        // THEN
+        #expect(await applier.appliedPayloadIDs == [firstPayload.id, secondPayload.id])
+        #expect(transport.sentAcknowledgementIDs == [secondPayload.id])
+    }
+
     private func makePayload() -> SyncPayload {
         SyncPayload(
             recordID: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!,

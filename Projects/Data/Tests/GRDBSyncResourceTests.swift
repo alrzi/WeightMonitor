@@ -91,7 +91,7 @@ struct GRDBSyncResourceTests {
         #expect(result.1?.isDeleted == false)
         #expect(result.1?.dataType == weightDataType.rawValue)
         #expect(result.2?.status == .pending)
-        let pending = try await GRDBSyncOutboxStore(dbPool: dbPool).pendingPayloads()
+        let pending = try await GRDBSyncOutboxStore(dbPool: dbPool).retryablePayloads()
         #expect(try JSONDecoder().decode(Weight.self, from: #require(pending.first).data) == weight)
     }
 
@@ -281,7 +281,7 @@ struct GRDBSyncResourceTests {
         #expect(didApplyRemoteNote)
         #expect(!didApplyDuplicateRemoteNote)
         #expect(try await weights.snapshotPayloads().first?.isDeleted == true)
-        #expect(try await GRDBSyncOutboxStore(dbPool: dbPool).pendingPayloads().count == 3)
+        #expect(try await GRDBSyncOutboxStore(dbPool: dbPool).retryablePayloads().count == 3)
     }
 
     @Test("Изменение веса после получения удалённой версии становится новее неё, а deleteAll передаёт удаление каждой записи другому устройству")
@@ -309,7 +309,7 @@ struct GRDBSyncResourceTests {
         #expect(snapshots.count == 2)
         #expect(snapshots.filter(\.isDeleted).count == snapshots.count)
         #expect(try await dbPool.read { try WeightDB.fetchCount($0) } == 0)
-        #expect(try await GRDBSyncOutboxStore(dbPool: dbPool).pendingPayloads().count == 4)
+        #expect(try await GRDBSyncOutboxStore(dbPool: dbPool).retryablePayloads().count == 4)
         #expect(try await !resource.apply(remote))
     }
 

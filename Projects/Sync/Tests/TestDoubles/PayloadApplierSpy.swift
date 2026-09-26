@@ -10,9 +10,11 @@ actor PayloadApplierSpy: SyncResource {
     let dataType = SyncDataType(rawValue: "weight")
     private(set) var appliedPayloadIDs: [UUID] = []
     private var failuresBeforeSuccess: Int
+    private let result: Bool
 
-    init(failuresBeforeSuccess: Int = 0) {
+    init(failuresBeforeSuccess: Int = 0, result: Bool = true) {
         self.failuresBeforeSuccess = failuresBeforeSuccess
+        self.result = result
     }
 
     func applyMatching(_ payload: SyncPayload) throws -> Bool {
@@ -23,7 +25,7 @@ actor PayloadApplierSpy: SyncResource {
             throw ApplyError.failed
         }
 
-        return true
+        return result
     }
 
     func snapshotPayloads() -> [SyncPayload] {
