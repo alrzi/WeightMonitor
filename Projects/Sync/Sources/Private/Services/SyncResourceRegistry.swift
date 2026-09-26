@@ -4,18 +4,29 @@ import Sync
 final class SyncResourceRegistry {
     // MARK: - Private properties
 
-    private let resources: [any SyncResource]
+    private let resourcesByDataType: [SyncDataType: any SyncResource]
 
     // MARK: - Lifecycle
 
     init(resources: [any SyncResource]) {
-        self.resources = resources
+        var resourcesByDataType: [SyncDataType: any SyncResource] = [:]
+
+        for resource in resources {
+            precondition(
+                resourcesByDataType[resource.dataType] == nil,
+                "Duplicate sync resource for '\(resource.dataType.rawValue)'"
+            )
+
+            resourcesByDataType[resource.dataType] = resource
+        }
+
+        self.resourcesByDataType = resourcesByDataType
     }
 
     // MARK: - Public methods
 
     func apply(_ payload: SyncPayload) async throws -> Bool {
-        guard let resource = resources.first(where: { $0.dataType == payload.dataType }) else {
+        guard let resource = resourcesByDataType[payload.dataType] else {
             return false
         }
 
@@ -25,7 +36,7 @@ final class SyncResourceRegistry {
     func snapshot() async throws -> SyncSnapshot {
         var payloads: [SyncPayload] = []
 
-        for resource in resources {
+        for resource in resourcesByDataType.values {
             payloads += try await resource.snapshotPayloads()
         }
 

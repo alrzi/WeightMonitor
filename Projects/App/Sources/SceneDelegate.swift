@@ -18,8 +18,6 @@ import Sync
 import SyncImplementation
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    private static let weightSyncDataType = SyncDataType(rawValue: "weight")
-
     private let assembler = Assembler()
     private var weightSyncRuntime: WeightSyncRuntime?
     private var resolver: Resolver { assembler.resolver }
@@ -39,10 +37,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         assembler.apply(
             assemblies: [
-                WeightMonitorDataAssembly(
-                    poolProviderGRDB: poolProviderGRDB,
-                    weightSyncDataType: Self.weightSyncDataType
-                ),
+                WeightMonitorDataAssembly(poolProviderGRDB: poolProviderGRDB),
                 DomainAssembly(),
                 WeightMonitorModulesAssembly(),
             ]

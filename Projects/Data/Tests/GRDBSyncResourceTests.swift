@@ -54,7 +54,7 @@ struct GRDBSyncResourceTests {
     func test_payloadApplierKeepsNewerWeightWhenStalePayloadArrives() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()
-        let applier = GRDBSyncResource<WeightDB>(dbPool: dbPool, dataType: weightDataType)
+        let applier = GRDBSyncResource<WeightDB>(dbPool: dbPool)
         let weight = makeWeight()
         let newer = makePayload(recordID: weight.id, createdAt: 2_000, data: try JSONEncoder().encode(weight))
         let stale = makePayload(recordID: weight.id, createdAt: 1_000, data: try JSONEncoder().encode(weight))
@@ -72,7 +72,7 @@ struct GRDBSyncResourceTests {
     func test_createStoresWeightMetadataAndPendingOutboxPayload() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()
-        let store = GRDBSyncResource<WeightDB>(dbPool: dbPool, dataType: weightDataType)
+        let store = GRDBSyncResource<WeightDB>(dbPool: dbPool)
         let weight = makeWeight()
 
         // WHEN
@@ -99,7 +99,7 @@ struct GRDBSyncResourceTests {
     func test_createRollsBackWeightAndMetadataWhenOutboxInsertFails() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()
-        let store = GRDBSyncResource<WeightDB>(dbPool: dbPool, dataType: weightDataType)
+        let store = GRDBSyncResource<WeightDB>(dbPool: dbPool)
         let weight = makeWeight()
 
         try await dbPool.write { db in
@@ -134,7 +134,7 @@ struct GRDBSyncResourceTests {
     func test_deleteRemovesWeightAndStoresTombstoneAndOutboxPayload() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()
-        let store = GRDBSyncResource<WeightDB>(dbPool: dbPool, dataType: weightDataType)
+        let store = GRDBSyncResource<WeightDB>(dbPool: dbPool)
         let weight = makeWeight()
 
         try await store.create(weight)
@@ -160,8 +160,8 @@ struct GRDBSyncResourceTests {
     func test_snapshotStoreIncludesCurrentWeightsAndTombstones() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()
-        let mutationStore = GRDBSyncResource<WeightDB>(dbPool: dbPool, dataType: weightDataType)
-        let snapshotStore = GRDBSyncResource<WeightDB>(dbPool: dbPool, dataType: weightDataType)
+        let mutationStore = GRDBSyncResource<WeightDB>(dbPool: dbPool)
+        let snapshotStore = GRDBSyncResource<WeightDB>(dbPool: dbPool)
         let existingWeight = makeWeight()
         let deletedWeight = makeWeight(mass: 80)
         try await mutationStore.create(existingWeight)
@@ -188,7 +188,7 @@ struct GRDBSyncResourceTests {
     func test_updateReplacesWeightAndEnqueuesNewPayload() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()
-        let store = GRDBSyncResource<WeightDB>(dbPool: dbPool, dataType: weightDataType)
+        let store = GRDBSyncResource<WeightDB>(dbPool: dbPool)
         let weight = makeWeight()
         let updatedWeight = Weight(id: weight.id, createdAt: weight.createdAt, mass: 74.5)
 
@@ -214,7 +214,7 @@ struct GRDBSyncResourceTests {
     func test_remotePayloadRejectsWrongTypeAndIdentifierWithoutWriting() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()
-        let resource = GRDBSyncResource<WeightDB>(dbPool: dbPool, dataType: weightDataType)
+        let resource = GRDBSyncResource<WeightDB>(dbPool: dbPool)
         let weight = makeWeight()
         let wrongID = makePayload(recordID: UUID(), data: try JSONEncoder().encode(weight))
         let wrongType = SyncPayload(
@@ -246,8 +246,8 @@ struct GRDBSyncResourceTests {
                 table.column("text", .text).notNull()
             }
         }
-        let weights = GRDBSyncResource<WeightDB>(dbPool: dbPool, dataType: weightDataType)
-        let notes = GRDBSyncResource<NoteSyncRecord>(dbPool: dbPool, dataType: SyncDataType(rawValue: "note"))
+        let weights = GRDBSyncResource<WeightDB>(dbPool: dbPool)
+        let notes = GRDBSyncResource<NoteSyncRecord>(dbPool: dbPool)
         let weight = makeWeight()
         let note = NoteSyncValue(id: weight.id, text: "Shared identifier")
 
@@ -288,7 +288,7 @@ struct GRDBSyncResourceTests {
     func test_localMutationAdvancesPastRemoteVersionAndDeleteAllProducesTombstones() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()
-        let resource = GRDBSyncResource<WeightDB>(dbPool: dbPool, dataType: weightDataType)
+        let resource = GRDBSyncResource<WeightDB>(dbPool: dbPool)
         let weight = makeWeight()
         let remote = makePayload(
             recordID: weight.id,

@@ -5,7 +5,7 @@ import Sync
 actor PayloadApplierSpy: SyncResource {
     let dataType = SyncDataType(rawValue: "weight")
     private(set) var appliedPayloadIDs: [UUID] = []
-    func apply(_ payload: SyncPayload) -> Bool {
+    func applyMatching(_ payload: SyncPayload) -> Bool {
         appliedPayloadIDs.append(payload.id); return true
     }
 

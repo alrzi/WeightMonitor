@@ -15,10 +15,7 @@ struct WeightRepositoryTests {
         let dbPool = try makeDatabasePool()
         let repository = WeightRepository(
             dbPool: dbPool,
-            syncResource: GRDBSyncResource<WeightDB>(
-                dbPool: dbPool,
-                dataType: weightDataType
-            )
+            syncResource: GRDBSyncResource<WeightDB>(dbPool: dbPool)
         )
         let weight = Weight(
             createdAt: Date(timeIntervalSince1970: 1_000),

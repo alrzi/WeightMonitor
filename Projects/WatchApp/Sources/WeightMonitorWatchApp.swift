@@ -7,8 +7,6 @@ import SyncImplementation
 
 @main
 struct WeightMonitorWatchApp: App {
-    private static let weightSyncDataType = SyncDataType(rawValue: "weight")
-
     @StateObject private var viewModel: WatchWeightViewModel
     private let weightSyncRuntime: WeightSyncRuntime
 
@@ -24,10 +22,7 @@ struct WeightMonitorWatchApp: App {
     init() {
         let poolProvider = GRDBPoolProvider()!
         let assembler = Assembler([
-            WeightMonitorDataAssembly(
-                poolProviderGRDB: poolProvider,
-                weightSyncDataType: Self.weightSyncDataType
-            ),
+            WeightMonitorDataAssembly(poolProviderGRDB: poolProvider),
             DomainAssembly(),
         ])
         let weightManager = assembler.resolver.resolve(WeightManaging.self)!

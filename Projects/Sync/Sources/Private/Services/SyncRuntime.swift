@@ -70,8 +70,13 @@ final actor SyncRuntime: SyncService {
             case .acknowledgement(let acknowledgement):
                 try await orchestrator.acknowledge(acknowledgement)
 
-            case .payload, .snapshot:
-                try await receiver.receive(envelope)
+            case .payload(let payload):
+                try await receiver.receive(payload)
+
+            case .snapshot(let snapshot):
+                for payload in snapshot.payloads {
+                    try await receiver.receive(payload)
+                }
             }
         }
         catch {

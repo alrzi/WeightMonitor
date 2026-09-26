@@ -8,6 +8,7 @@
 import Foundation
 internal import GRDB
 import Domain
+import Sync
 
 struct WeightDB {
     let id: String
@@ -18,6 +19,8 @@ struct WeightDB {
 
 extension WeightDB: GRDBSyncRecord {
     typealias Value = Weight
+
+    static let syncDataType = SyncDataType(rawValue: "weight")
 }
 
 extension WeightDB: Codable, PersistableRecord, FetchableRecord {

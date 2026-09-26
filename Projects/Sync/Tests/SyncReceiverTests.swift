@@ -12,8 +12,8 @@ struct SyncReceiverTests {
         let transport = TransportSpy()
         let receiver = SyncReceiver(resourceRegistry: SyncResourceRegistry(resources: [applier]), transport: transport)
         // WHEN
-        try await receiver.receive(.payload(payload))
-        try await receiver.receive(.payload(payload))
+        try await receiver.receive(payload)
+        try await receiver.receive(payload)
         // THEN
         #expect(await applier.appliedPayloadIDs == [payload.id])
         #expect(transport.sentAcknowledgementIDs == [payload.id, payload.id])
@@ -27,8 +27,11 @@ struct SyncReceiverTests {
         let receiver = SyncReceiver(resourceRegistry: SyncResourceRegistry(resources: [applier]), transport: transport)
         let snapshot = SyncSnapshot(payloads: [payload])
         // WHEN
-        try await receiver.receive(.snapshot(snapshot))
-        try await receiver.receive(.snapshot(snapshot))
+        for _ in 0..<2 {
+            for payload in snapshot.payloads {
+                try await receiver.receive(payload)
+            }
+        }
         // THEN
         #expect(await applier.appliedPayloadIDs == [payload.id])
         #expect(transport.sentAcknowledgementIDs == [payload.id, payload.id])

@@ -12,13 +12,12 @@ struct GRDBSyncResource<Record: GRDBSyncRecord>: SyncResource {
 
     // MARK: - Internal properties
 
-    let dataType: SyncDataType
+    var dataType: SyncDataType { Record.syncDataType }
 
     // MARK: - Lifecycle
 
-    init(dbPool: any DatabaseWriter, dataType: SyncDataType) {
+    init(dbPool: any DatabaseWriter) {
         self.dbPool = dbPool
-        self.dataType = dataType
     }
 
     // MARK: - Internal methods
@@ -54,12 +53,8 @@ struct GRDBSyncResource<Record: GRDBSyncRecord>: SyncResource {
         }
     }
 
-    func apply(_ payload: SyncPayload) async throws -> Bool {
-        guard payload.dataType == dataType else {
-            return false
-        }
-
-        return try await dbPool.write { db in
+    func applyMatching(_ payload: SyncPayload) async throws -> Bool {
+        try await dbPool.write { db in
             let metadata = try metadataRequest(recordID: payload.recordID).fetchOne(db)
 
             if let metadata, try metadata.version >= payload.version {

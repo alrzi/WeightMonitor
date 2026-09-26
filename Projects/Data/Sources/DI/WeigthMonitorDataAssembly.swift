@@ -13,14 +13,9 @@ import Sync
 
 public final class WeightMonitorDataAssembly: Assembly {
     private let poolProviderGRDB: GRDBPoolProvider
-    private let weightSyncDataType: SyncDataType
 
-    public init(
-        poolProviderGRDB: GRDBPoolProvider,
-        weightSyncDataType: SyncDataType
-    ) {
+    public init(poolProviderGRDB: GRDBPoolProvider) {
         self.poolProviderGRDB = poolProviderGRDB
-        self.weightSyncDataType = weightSyncDataType
     }
 
     public func assemble(container: Container) {
@@ -37,11 +32,8 @@ public final class WeightMonitorDataAssembly: Assembly {
         }
         .inObjectScope(.container)
 
-        container.register(GRDBSyncResource<WeightDB>.self) { [poolProviderGRDB, weightSyncDataType] _ in
-            GRDBSyncResource<WeightDB>(
-                dbPool: poolProviderGRDB.db,
-                dataType: weightSyncDataType
-            )
+        container.register(GRDBSyncResource<WeightDB>.self) { [poolProviderGRDB] _ in
+            GRDBSyncResource<WeightDB>(dbPool: poolProviderGRDB.db)
         }
         .inObjectScope(.container)
 

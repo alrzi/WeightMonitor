@@ -12,22 +12,7 @@ final class SyncReceiver {
         self.transport = transport
     }
 
-    func receive(_ envelope: SyncEnvelope) async throws {
-        switch envelope {
-        case .payload(let payload):
-            try await receive(payload)
-
-        case .snapshot(let snapshot):
-            for payload in snapshot.payloads {
-                try await receive(payload)
-            }
-
-        case .acknowledgement:
-            return
-        }
-    }
-
-    private func receive(_ payload: SyncPayload) async throws {
+    func receive(_ payload: SyncPayload) async throws {
         guard !processedPayloadIDs.contains(payload.id) else {
             try await sendAcknowledgement(for: payload)
             return

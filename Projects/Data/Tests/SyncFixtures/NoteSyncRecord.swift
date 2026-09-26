@@ -1,8 +1,11 @@
 import Foundation
 internal import GRDB
+import Sync
 @testable import Data
 
 struct NoteSyncRecord: Codable, GRDBSyncRecord {
+    static let syncDataType = SyncDataType(rawValue: "note")
+
     let id: String
     let text: String
 
