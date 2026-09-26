@@ -1,5 +1,5 @@
 {
-  "originHash" : "b526ad94da077de9041522ad4a7f5dd0d7e5d242f2f0b04aacb06f448bdd2c94",
+  "originHash" : "fd10b1947868f4fa6ea281882b73e94fe84900cf1000702ecc2ce4c18b8b5016",
   "pins" : [
     {
       "identity" : "asyncextensions",
@@ -26,6 +26,24 @@
       "state" : {
         "branch" : "main",
         "revision" : "d9f3f79b16c58242a6a34a571515a9cc6737adb8"
+      }
+    },
+    {
+      "identity" : "swift-async-algorithms",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-async-algorithms.git",
+      "state" : {
+        "revision" : "da4e36f86544cdf733a40d59b3a2267e3a7bbf36",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "937e904258d22af6e447a0b72c0bc67583ef64a2",
+        "version" : "1.0.4"
       }
     },
     {

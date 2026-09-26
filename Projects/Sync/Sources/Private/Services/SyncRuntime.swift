@@ -1,13 +1,21 @@
+import AsyncAlgorithms
 import OSLog
 import Sync
 
 final actor SyncRuntime: SyncService {
+    private enum RuntimeEvent: Sendable {
+        case transport(WatchConnectivitySyncTransportEvent)
+        case flushRequested
+    }
+
     // MARK: - Private properties
 
     private let transport: WatchConnectivitySyncTransport
     private let orchestrator: SyncOrchestrator
     private let receiver: SyncReceiver
     private let resourceRegistry: SyncResourceRegistry
+    private let flushRequests: AsyncStream<Void>
+    private nonisolated let flushContinuation: AsyncStream<Void>.Continuation
     private var isStarted = false
 
     // MARK: - Lifecycle
@@ -20,7 +28,13 @@ final actor SyncRuntime: SyncService {
         let resourceRegistry = SyncResourceRegistry(resources: resources)
         let receiver = SyncReceiver(resourceRegistry: resourceRegistry, transport: transport)
         let orchestrator = SyncOrchestrator(outboxStore: outboxStore, transport: transport)
+        let (flushRequests, flushContinuation) = AsyncStream.makeStream(
+            of: Void.self,
+            bufferingPolicy: .bufferingNewest(1)
+        )
 
+        self.flushContinuation = flushContinuation
+        self.flushRequests = flushRequests
         self.orchestrator = orchestrator
         self.receiver = receiver
         self.resourceRegistry = resourceRegistry
@@ -35,8 +49,8 @@ final actor SyncRuntime: SyncService {
         }
     }
 
-    func flush() async throws {
-        try await orchestrator.flush()
+    nonisolated func requestFlush() {
+        flushContinuation.yield()
     }
 
     // MARK: - Private methods
@@ -47,19 +61,23 @@ final actor SyncRuntime: SyncService {
         }
 
         isStarted = true
-        await consumeTransportEvents()
+        await consumeEvents()
     }
 
-    private func consumeTransportEvents() async {
-        let events = transport.activate()
+    private func consumeEvents() async {
+        let transportEvents = transport.activate().map { RuntimeEvent.transport($0) }
+        let flushEvents = flushRequests.map { RuntimeEvent.flushRequested }
 
-        for await event in events {
+        for await event in merge(transportEvents, flushEvents) {
             switch event {
-            case .envelope(let envelope):
+            case .transport(.envelope(let envelope)):
                 await receive(envelope)
 
-            case .sessionDidBecomeReady:
+            case .transport(.sessionDidBecomeReady):
                 await synchronizeWhenSessionIsReady()
+
+            case .flushRequested:
+                await flushOutbox()
             }
         }
     }
@@ -85,6 +103,15 @@ final actor SyncRuntime: SyncService {
     private func synchronizeWhenSessionIsReady() async {
         do {
             try await orchestrator.send(snapshot: resourceRegistry.snapshot())
+            try await orchestrator.flush()
+        }
+        catch {
+            Logger.weightMonitorSync.error("Failed to flush sync outbox: \(error.localizedDescription, privacy: .public)")
+        }
+    }
+
+    private func flushOutbox() async {
+        do {
             try await orchestrator.flush()
         }
         catch {

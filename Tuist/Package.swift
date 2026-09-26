@@ -13,6 +13,8 @@ let package = Package(
         .package(url: "https://github.com/alrzi/KeyValueStorage.git", branch: "main"),
         .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
         .package(url: "https://github.com/alrzi/AsyncExtensions.git", branch: "main"),
+        .package(url: "https://github.com/apple/swift-async-algorithms.git", exact: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-collections.git", exact: "1.0.4"),
     ]
 )
 

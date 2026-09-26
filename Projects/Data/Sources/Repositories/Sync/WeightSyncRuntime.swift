@@ -39,7 +39,7 @@ public final class WeightSyncRuntime {
         weightsObservationTask = Task { [syncRuntime, weightManager] in
             do {
                 for try await _ in weightManager.observe().dropFirst() {
-                    try await syncRuntime.flush()
+                    syncRuntime.requestFlush()
                 }
             }
             catch {

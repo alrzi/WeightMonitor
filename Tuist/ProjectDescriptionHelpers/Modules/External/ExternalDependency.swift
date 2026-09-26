@@ -5,6 +5,7 @@ public enum ExternalDependency: String, CaseIterable {
     case KeyValueStorage
     case Swinject
     case AsyncExtensions
+    case AsyncAlgorithms
 }
 
 // MARK: - TargetDependency Helpers

@@ -35,7 +35,10 @@ extension SyncModuleName {
                 testDeploymentTargets: .iOS("17.0"),
                 sources: ["Sources/Private/**/*.swift"],
                 resources: [],
-                dependencies: [.target(name: SyncModuleName.Sync.rawValue)],
+                dependencies: [
+                    .target(name: SyncModuleName.Sync.rawValue),
+                    .external(.AsyncAlgorithms),
+                ],
                 testDependencies: [.target(name: SyncModuleName.Sync.rawValue)]
             )
         }
