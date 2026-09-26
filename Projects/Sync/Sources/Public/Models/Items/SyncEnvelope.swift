@@ -1,10 +1,17 @@
 import Foundation
 
+/// Транспортный контейнер для всех сообщений протокола синхронизации.
 public enum SyncEnvelope: Codable, Equatable, Sendable {
+    /// Одно изменение записи, требующее отдельного подтверждения.
     case payload(SyncPayload)
+
+    /// Полное состояние ресурсов, используемое при восстановлении связи.
     case snapshot(SyncSnapshot)
+
+    /// Подтверждение обработки ранее полученного payload.
     case acknowledgement(SyncAcknowledgement)
 
+    /// Декодирует сообщение по сохранённому дискриминатору `kind`.
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -22,6 +29,7 @@ public enum SyncEnvelope: Codable, Equatable, Sendable {
         }
     }
 
+    /// Кодирует вид сообщения и соответствующее ему содержимое.
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 

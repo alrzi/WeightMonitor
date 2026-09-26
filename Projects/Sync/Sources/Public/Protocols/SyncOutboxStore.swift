@@ -17,9 +17,36 @@ public struct SyncRetryPolicy: Sendable {
 }
 
 public protocol SyncOutboxStore: Sendable {
+    /// Возвращает payload, которые разрешено отправить согласно retry policy.
+    ///
+    /// Результат не должен включать подтверждённые записи, записи с исчерпанным
+    /// лимитом попыток и записи, для которых ещё не истекло ожидание acknowledgement.
+    ///
+    /// - Throws: Ошибка чтения исходящей очереди.
     func retryablePayloads() async throws -> [SyncPayload]
+
+    /// Фиксирует начало очередной попытки отправки payload.
+    ///
+    /// Реализация должна обновить статус, счётчик попыток и время попытки атомарно.
+    ///
+    /// - Throws: Ошибка изменения исходящей очереди.
     func markSending(payloadID: UUID) async throws
+
+    /// Переводит отправленный payload в ожидание подтверждения другого устройства.
+    ///
+    /// - Throws: Ошибка изменения исходящей очереди.
     func markAwaitingAcknowledgement(payloadID: UUID) async throws
+
+    /// Помечает завершившуюся ошибкой попытку отправки payload.
+    ///
+    /// Возможность следующей попытки определяется retry policy и сохранённым
+    /// количеством предыдущих попыток.
+    ///
+    /// - Throws: Ошибка изменения исходящей очереди.
     func markFailed(payloadID: UUID) async throws
+
+    /// Помечает payload подтверждённым и исключает его из повторных отправок.
+    ///
+    /// - Throws: Ошибка изменения исходящей очереди.
     func markSynced(payloadID: UUID) async throws
 }
