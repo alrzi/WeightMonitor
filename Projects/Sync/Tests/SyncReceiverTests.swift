@@ -37,6 +37,31 @@ struct SyncReceiverTests {
         #expect(transport.sentAcknowledgementIDs == [payload.id, payload.id])
     }
 
+    @Test func retriesPayloadAfterApplyingItFails() async throws {
+        // GIVEN
+        let payload = makePayload()
+        let applier = PayloadApplierSpy(failuresBeforeSuccess: 1)
+        let transport = TransportSpy()
+        let receiver = SyncReceiver(resourceRegistry: SyncResourceRegistry(resources: [applier]), transport: transport)
+
+        // WHEN
+        var firstAttemptFailed = false
+
+        do {
+            try await receiver.receive(payload)
+        }
+        catch {
+            firstAttemptFailed = true
+        }
+
+        try await receiver.receive(payload)
+
+        // THEN
+        #expect(firstAttemptFailed)
+        #expect(await applier.appliedPayloadIDs == [payload.id, payload.id])
+        #expect(transport.sentAcknowledgementIDs == [payload.id])
+    }
+
     private func makePayload() -> SyncPayload {
         SyncPayload(
             recordID: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!,

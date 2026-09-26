@@ -27,7 +27,9 @@ final class SyncResourceRegistry {
 
     func apply(_ payload: SyncPayload) async throws -> Bool {
         guard let resource = resourcesByDataType[payload.dataType] else {
-            return false
+            preconditionFailure(
+                "Missing sync resource for '\(payload.dataType.rawValue)'"
+            )
         }
 
         return try await resource.apply(payload)

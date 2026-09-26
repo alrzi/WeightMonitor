@@ -18,14 +18,13 @@ final class SyncReceiver {
             return
         }
 
-        processedPayloadIDs.insert(payload.id)
-
         let wasApplied = try await resourceRegistry.apply(payload)
 
         guard wasApplied else {
             return
         }
 
+        processedPayloadIDs.insert(payload.id)
         try await sendAcknowledgement(for: payload)
     }
 
