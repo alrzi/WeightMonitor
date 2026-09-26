@@ -4,23 +4,42 @@ import Sync
 
 struct GRDBSyncOutboxStore: SyncOutboxStore {
     private let dbPool: any DatabaseWriter
+    private let retryPolicy: SyncRetryPolicy
+    private let now: @Sendable () -> Date
 
-    init(dbPool: any DatabaseWriter) {
+    init(
+        dbPool: any DatabaseWriter,
+        retryPolicy: SyncRetryPolicy,
+        now: @escaping @Sendable () -> Date = { .now }
+    ) {
         self.dbPool = dbPool
+        self.retryPolicy = retryPolicy
+        self.now = now
     }
 
     func retryablePayloads() async throws -> [SyncPayload] {
-        try await dbPool.read { db in
+        let acknowledgementDeadline = now().addingTimeInterval(-retryPolicy.acknowledgementTimeout)
+
+        return try await dbPool.read { db in
             try OutboxDB
-                .filter(Column("status") != OutboxStatus.synced.rawValue)
-                .order(Column("createdAt").asc)
+                .retryable(
+                    acknowledgementDeadline: acknowledgementDeadline,
+                    maximumAttemptCount: retryPolicy.maximumAttemptCount
+                )
+                .order(OutboxDB.Columns.createdAt.asc)
                 .fetchAll(db)
                 .map { try $0.toPayload() }
         }
     }
 
     func markSending(payloadID: UUID) async throws {
-        try await update(status: .sending, payloadID: payloadID)
+        try await dbPool.write { [now] db in
+            try OutboxDB.markSending(
+                payloadID: payloadID,
+                at: now(),
+                in: db
+            )
+        }
     }
 
     func markAwaitingAcknowledgement(payloadID: UUID) async throws {
@@ -36,12 +55,12 @@ struct GRDBSyncOutboxStore: SyncOutboxStore {
     }
 
     private func update(status: OutboxStatus, payloadID: UUID) async throws {
-        try await update(status: status, where: Column("id") == payloadID.uuidString)
-    }
-
-    private func update(status: OutboxStatus, where filter: SQLSpecificExpressible) async throws {
         try await dbPool.write { db in
-            _ = try OutboxDB.filter(filter).updateAll(db, [Column("status").set(to: status.rawValue)])
+            try OutboxDB.updateStatus(
+                status,
+                payloadID: payloadID,
+                in: db
+            )
         }
     }
 }

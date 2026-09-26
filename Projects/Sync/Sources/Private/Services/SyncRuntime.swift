@@ -3,11 +3,6 @@ import OSLog
 import Sync
 
 final actor SyncRuntime: SyncService {
-    private enum RuntimeEvent: Sendable {
-        case transport(WatchConnectivitySyncTransportEvent)
-        case flushRequested
-    }
-
     // MARK: - Private properties
 
     private let transport: WatchConnectivitySyncTransport
@@ -15,7 +10,7 @@ final actor SyncRuntime: SyncService {
     private let receiver: SyncReceiver
     private let resourceRegistry: SyncResourceRegistry
     private let flushRequests: AsyncStream<Void>
-    private nonisolated let flushContinuation: AsyncStream<Void>.Continuation
+    nonisolated private let flushContinuation: AsyncStream<Void>.Continuation
     private var isStarted = false
 
     // MARK: - Lifecycle
@@ -117,6 +112,11 @@ final actor SyncRuntime: SyncService {
         catch {
             Logger.weightMonitorSync.error("Failed to flush sync outbox: \(error.localizedDescription, privacy: .public)")
         }
+    }
+
+    private enum RuntimeEvent: Sendable {
+        case transport(WatchConnectivitySyncTransportEvent)
+        case flushRequested
     }
 }
 

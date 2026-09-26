@@ -13,6 +13,10 @@ import Sync
 
 public final class WeightMonitorDataAssembly: Assembly {
     private let poolProviderGRDB: GRDBPoolProvider
+    private let syncRetryPolicy = SyncRetryPolicy(
+        maximumAttemptCount: 3,
+        acknowledgementTimeout: 60
+    )
 
     public init(poolProviderGRDB: GRDBPoolProvider) {
         self.poolProviderGRDB = poolProviderGRDB
@@ -27,8 +31,11 @@ public final class WeightMonitorDataAssembly: Assembly {
         }
         .inObjectScope(.container)
 
-        container.register((any SyncOutboxStore).self) { [poolProviderGRDB] _ in
-            GRDBSyncOutboxStore(dbPool: poolProviderGRDB.db)
+        container.register((any SyncOutboxStore).self) { [poolProviderGRDB, syncRetryPolicy] _ in
+            GRDBSyncOutboxStore(
+                dbPool: poolProviderGRDB.db,
+                retryPolicy: syncRetryPolicy
+            )
         }
         .inObjectScope(.container)
 

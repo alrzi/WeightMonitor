@@ -59,6 +59,37 @@ struct SyncOrchestratorTests {
         #expect(transport.sentPayloadIDs == [payload.id])
     }
 
+    @Test func flushDoesNotImmediatelyResendPayloadAwaitingAcknowledgement() async throws {
+        // GIVEN
+        let payload = makePayload()
+        let store = OutboxStoreSpy(payloads: [payload])
+        let transport = TransportSpy()
+        let orchestrator = SyncOrchestrator(outboxStore: store, transport: transport)
+
+        // WHEN
+        try await orchestrator.flush()
+        try await orchestrator.flush()
+
+        // THEN
+        #expect(transport.payloadSendAttemptIDs == [payload.id])
+    }
+
+    @Test func flushStopsRetryingPayloadAfterThreeFailedAttempts() async throws {
+        // GIVEN
+        let payload = makePayload()
+        let store = OutboxStoreSpy(payloads: [payload])
+        let transport = TransportSpy(error: .failed)
+        let orchestrator = SyncOrchestrator(outboxStore: store, transport: transport)
+
+        // WHEN
+        for _ in 0..<4 {
+            try await orchestrator.flush()
+        }
+
+        // THEN
+        #expect(transport.payloadSendAttemptIDs == [payload.id, payload.id, payload.id])
+    }
+
     private func makePayload() -> SyncPayload {
         SyncPayload(
             recordID: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!,

@@ -47,6 +47,13 @@ public struct GRDBPoolProvider: Sendable {
             }
         }
 
+        migrator.registerMigration("v2-add-outbox-retry-state") { db in
+            try db.alter(table: OutboxDB.databaseTableName) { table in
+                table.add(column: "attemptCount", .integer).notNull().defaults(to: 0)
+                table.add(column: "lastAttemptAt", .date)
+            }
+        }
+
         return migrator
     }
 

@@ -6,11 +6,16 @@ import Testing
 
 @Suite
 struct GRDBSyncOutboxStoreTests {
+    private let retryPolicy = SyncRetryPolicy(
+        maximumAttemptCount: 3,
+        acknowledgementTimeout: 60
+    )
+
     @Test
     func test_returnsAllUnsyncedPayloadsAsRetryableInFIFOOrder() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()
-        let store = GRDBSyncOutboxStore(dbPool: dbPool)
+        let store = GRDBSyncOutboxStore(dbPool: dbPool, retryPolicy: retryPolicy)
         let firstPayload = makePayload(recordID: UUID(), createdAt: 1_000)
         let secondPayload = makePayload(recordID: UUID(), createdAt: 2_000)
         let interruptedPayload = makePayload(recordID: UUID(), createdAt: 3_000)
@@ -44,7 +49,7 @@ struct GRDBSyncOutboxStoreTests {
     func test_marksPayloadSyncedOnlyWhenAcknowledged() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()
-        let store = GRDBSyncOutboxStore(dbPool: dbPool)
+        let store = GRDBSyncOutboxStore(dbPool: dbPool, retryPolicy: retryPolicy)
         let payload = makePayload(recordID: UUID())
         try await dbPool.write { db in
             try OutboxDB(payload: payload).insert(db)
@@ -59,6 +64,59 @@ struct GRDBSyncOutboxStoreTests {
         // THEN
         #expect(awaitingAcknowledgement == .awaitingAcknowledgement)
         #expect(try await status(of: payload.id, in: dbPool) == .synced)
+    }
+
+    @Test("Не повторяет payload до истечения времени ожидания acknowledgement")
+    func test_doesNotImmediatelyRetryPayloadAwaitingAcknowledgement() async throws {
+        // GIVEN
+        let dbPool = try makeDatabasePool()
+        let now = Date(timeIntervalSince1970: 10_000)
+        let payload = makePayload(recordID: UUID())
+        let store = GRDBSyncOutboxStore(
+            dbPool: dbPool,
+            retryPolicy: retryPolicy,
+            now: { now }
+        )
+        try await dbPool.write { db in
+            try OutboxDB(payload: payload).insert(db)
+        }
+
+        // WHEN
+        try await store.markSending(payloadID: payload.id)
+        try await store.markAwaitingAcknowledgement(payloadID: payload.id)
+
+        // THEN
+        #expect(try await store.retryablePayloads().isEmpty)
+
+        // WHEN
+        let storeAfterTimeout = GRDBSyncOutboxStore(
+            dbPool: dbPool,
+            retryPolicy: retryPolicy,
+            now: { now.addingTimeInterval(retryPolicy.acknowledgementTimeout + 1) }
+        )
+
+        // THEN
+        #expect(try await storeAfterTimeout.retryablePayloads().map(\.id) == [payload.id])
+    }
+
+    @Test("Прекращает автоматические повторы после максимального количества попыток")
+    func test_stopsRetryingPayloadAfterMaximumAttemptCount() async throws {
+        // GIVEN
+        let dbPool = try makeDatabasePool()
+        let payload = makePayload(recordID: UUID())
+        let store = GRDBSyncOutboxStore(dbPool: dbPool, retryPolicy: retryPolicy)
+        try await dbPool.write { db in
+            try OutboxDB(payload: payload).insert(db)
+        }
+
+        // WHEN
+        for _ in 0..<retryPolicy.maximumAttemptCount {
+            try await store.markSending(payloadID: payload.id)
+            try await store.markFailed(payloadID: payload.id)
+        }
+
+        // THEN
+        #expect(try await store.retryablePayloads().isEmpty)
     }
 
     private func makeDatabasePool() throws -> DatabaseQueue {
