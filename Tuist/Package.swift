@@ -2,6 +2,10 @@
 
 import PackageDescription
 
+#if TUIST
+import ProjectDescription
+#endif
+
 let package = Package(
     name: "WeightMonitor",
     dependencies: [
@@ -11,3 +15,14 @@ let package = Package(
         .package(url: "https://github.com/alrzi/AsyncExtensions.git", branch: "main"),
     ]
 )
+
+#if TUIST
+let packageSettings = PackageSettings(
+    baseSettings: .settings(
+        base: [
+            "IPHONEOS_DEPLOYMENT_TARGET": "17.0",
+            "WATCHOS_DEPLOYMENT_TARGET": "10.0",
+        ]
+    )
+)
+#endif
