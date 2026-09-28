@@ -3,6 +3,8 @@ import OSLog
 import WatchConnectivity
 
 final class WatchConnectivitySessionAdapter: NSObject, WatchConnectivitySession {
+    private let session: WCSession
+
     weak var delegate: (any WatchConnectivitySessionDelegate)?
 
     var availability: WatchConnectivitySessionAvailability {
@@ -27,7 +29,9 @@ final class WatchConnectivitySessionAdapter: NSObject, WatchConnectivitySession 
         return .ready
     }
 
-    private let session: WCSession
+    var isReachable: Bool {
+        session.isReachable
+    }
 
     init(session: WCSession = .default) {
         self.session = session
@@ -37,6 +41,18 @@ final class WatchConnectivitySessionAdapter: NSObject, WatchConnectivitySession 
 
     func activate() {
         session.activate()
+    }
+
+    func sendMessageData(_ data: Data) {
+        session.sendMessageData(
+            data,
+            replyHandler: { [weak self] in
+                self?.delegate?.sessionDidReceiveMessageDataReply($0)
+            },
+            errorHandler: { [weak self] error in
+                self?.delegate?.sessionDidFailToSendMessageData(data, error: error)
+            }
+        )
     }
 
     func transferUserInfo(_ userInfo: [String: Any]) {
@@ -67,9 +83,21 @@ extension WatchConnectivitySessionAdapter: WCSessionDelegate {
     }
     #endif
 
-    public func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
-        delegate?.sessionDidReceiveMessageData(messageData)
+    public func session(
+        _ session: WCSession,
+        didReceiveMessageData messageData: Data,
+        replyHandler: @escaping (Data) -> Void
+    ) {
+        delegate?.sessionDidReceiveMessageData(
+            messageData,
+            replyHandler: replyHandler
+        )
     }
+
+    public func session(
+        _ session: WCSession,
+        didReceiveApplicationContext applicationContext: [String: Any]
+    ) {}
 
     public func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
         delegate?.sessionDidReceiveUserInfo(userInfo)

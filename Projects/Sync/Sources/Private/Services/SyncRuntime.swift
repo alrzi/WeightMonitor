@@ -27,21 +27,7 @@ final actor SyncRuntime: SyncService {
 
     // MARK: - Public methods
 
-    nonisolated func start() {
-        Task { [weak self] in
-            await self?.startIfNeeded()
-        }
-    }
-
-    nonisolated func stop() {
-        Task { [weak self] in
-            await self?.stopIfNeeded()
-        }
-    }
-
-    // MARK: - Private methods
-
-    private func startIfNeeded() {
+    func start() {
         guard eventTask == nil else {
             return
         }
@@ -51,10 +37,12 @@ final actor SyncRuntime: SyncService {
         }
     }
 
-    private func stopIfNeeded() {
+    func stop() {
         eventTask?.cancel()
         eventTask = nil
     }
+
+    // MARK: - Private methods
 
     private func consumeEvents() async {
         let transportEvents = transport.activate()
@@ -72,6 +60,9 @@ final actor SyncRuntime: SyncService {
             switch event {
             case .transport(.envelope(let envelope)):
                 await receive(envelope)
+
+            case .transport(.directPayload(let payload)):
+                await receiveDirectPayload(payload)
 
             case .transport(.sessionDidBecomeReady):
                 await flushOutbox()
@@ -92,12 +83,32 @@ final actor SyncRuntime: SyncService {
                 try await outboxStore.markSynced(payloadID: acknowledgement.payloadID)
 
             case .payload(let payload):
-                _ = try await resourceRegistry.apply(payload)
-                try syncTransport.send(.acknowledgement(.init(payloadID: payload.id)))
+                await receive(payload)
             }
         }
         catch {
             Logger.weightMonitorSync.error("\(envelope.processingErrorMessage, privacy: .public): \(error.localizedDescription, privacy: .public)")
+        }
+    }
+
+    private func receive(_ payload: SyncPayload) async {
+        do {
+            _ = try await resourceRegistry.apply(payload)
+            try syncTransport.send(.acknowledgement(.init(payloadID: payload.id)))
+        }
+        catch {
+            Logger.weightMonitorSync.error("Failed to process sync payload: \(error.localizedDescription, privacy: .public)")
+        }
+    }
+
+    private func receiveDirectPayload(_ payload: SyncPayload) async {
+        do {
+            _ = try await resourceRegistry.apply(payload)
+            try transport.acknowledgeDirectPayload(payloadID: payload.id)
+        }
+        catch {
+            transport.discardDirectPayloadReply(payloadID: payload.id)
+            Logger.weightMonitorSync.error("Failed to process direct sync payload: \(error.localizedDescription, privacy: .public)")
         }
     }
 

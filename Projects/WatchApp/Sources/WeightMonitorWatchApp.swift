@@ -14,7 +14,7 @@ struct WeightMonitorWatchApp: App {
         WindowGroup {
             WatchWeightView(viewModel: viewModel)
                 .task {
-                    syncService.start()
+                    await syncService.start()
                 }
         }
     }

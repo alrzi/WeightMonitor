@@ -48,7 +48,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             resources: [resolver.resolve((any SyncResource).self)!]
         )
         self.syncService = syncRuntime
-        syncRuntime.start()
+        Task {
+            await syncRuntime.start()
+        }
 
         let window = UIWindow(windowScene: windowScene)
         self.window = window

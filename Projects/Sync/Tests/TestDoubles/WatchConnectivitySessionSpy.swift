@@ -6,7 +6,9 @@ final class WatchConnectivitySessionSpy: WatchConnectivitySession {
     weak var delegate: (any WatchConnectivitySessionDelegate)?
 
     var availability: WatchConnectivitySessionAvailability
+    var isReachable = false
     private(set) var activateCallCount = 0
+    private(set) var sentMessageData: [Data] = []
     private(set) var transferredUserInfo: [[String: Any]] = []
 
     init(availability: WatchConnectivitySessionAvailability = .ready) {
@@ -15,6 +17,10 @@ final class WatchConnectivitySessionSpy: WatchConnectivitySession {
 
     func activate() {
         activateCallCount += 1
+    }
+
+    func sendMessageData(_ data: Data) {
+        sentMessageData.append(data)
     }
 
     func transferUserInfo(_ userInfo: [String: Any]) {
@@ -31,7 +37,7 @@ final class WatchConnectivitySessionSpy: WatchConnectivitySession {
     }
 
     func receiveMessageData(_ data: Data) {
-        delegate?.sessionDidReceiveMessageData(data)
+        delegate?.sessionDidReceiveMessageData(data, replyHandler: { _ in })
     }
 
     func receiveUserInfo(_ userInfo: [String: Any]) {
