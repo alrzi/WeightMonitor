@@ -28,15 +28,8 @@ final class WatchConnectivitySyncTransport: SyncTransport {
 
         let data = try encoder.encode(envelope)
 
-        switch envelope {
-        case .payload, .acknowledgement:
-            Logger.weightMonitorSync.info("Sending user info: \(data.count) bytes")
-            session.transferUserInfo(["envelope": data])
-
-        case .snapshot:
-            Logger.weightMonitorSync.info("Updating application context: \(data.count) bytes")
-            try session.updateApplicationContext(["envelope": data])
-        }
+        Logger.weightMonitorSync.info("Sending user info: \(data.count) bytes")
+        session.transferUserInfo(["envelope": data])
     }
 }
 
@@ -55,10 +48,6 @@ extension WatchConnectivitySyncTransport: WatchConnectivitySessionDelegate {
 
     func sessionDidReceiveUserInfo(_ userInfo: [String: Any]) {
         receiveEnvelope(from: userInfo)
-    }
-
-    func sessionDidReceiveApplicationContext(_ applicationContext: [String: Any]) {
-        receiveEnvelope(from: applicationContext)
     }
 
     private func updateSessionReadiness(_ availability: WatchConnectivitySessionAvailability) {

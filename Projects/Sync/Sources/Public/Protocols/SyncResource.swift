@@ -9,14 +9,6 @@ public protocol SyncResource: Sendable {
     ///   уже применён, устарел или не требует изменения локального состояния.
     /// - Throws: Ошибка декодирования, чтения или записи данных ресурса.
     func applyMatching(_ payload: SyncPayload) async throws -> Bool
-
-    /// Создаёт payload для каждой актуальной записи ресурса.
-    ///
-    /// Snapshot включает как существующие записи, так и сохранённые удаления,
-    /// необходимые другому устройству для восстановления итогового состояния.
-    ///
-    /// - Throws: Ошибка чтения или кодирования данных ресурса.
-    func snapshotPayloads() async throws -> [SyncPayload]
 }
 
 public extension SyncResource {

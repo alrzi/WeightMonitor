@@ -80,44 +80,11 @@ struct GRDBSyncResource<Record: GRDBSyncRecord>: SyncResource {
         }
     }
 
-    func snapshotPayloads() async throws -> [SyncPayload] {
-        try await dbPool.read { db in
-            try SyncMetadataDB
-                .filter(Column("dataType") == dataType.rawValue)
-                .fetchAll(db)
-                .map { metadata in
-                    guard let recordID = UUID(uuidString: metadata.recordID) else {
-                        throw GRDBSyncResourceError.invalidRecordIdentifier
-                    }
-
-                    return try SyncPayload(
-                        recordID: recordID,
-                        dataType: dataType,
-                        version: metadata.version,
-                        isDeleted: metadata.isDeleted,
-                        data: snapshotData(for: metadata, in: db)
-                    )
-                }
-        }
-    }
-
     // MARK: - Private methods
 
     private func metadataRequest(recordID: UUID) -> QueryInterfaceRequest<SyncMetadataDB> {
         SyncMetadataDB
             .filter(Column("dataType") == dataType.rawValue && Column("recordID") == recordID.uuidString)
-    }
-
-    private func snapshotData(for metadata: SyncMetadataDB, in db: Database) throws -> Data {
-        if metadata.isDeleted {
-            return Data()
-        }
-
-        guard let record = try Record.fetchOne(db, key: metadata.recordID) else {
-            throw GRDBSyncResourceError.missingRecord
-        }
-
-        return try encoder.encode(record.toPlain())
     }
 
     private func enqueue(recordID: UUID, data: Data, isDeleted: Bool = false, in db: Database) throws {

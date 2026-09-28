@@ -34,14 +34,4 @@ final class SyncResourceRegistry {
 
         return try await resource.apply(payload)
     }
-
-    func snapshot() async throws -> SyncSnapshot {
-        var payloads: [SyncPayload] = []
-
-        for resource in resourcesByDataType.values {
-            payloads += try await resource.snapshotPayloads()
-        }
-
-        return SyncSnapshot(payloads: payloads)
-    }
 }

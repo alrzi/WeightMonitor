@@ -12,6 +12,24 @@ struct GRDBSyncOutboxStoreTests {
     )
 
     @Test
+    func test_outboxStoresSyncPayloadDirectly() throws {
+        // GIVEN
+        let payload = makePayload(recordID: UUID())
+
+        // WHEN
+        let outboxRecord = try OutboxDB(payload: payload)
+        let storedJSON = try #require(
+            JSONSerialization.jsonObject(with: outboxRecord.payload) as? [String: Any]
+        )
+
+        // THEN
+        #expect(storedJSON["id"] as? String == payload.id.uuidString)
+        #expect(storedJSON["kind"] == nil)
+        #expect(storedJSON["payload"] == nil)
+        #expect(try outboxRecord.toPayload() == payload)
+    }
+
+    @Test
     func test_returnsAllUnsyncedPayloadsAsRetryableInFIFOOrder() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()

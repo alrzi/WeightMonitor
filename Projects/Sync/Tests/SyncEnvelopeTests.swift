@@ -5,7 +5,8 @@ import Testing
 
 @Suite
 struct SyncEnvelopeTests {
-    @Test func roundTripsPayloadSnapshotAndAcknowledgement() throws {
+    @Test
+    func roundTripsPayloadAndAcknowledgement() throws {
         // GIVEN
         let version = SyncVersion(physicalTime: Date(timeIntervalSince1970: 1000), logicalCounter: 1, deviceID: makeDeviceID(1))
 
@@ -20,7 +21,6 @@ struct SyncEnvelopeTests {
 
         let envelopes: [SyncEnvelope] = [
             .payload(payload),
-            .snapshot(.init(payloads: [payload])),
             .acknowledgement(.init(payloadID: payload.id))
         ]
 

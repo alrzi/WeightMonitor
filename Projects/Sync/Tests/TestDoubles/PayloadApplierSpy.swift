@@ -3,10 +3,6 @@ import Sync
 @testable import SyncImplementation
 
 actor PayloadApplierSpy: SyncResource {
-    enum ApplyError: Error {
-        case failed
-    }
-
     let dataType = SyncDataType(rawValue: "weight")
     private(set) var appliedPayloadIDs: [UUID] = []
     private var failuresBeforeSuccess: Int
@@ -28,7 +24,7 @@ actor PayloadApplierSpy: SyncResource {
         return result
     }
 
-    func snapshotPayloads() -> [SyncPayload] {
-        []
+    enum ApplyError: Error {
+        case failed
     }
 }

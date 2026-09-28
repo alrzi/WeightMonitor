@@ -42,10 +42,6 @@ final class WatchConnectivitySessionAdapter: NSObject, WatchConnectivitySession 
     func transferUserInfo(_ userInfo: [String: Any]) {
         session.transferUserInfo(userInfo)
     }
-
-    func updateApplicationContext(_ applicationContext: [String: Any]) throws {
-        try session.updateApplicationContext(applicationContext)
-    }
 }
 
 extension WatchConnectivitySessionAdapter: WCSessionDelegate {
@@ -77,10 +73,6 @@ extension WatchConnectivitySessionAdapter: WCSessionDelegate {
 
     public func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
         delegate?.sessionDidReceiveUserInfo(userInfo)
-    }
-
-    public func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
-        delegate?.sessionDidReceiveApplicationContext(applicationContext)
     }
 
     #if os(iOS)

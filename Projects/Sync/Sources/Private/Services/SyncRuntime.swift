@@ -6,8 +6,8 @@ final actor SyncRuntime: SyncService {
     // MARK: - Private properties
 
     private let transport: WatchConnectivitySyncTransport
-    private let orchestrator: SyncOrchestrator
-    private let receiver: SyncReceiver
+    private let syncTransport: any SyncTransport
+    private let outboxStore: any SyncOutboxStore
     private let resourceRegistry: SyncResourceRegistry
     private let flushRequests: AsyncStream<Void>
     nonisolated private let flushContinuation: AsyncStream<Void>.Continuation
@@ -17,12 +17,10 @@ final actor SyncRuntime: SyncService {
 
     init(
         outboxStore: some SyncOutboxStore,
-        resources: [any SyncResource]
+        resources: [any SyncResource],
     ) {
         let transport = WatchConnectivitySyncTransport(session: WatchConnectivitySessionAdapter())
         let resourceRegistry = SyncResourceRegistry(resources: resources)
-        let receiver = SyncReceiver(resourceRegistry: resourceRegistry, transport: transport)
-        let orchestrator = SyncOrchestrator(outboxStore: outboxStore, transport: transport)
         let (flushRequests, flushContinuation) = AsyncStream.makeStream(
             of: Void.self,
             bufferingPolicy: .bufferingNewest(1)
@@ -30,9 +28,9 @@ final actor SyncRuntime: SyncService {
 
         self.flushContinuation = flushContinuation
         self.flushRequests = flushRequests
-        self.orchestrator = orchestrator
-        self.receiver = receiver
+        self.outboxStore = outboxStore
         self.resourceRegistry = resourceRegistry
+        self.syncTransport = transport
         self.transport = transport
     }
 
@@ -68,10 +66,7 @@ final actor SyncRuntime: SyncService {
             case .transport(.envelope(let envelope)):
                 await receive(envelope)
 
-            case .transport(.sessionDidBecomeReady):
-                await synchronizeWhenSessionIsReady()
-
-            case .flushRequested:
+            case .transport(.sessionDidBecomeReady), .flushRequested:
                 await flushOutbox()
             }
         }
@@ -81,13 +76,11 @@ final actor SyncRuntime: SyncService {
         do {
             switch envelope {
             case .acknowledgement(let acknowledgement):
-                try await orchestrator.acknowledge(acknowledgement)
+                try await outboxStore.markSynced(payloadID: acknowledgement.payloadID)
 
             case .payload(let payload):
-                try await receiver.receive(payload)
-
-            case .snapshot(let snapshot):
-                try await receiver.receive(snapshot)
+                _ = try await resourceRegistry.apply(payload)
+                try syncTransport.send(.acknowledgement(.init(payloadID: payload.id)))
             }
         }
         catch {
@@ -95,19 +88,19 @@ final actor SyncRuntime: SyncService {
         }
     }
 
-    private func synchronizeWhenSessionIsReady() async {
-        do {
-            try await orchestrator.send(snapshot: resourceRegistry.snapshot())
-            try await orchestrator.flush()
-        }
-        catch {
-            Logger.weightMonitorSync.error("Failed to flush sync outbox: \(error.localizedDescription, privacy: .public)")
-        }
-    }
-
     private func flushOutbox() async {
         do {
-            try await orchestrator.flush()
+            for payload in try await outboxStore.retryablePayloads() {
+                try await outboxStore.markSending(payloadID: payload.id)
+
+                do {
+                    try syncTransport.send(.payload(payload))
+                    try await outboxStore.markAwaitingAcknowledgement(payloadID: payload.id)
+                }
+                catch {
+                    try await outboxStore.markFailed(payloadID: payload.id)
+                }
+            }
         }
         catch {
             Logger.weightMonitorSync.error("Failed to flush sync outbox: \(error.localizedDescription, privacy: .public)")
@@ -130,9 +123,6 @@ private extension SyncEnvelope {
 
         case .payload:
             "Failed to process sync payload"
-
-        case .snapshot:
-            "Failed to process sync snapshot"
         }
     }
 }

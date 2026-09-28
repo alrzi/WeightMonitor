@@ -91,7 +91,8 @@ struct GRDBSyncResourceTests {
             )
         }
 
-        #expect(try result.0?.toPlain() == weight)
+        let storedWeight = try result.0?.toPlain()
+        #expect(storedWeight == weight)
         #expect(result.1?.isDeleted == false)
         #expect(result.1?.dataType == weightDataType.rawValue)
         #expect(result.2?.status == .pending)
@@ -99,7 +100,9 @@ struct GRDBSyncResourceTests {
             dbPool: dbPool,
             retryPolicy: retryPolicy
         ).retryablePayloads()
-        #expect(try JSONDecoder().decode(Weight.self, from: #require(pending.first).data) == weight)
+        let pendingPayload = try #require(pending.first)
+        let decodedWeight = try JSONDecoder().decode(Weight.self, from: pendingPayload.data)
+        #expect(decodedWeight == weight)
     }
 
     @Test("При ошибке помещения локального изменения в outbox откатывает запись и sync-метаданные")
@@ -163,34 +166,6 @@ struct GRDBSyncResourceTests {
         #expect(result.2?.status == .pending)
     }
 
-    @Test("При подготовке полного состояния для передачи другому устройству (snapshot) включает актуальные и удалённые записи")
-    func test_snapshotStoreIncludesCurrentWeightsAndTombstones() async throws {
-        // GIVEN
-        let dbPool = try makeDatabasePool()
-        let mutationStore = GRDBSyncResource<WeightDB>(dbPool: dbPool)
-        let snapshotStore = GRDBSyncResource<WeightDB>(dbPool: dbPool)
-        let existingWeight = makeWeight()
-        let deletedWeight = makeWeight(mass: 80)
-        try await mutationStore.create(existingWeight)
-        try await mutationStore.create(deletedWeight)
-        try await mutationStore.delete(recordID: deletedWeight.id)
-
-        // WHEN
-        let snapshotPayloads = try await snapshotStore.snapshotPayloads()
-
-        // THEN
-        #expect(snapshotPayloads.count == 2)
-
-        let existingSnapshotPayload = try #require(snapshotPayloads.first { $0.recordID == existingWeight.id })
-        let tombstoneSnapshotPayload = try #require(snapshotPayloads.first { $0.recordID == deletedWeight.id })
-
-        #expect(existingSnapshotPayload.isDeleted == false)
-        #expect(try JSONDecoder().decode(Weight.self, from: existingSnapshotPayload.data) == existingWeight)
-        #expect(tombstoneSnapshotPayload.isDeleted)
-        #expect(tombstoneSnapshotPayload.data.isEmpty)
-        #expect(tombstoneSnapshotPayload.dataType == weightDataType)
-    }
-
     @Test("До подтверждения другим устройством создание и обновление веса хранятся как два отдельных изменения в очереди отправки")
     func test_updateReplacesWeightAndEnqueuesNewPayload() async throws {
         // GIVEN
@@ -212,7 +187,8 @@ struct GRDBSyncResourceTests {
             )
         }
 
-        #expect(try result.0?.toPlain() == updatedWeight)
+        let storedWeight = try result.0?.toPlain()
+        #expect(storedWeight == updatedWeight)
         // Outbox сохраняет оба локальных изменения, пока они не подтверждены другим устройством.
         #expect(result.1.count == 2)
     }
@@ -239,12 +215,14 @@ struct GRDBSyncResourceTests {
         // THEN
         #expect(!didApplyWrongID)
         #expect(!didApplyWrongType)
-        #expect(try await resource.snapshotPayloads().isEmpty)
-        #expect(try await dbPool.read { try WeightDB.fetchCount($0) } == 0)
+        let metadataCount = try await dbPool.read { try SyncMetadataDB.fetchCount($0) }
+        let weightCount = try await dbPool.read { try WeightDB.fetchCount($0) }
+        #expect(metadataCount == 0)
+        #expect(weightCount == 0)
     }
 
     @Test("Вес и заметка с одинаковым ID не конфликтуют, потому что синхронизация различает их по типу данных и ID")
-    func test_resourcesWithSameIdentifierKeepSeparateMetadataAndSnapshots() async throws {
+    func test_resourcesWithSameIdentifierKeepSeparateMetadata() async throws {
         // GIVEN
         let dbPool = try makeDatabasePool()
         try await dbPool.write { db in
@@ -264,12 +242,15 @@ struct GRDBSyncResourceTests {
         try await weights.delete(recordID: weight.id)
 
         // THEN
-        let weightSnapshot = try #require(try await weights.snapshotPayloads().first)
-        let noteSnapshot = try #require(try await notes.snapshotPayloads().first)
-        #expect(weightSnapshot.isDeleted)
-        #expect(!noteSnapshot.isDeleted)
-        #expect(try JSONDecoder().decode(NoteSyncValue.self, from: noteSnapshot.data) == note)
-        #expect(try await dbPool.read { try SyncMetadataDB.fetchCount($0) } == 2)
+        let metadata = try await dbPool.read { try SyncMetadataDB.fetchAll($0) }
+        let weightMetadata = try #require(metadata.first { $0.dataType == weightDataType.rawValue })
+        let noteMetadata = try #require(metadata.first { $0.dataType == notes.dataType.rawValue })
+        #expect(weightMetadata.isDeleted)
+        #expect(!noteMetadata.isDeleted)
+        let storedNote = try await dbPool.read { db in
+            try NoteSyncRecord.fetchOne(db, key: note.id.uuidString)?.toPlain()
+        }
+        #expect(storedNote == note)
 
         // GIVEN
         let newerNote = NoteSyncValue(id: note.id, text: "Remote update")
@@ -287,13 +268,18 @@ struct GRDBSyncResourceTests {
         // THEN
         #expect(didApplyRemoteNote)
         #expect(!didApplyDuplicateRemoteNote)
-        #expect(try await weights.snapshotPayloads().first?.isDeleted == true)
-        #expect(
-            try await GRDBSyncOutboxStore(
-                dbPool: dbPool,
-                retryPolicy: retryPolicy
-            ).retryablePayloads().count == 3
-        )
+        let weightTombstoneIsDeleted = try await dbPool.read {
+            try SyncMetadataDB.fetchOne(
+                $0,
+                key: ["dataType": weightDataType.rawValue, "recordID": weight.id.uuidString]
+            )?.isDeleted == true
+        }
+        let retryablePayloadCount = try await GRDBSyncOutboxStore(
+            dbPool: dbPool,
+            retryPolicy: retryPolicy
+        ).retryablePayloads().count
+        #expect(weightTombstoneIsDeleted)
+        #expect(retryablePayloadCount == 3)
     }
 
     @Test("Изменение веса после получения удалённой версии становится новее неё, а deleteAll передаёт удаление каждой записи другому устройству")
@@ -310,24 +296,33 @@ struct GRDBSyncResourceTests {
         // WHEN
         let didApplyRemote = try await resource.apply(remote)
         try await resource.update(weight)
-        let local = try #require(try await resource.snapshotPayloads().first)
+        let localMetadata = try await dbPool.read { db in
+            try SyncMetadataDB.fetchOne(
+                db,
+                key: ["dataType": weightDataType.rawValue, "recordID": weight.id.uuidString]
+            )
+        }
+        let local = try #require(localMetadata)
         try await resource.create(makeWeight())
         try await resource.deleteAll()
 
         // THEN
         #expect(didApplyRemote)
-        #expect(local.version > remote.version)
-        let snapshots = try await resource.snapshotPayloads()
-        #expect(snapshots.count == 2)
-        #expect(snapshots.filter(\.isDeleted).count == snapshots.count)
-        #expect(try await dbPool.read { try WeightDB.fetchCount($0) } == 0)
-        #expect(
-            try await GRDBSyncOutboxStore(
-                dbPool: dbPool,
-                retryPolicy: retryPolicy
-            ).retryablePayloads().count == 4
-        )
-        #expect(try await !resource.apply(remote))
+        let localVersion = try local.version
+        #expect(localVersion > remote.version)
+        let metadata = try await dbPool.read { try SyncMetadataDB.fetchAll($0) }
+        let allRecordsAreDeleted = metadata.allSatisfy { $0.isDeleted }
+        #expect(metadata.count == 2)
+        #expect(allRecordsAreDeleted)
+        let remainingWeightCount = try await dbPool.read { try WeightDB.fetchCount($0) }
+        let retryablePayloadCount = try await GRDBSyncOutboxStore(
+            dbPool: dbPool,
+            retryPolicy: retryPolicy
+        ).retryablePayloads().count
+        let didApplyStaleRemoteAgain = try await resource.apply(remote)
+        #expect(remainingWeightCount == 0)
+        #expect(retryablePayloadCount == 4)
+        #expect(!didApplyStaleRemoteAgain)
     }
 
     private func makeDatabasePool() throws -> DatabaseQueue {

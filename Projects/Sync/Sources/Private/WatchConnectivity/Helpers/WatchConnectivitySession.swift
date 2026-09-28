@@ -6,5 +6,4 @@ protocol WatchConnectivitySession: AnyObject {
 
     func activate()
     func transferUserInfo(_ userInfo: [String: Any])
-    func updateApplicationContext(_ applicationContext: [String: Any]) throws
 }

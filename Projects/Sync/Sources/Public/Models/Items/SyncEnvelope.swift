@@ -5,9 +5,6 @@ public enum SyncEnvelope: Codable, Equatable, Sendable {
     /// Одно изменение записи, требующее отдельного подтверждения.
     case payload(SyncPayload)
 
-    /// Полное состояние ресурсов, используемое при восстановлении связи.
-    case snapshot(SyncSnapshot)
-
     /// Подтверждение обработки ранее полученного payload.
     case acknowledgement(SyncAcknowledgement)
 
@@ -18,9 +15,6 @@ public enum SyncEnvelope: Codable, Equatable, Sendable {
         switch try container.decode(Kind.self, forKey: .kind) {
         case .payload:
             self = .payload(try container.decode(SyncPayload.self, forKey: .payload))
-
-        case .snapshot:
-            self = .snapshot(try container.decode(SyncSnapshot.self, forKey: .snapshot))
 
         case .acknowledgement:
             self = .acknowledgement(
@@ -38,10 +32,6 @@ public enum SyncEnvelope: Codable, Equatable, Sendable {
             try container.encode(Kind.payload, forKey: .kind)
             try container.encode(payload, forKey: .payload)
 
-        case .snapshot(let snapshot):
-            try container.encode(Kind.snapshot, forKey: .kind)
-            try container.encode(snapshot, forKey: .snapshot)
-
         case .acknowledgement(let acknowledgement):
             try container.encode(Kind.acknowledgement, forKey: .kind)
             try container.encode(acknowledgement, forKey: .acknowledgement)
@@ -51,13 +41,11 @@ public enum SyncEnvelope: Codable, Equatable, Sendable {
     private enum CodingKeys: String, CodingKey {
         case kind
         case payload
-        case snapshot
         case acknowledgement
     }
 
     private enum Kind: String, Codable {
         case payload
-        case snapshot
         case acknowledgement
     }
 }

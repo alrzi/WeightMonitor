@@ -72,7 +72,7 @@ extension OutboxDB {
     init(payload: SyncPayload) throws {
         self.init(
             id: payload.id.uuidString,
-            payload: try Self.encoder.encode(SyncEnvelope.payload(payload)),
+            payload: try Self.encoder.encode(payload),
             status: .pending,
             createdAt: payload.version.physicalTime,
             attemptCount: 0,
@@ -81,13 +81,7 @@ extension OutboxDB {
     }
 
     func toPayload() throws -> SyncPayload {
-        let envelope = try Self.decoder.decode(SyncEnvelope.self, from: payload)
-
-        guard case .payload(let payload) = envelope else {
-            throw OutboxDBMappingError.invalidEnvelope
-        }
-
-        return payload
+        try Self.decoder.decode(SyncPayload.self, from: payload)
     }
 }
 

@@ -19,7 +19,6 @@ final class WatchConnectivitySyncTransportTests {
         let transferredData = try #require(session.transferredUserInfo.first?["envelope"] as? Data)
         let transferredEnvelope = try JSONDecoder().decode(SyncEnvelope.self, from: transferredData)
         #expect(transferredEnvelope == envelope)
-        #expect(session.updatedApplicationContexts.isEmpty)
     }
 
     @Test
@@ -36,7 +35,6 @@ final class WatchConnectivitySyncTransportTests {
         let transferredData = try #require(session.transferredUserInfo.first?["envelope"] as? Data)
         let transferredEnvelope = try JSONDecoder().decode(SyncEnvelope.self, from: transferredData)
         #expect(transferredEnvelope == envelope)
-        #expect(session.updatedApplicationContexts.isEmpty)
     }
 
     @Test
@@ -59,23 +57,6 @@ final class WatchConnectivitySyncTransportTests {
         #expect(transferredEnvelopes == envelopes)
     }
 
-    @Test
-    func test_sendSnapshotUpdatesApplicationContext() throws {
-        // GIVEN
-        let session = WatchConnectivitySessionSpy()
-        let transport = WatchConnectivitySyncTransport(session: session)
-        let envelope = SyncEnvelope.snapshot(.init(payloads: []))
-
-        // WHEN
-        try transport.send(envelope)
-
-        // THEN
-        let contextData = try #require(session.updatedApplicationContexts.first?["envelope"] as? Data)
-        let contextEnvelope = try JSONDecoder().decode(SyncEnvelope.self, from: contextData)
-        #expect(contextEnvelope == envelope)
-        #expect(session.transferredUserInfo.isEmpty)
-    }
-
     @Test(arguments: [
         (WatchConnectivitySessionAvailability.inactive, WatchConnectivitySyncTransportError.inactiveSession),
         (.unpaired, .unpaired),
@@ -94,7 +75,6 @@ final class WatchConnectivitySyncTransportTests {
             try transport.send(makeEnvelope())
         }
         #expect(session.transferredUserInfo.isEmpty)
-        #expect(session.updatedApplicationContexts.isEmpty)
     }
 
     @Test
@@ -132,23 +112,6 @@ final class WatchConnectivitySyncTransportTests {
     }
 
     @Test
-    func test_incomingApplicationContextIsDecodedAndForwarded() async throws {
-        // GIVEN
-        let session = WatchConnectivitySessionSpy()
-        let envelope = makeEnvelope()
-        let transport = WatchConnectivitySyncTransport(session: session)
-
-        // WHEN
-        let events = transport.activate()
-        session.receiveApplicationContext(["envelope": try JSONEncoder().encode(envelope)])
-
-        // THEN
-        var iterator = events.makeAsyncIterator()
-        #expect(await iterator.next() == .envelope(envelope))
-        withExtendedLifetime(transport) {}
-    }
-
-    @Test
     func test_invalidIncomingDataAndDictionariesAreIgnored() async throws {
         // GIVEN
         let session = WatchConnectivitySessionSpy()
@@ -159,7 +122,6 @@ final class WatchConnectivitySyncTransportTests {
         let events = transport.activate()
         session.receiveMessageData(Data("Invalid".utf8))
         session.receiveUserInfo([:])
-        session.receiveApplicationContext([:])
         session.receiveMessageData(try JSONEncoder().encode(envelope))
 
         // THEN
