@@ -60,6 +60,14 @@ actor OutboxStoreSpy: SyncOutboxStore {
             .map(\.payload)
     }
 
+    func observePayloadCount() async -> AsyncThrowingStream<Int, any Error> {
+        let count = deliveriesByID.count
+        return AsyncThrowingStream { continuation in
+            continuation.yield(count)
+            continuation.finish()
+        }
+    }
+
     func markSending(payloadID: UUID) {
         events.append(.markedSending(payloadID))
         deliveriesByID[payloadID]?.status = .sending

@@ -9,6 +9,10 @@ final class WatchConnectivitySyncTransport: SyncTransport {
     private var continuation: AsyncStream<WatchConnectivitySyncTransportEvent>.Continuation?
     private var lastSessionAvailability: WatchConnectivitySessionAvailability = .inactive
 
+    var isReady: Bool {
+        session.availability == .ready
+    }
+
     init(session: some WatchConnectivitySession) {
         self.session = session
     }

@@ -17,6 +17,12 @@ public struct SyncRetryPolicy: Sendable {
 }
 
 public protocol SyncOutboxStore: Sendable {
+    /// Emits when the number of persisted outbox records changes.
+    ///
+    /// Implementations should emit the current count first, then distinct counts.
+    /// Status updates to existing records must not produce an event.
+    func observePayloadCount() async -> AsyncThrowingStream<Int, any Error>
+
     /// Возвращает payload, которые разрешено отправить согласно retry policy.
     ///
     /// Результат не должен включать подтверждённые записи, записи с исчерпанным

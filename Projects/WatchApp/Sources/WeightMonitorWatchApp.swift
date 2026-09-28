@@ -8,13 +8,13 @@ import SyncImplementation
 @main
 struct WeightMonitorWatchApp: App {
     @StateObject private var viewModel: WatchWeightViewModel
-    private let weightSyncRuntime: WeightSyncRuntime
+    private let syncService: any SyncService
 
     var body: some Scene {
         WindowGroup {
             WatchWeightView(viewModel: viewModel)
                 .task {
-                    weightSyncRuntime.start()
+                    syncService.start()
                 }
         }
     }
@@ -30,14 +30,9 @@ struct WeightMonitorWatchApp: App {
             outboxStore: assembler.resolver.resolve((any SyncOutboxStore).self)!,
             resources: [assembler.resolver.resolve((any SyncResource).self)!]
         )
-        let weightSyncRuntime = WeightSyncRuntime(
-            syncRuntime: syncRuntime,
-            weightManager: weightManager
-        )
-
         _viewModel = StateObject(
             wrappedValue: WatchWeightViewModel(weightManager: weightManager)
         )
-        self.weightSyncRuntime = weightSyncRuntime
+        self.syncService = syncRuntime
     }
 }

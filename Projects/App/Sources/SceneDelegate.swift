@@ -19,7 +19,7 @@ import SyncImplementation
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let assembler = Assembler()
-    private var weightSyncRuntime: WeightSyncRuntime?
+    private var syncService: (any SyncService)?
     private var resolver: Resolver { assembler.resolver }
 
     var window: UIWindow?
@@ -47,12 +47,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             outboxStore: resolver.resolve((any SyncOutboxStore).self)!,
             resources: [resolver.resolve((any SyncResource).self)!]
         )
-        let weightSyncRuntime = WeightSyncRuntime(
-            syncRuntime: syncRuntime,
-            weightManager: resolver.resolve(WeightManaging.self)!
-        )
-        self.weightSyncRuntime = weightSyncRuntime
-        weightSyncRuntime.start()
+        self.syncService = syncRuntime
+        syncRuntime.start()
 
         let window = UIWindow(windowScene: windowScene)
         self.window = window

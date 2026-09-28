@@ -9,9 +9,7 @@ final actor SyncRuntime: SyncService {
     private let syncTransport: any SyncTransport
     private let outboxStore: any SyncOutboxStore
     private let resourceRegistry: SyncResourceRegistry
-    private let flushRequests: AsyncStream<Void>
-    nonisolated private let flushContinuation: AsyncStream<Void>.Continuation
-    private var isStarted = false
+    private var eventTask: Task<Void, Never>?
 
     // MARK: - Lifecycle
 
@@ -21,13 +19,6 @@ final actor SyncRuntime: SyncService {
     ) {
         let transport = WatchConnectivitySyncTransport(session: WatchConnectivitySessionAdapter())
         let resourceRegistry = SyncResourceRegistry(resources: resources)
-        let (flushRequests, flushContinuation) = AsyncStream.makeStream(
-            of: Void.self,
-            bufferingPolicy: .bufferingNewest(1)
-        )
-
-        self.flushContinuation = flushContinuation
-        self.flushRequests = flushRequests
         self.outboxStore = outboxStore
         self.resourceRegistry = resourceRegistry
         self.syncTransport = transport
@@ -42,32 +33,54 @@ final actor SyncRuntime: SyncService {
         }
     }
 
-    nonisolated func requestFlush() {
-        flushContinuation.yield()
+    nonisolated func stop() {
+        Task { [weak self] in
+            await self?.stopIfNeeded()
+        }
     }
 
     // MARK: - Private methods
 
-    private func startIfNeeded() async {
-        guard !isStarted else {
+    private func startIfNeeded() {
+        guard eventTask == nil else {
             return
         }
 
-        isStarted = true
-        await consumeEvents()
+        eventTask = Task { [weak self] in
+            await self?.consumeEvents()
+        }
+    }
+
+    private func stopIfNeeded() {
+        eventTask?.cancel()
+        eventTask = nil
     }
 
     private func consumeEvents() async {
-        let transportEvents = transport.activate().map { RuntimeEvent.transport($0) }
-        let flushEvents = flushRequests.map { RuntimeEvent.flushRequested }
+        let transportEvents = transport.activate()
+            .map { RuntimeEvent.transport($0) }
+        let outboxEvents = AsyncStream<Int>.restartingAfterFailure(
+            makeStream: { [outboxStore] in await outboxStore.observePayloadCount() },
+            onError: { error in
+                Logger.weightMonitorSync.error("Failed to observe sync outbox: \(error.localizedDescription, privacy: .public)")
+            }
+        )
+        .removeDuplicates()
+        .map { _ in RuntimeEvent.outboxChanged }
 
-        for await event in merge(transportEvents, flushEvents) {
+        for await event in merge(transportEvents, outboxEvents) {
             switch event {
             case .transport(.envelope(let envelope)):
                 await receive(envelope)
 
-            case .transport(.sessionDidBecomeReady), .flushRequested:
+            case .transport(.sessionDidBecomeReady):
                 await flushOutbox()
+
+            case .outboxChanged where transport.isReady:
+                await flushOutbox()
+
+            case .outboxChanged:
+                break
             }
         }
     }
@@ -109,7 +122,7 @@ final actor SyncRuntime: SyncService {
 
     private enum RuntimeEvent: Sendable {
         case transport(WatchConnectivitySyncTransportEvent)
-        case flushRequested
+        case outboxChanged
     }
 }
 
